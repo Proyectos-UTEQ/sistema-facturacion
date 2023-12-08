@@ -30,56 +30,115 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListClients));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripNuevoCliente = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDeleteCliente = new System.Windows.Forms.ToolStripButton();
+            this.btnUpdateList = new System.Windows.Forms.ToolStripButton();
+            this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.dataUsuarios = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressClientes = new System.Windows.Forms.ToolStripProgressBar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataUsuarios)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripNuevoCliente,
+            this.toolStripDeleteCliente,
+            this.btnUpdateList,
+            this.txtSearch,
+            this.toolStripLabel1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.toolStrip1.Size = new System.Drawing.Size(804, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // toolStripNuevoCliente
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripNuevoCliente_Click);
+            this.toolStripNuevoCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripNuevoCliente.Image")));
+            this.toolStripNuevoCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripNuevoCliente.Name = "toolStripNuevoCliente";
+            this.toolStripNuevoCliente.Size = new System.Drawing.Size(100, 22);
+            this.toolStripNuevoCliente.Text = "Nuevo cliente";
+            this.toolStripNuevoCliente.Click += new System.EventHandler(this.toolStripNuevoCliente_Click);
+            // 
+            // toolStripDeleteCliente
+            // 
+            this.toolStripDeleteCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDeleteCliente.Image")));
+            this.toolStripDeleteCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDeleteCliente.Name = "toolStripDeleteCliente";
+            this.toolStripDeleteCliente.Size = new System.Drawing.Size(108, 22);
+            this.toolStripDeleteCliente.Text = "Eliminar cliente";
+            this.toolStripDeleteCliente.ToolTipText = "Eliminar cliente";
+            this.toolStripDeleteCliente.Click += new System.EventHandler(this.toolStripDeleteCliente_Click);
+            // 
+            // btnUpdateList
+            // 
+            this.btnUpdateList.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateList.Image")));
+            this.btnUpdateList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUpdateList.Name = "btnUpdateList";
+            this.btnUpdateList.Size = new System.Drawing.Size(162, 22);
+            this.btnUpdateList.Text = "Actualizar lista de clientes";
+            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(200, 25);
+            this.txtSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyUp);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(45, 22);
+            this.toolStripLabel1.Text = "Buscar:";
             // 
             // dataUsuarios
             // 
+            this.dataUsuarios.AllowUserToAddRows = false;
+            this.dataUsuarios.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dataUsuarios.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataUsuarios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataUsuarios.Location = new System.Drawing.Point(2, 2);
             this.dataUsuarios.Margin = new System.Windows.Forms.Padding(2);
             this.dataUsuarios.Name = "dataUsuarios";
+            this.dataUsuarios.ReadOnly = true;
+            this.dataUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataUsuarios.Size = new System.Drawing.Size(800, 260);
             this.dataUsuarios.TabIndex = 1;
             this.dataUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataUsuarios_CellContentClick);
+            this.dataUsuarios.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressClientes,
+            this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 264);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(804, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressClientes
+            // 
+            this.toolStripProgressClientes.Name = "toolStripProgressClientes";
+            this.toolStripProgressClientes.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressClientes.Visible = false;
             // 
             // tableLayoutPanel1
             // 
@@ -97,15 +156,12 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(804, 286);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
-            // toolStripButton2
+            // lblStatus
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.lblStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(93, 17);
+            this.lblStatus.Text = "Lista actualizada";
             // 
             // ListClients
             // 
@@ -117,14 +173,17 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ListClients";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "";
-            this.Text = "Clientes";
+            this.Text = "Lista de clientes";
             this.Load += new System.EventHandler(this.ListCustomers_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListCustomers_MouseDown);
             this.Resize += new System.EventHandler(this.ListCustomers_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataUsuarios)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -136,9 +195,14 @@
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.DataGridView dataUsuarios;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripNuevoCliente;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton btnUpdateList;
+        private System.Windows.Forms.ToolStripButton toolStripDeleteCliente;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressClientes;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripTextBox txtSearch;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
     }
 }

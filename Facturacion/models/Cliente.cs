@@ -40,15 +40,20 @@ namespace Facturacion.models
             return true;
         }
 
-        public List<Cliente> GetAll()
+        public List<Cliente> GetAll(string search)
         {
             List<Cliente> clientes = new List<Cliente>();
 
-            string query = "select ID_CLIENTE, CEDULA, NOMBRES, APELLIDOS, TELEFONO from CLIENTE";
+            string query = @"SELECT ID_CLIENTE, CEDULA, NOMBRES, APELLIDOS, TELEFONO 
+                                from CLIENTE
+                                where (CEDULA like @SEARCH or NOMBRES like @SEARCH or APELLIDOS like @SEARCH or TELEFONO like @SEARCH) and ESTADO = 1
+                                order by ID_CLIENTE asc
+                            ";
 
             using(SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@SEARCH", "%" + search + "%");
                 try {
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -64,6 +69,7 @@ namespace Facturacion.models
                         clientes.Add(cliente);
 
                     }
+                    conn.Close();
 
                 } catch(Exception ex)
                 {
@@ -72,6 +78,43 @@ namespace Facturacion.models
             }
 
             return clientes;
+        }
+
+        public Cliente GetCliente(int id)
+        {
+            Cliente cliente = new Cliente();
+
+            string query = @"SELECT ID_CLIENTE, CEDULA, NOMBRES, APELLIDOS, TELEFONO 
+                                from CLIENTE
+                                where ID_CLIENTE = @ID_CLIENTE
+                            ";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ID_CLIENTE", id);
+                try
+                {
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        cliente.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
+                        cliente.Cedula = reader["CEDULA"].ToString();
+                        cliente.Nombres = reader["NOMBRES"].ToString();
+                        cliente.Apellidos = reader["APELLIDOS"].ToString();
+                        cliente.Telefonos = reader["TELEFONO"].ToString();
+                    }
+                    conn.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+
+            return cliente;
         }
 
         public int AddUser(Cliente cliente) {
@@ -120,6 +163,26 @@ namespace Facturacion.models
                 cmd.Parameters.AddWithValue("@APELLIDOS", cliente.Apellidos);
                 cmd.Parameters.AddWithValue("@TELEFONO", cliente.Telefonos);
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", cliente.IDCliente);
+
+                try
+                {
+                    conn.Open();
+                    return cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public int DeleteCliente(int id)
+        {
+            string query = "UPDATE CLIENTE SET ESTADO = 0 WHERE ID_CLIENTE=@ID_CLIENTE";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ID_CLIENTE", id);
 
                 try
                 {
