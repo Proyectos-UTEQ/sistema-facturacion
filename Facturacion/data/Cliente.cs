@@ -47,7 +47,7 @@ namespace Facturacion.models
             string query = @"SELECT ID_CLIENTE, CEDULA, NOMBRES, APELLIDOS, TELEFONO 
                                 from CLIENTE
                                 where (CEDULA like @SEARCH or NOMBRES like @SEARCH or APELLIDOS like @SEARCH or TELEFONO like @SEARCH) and ESTADO = 1
-                                order by ID_CLIENTE asc
+                                order by APELLIDOS asc
                             ";
 
             using(SqlConnection conn = new SqlConnection(connectionString))
@@ -61,10 +61,10 @@ namespace Facturacion.models
                     {
                         Cliente cliente = new Cliente();
                         cliente.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
-                        cliente.Cedula = reader["CEDULA"].ToString();
-                        cliente.Nombres = reader["NOMBRES"].ToString();
-                        cliente.Apellidos = reader["APELLIDOS"].ToString();
-                        cliente.Telefonos = reader["TELEFONO"].ToString();
+                        cliente.Cedula = reader["CEDULA"].ToString().Trim();
+                        cliente.Nombres = reader["NOMBRES"].ToString().Trim();
+                        cliente.Apellidos = reader["APELLIDOS"].ToString().Trim();
+                        cliente.Telefonos = reader["TELEFONO"].ToString().Trim();
 
                         clientes.Add(cliente);
 

@@ -31,17 +31,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClienteDetails));
             this.txtIDCliente = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblCedula = new System.Windows.Forms.Label();
             this.txtCedula = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblNombres = new System.Windows.Forms.Label();
             this.txtNombres = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblApellidos = new System.Windows.Forms.Label();
             this.txtApellidos = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblTelefono = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnRemover = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatusEdit = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtIDCliente
@@ -63,77 +66,85 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "ID Cliente:";
             // 
-            // label3
+            // lblCedula
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 59);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Cédula:";
+            this.lblCedula.AutoSize = true;
+            this.lblCedula.Location = new System.Drawing.Point(30, 59);
+            this.lblCedula.Name = "lblCedula";
+            this.lblCedula.Size = new System.Drawing.Size(43, 13);
+            this.lblCedula.TabIndex = 4;
+            this.lblCedula.Text = "Cédula:";
             // 
             // txtCedula
             // 
             this.txtCedula.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCedula.Location = new System.Drawing.Point(79, 55);
+            this.txtCedula.MaxLength = 10;
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(258, 20);
             this.txtCedula.TabIndex = 3;
+            this.txtCedula.TextChanged += new System.EventHandler(this.cedula_changed);
             // 
-            // label4
+            // lblNombres
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 93);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Nombres:";
+            this.lblNombres.AutoSize = true;
+            this.lblNombres.Location = new System.Drawing.Point(21, 93);
+            this.lblNombres.Name = "lblNombres";
+            this.lblNombres.Size = new System.Drawing.Size(52, 13);
+            this.lblNombres.TabIndex = 6;
+            this.lblNombres.Text = "Nombres:";
             // 
             // txtNombres
             // 
             this.txtNombres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNombres.Location = new System.Drawing.Point(79, 89);
+            this.txtNombres.MaxLength = 50;
             this.txtNombres.Name = "txtNombres";
             this.txtNombres.Size = new System.Drawing.Size(258, 20);
             this.txtNombres.TabIndex = 5;
+            this.txtNombres.TextChanged += new System.EventHandler(this.nombres_changed);
             // 
-            // label5
+            // lblApellidos
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 127);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Apellidos:";
+            this.lblApellidos.AutoSize = true;
+            this.lblApellidos.Location = new System.Drawing.Point(21, 127);
+            this.lblApellidos.Name = "lblApellidos";
+            this.lblApellidos.Size = new System.Drawing.Size(52, 13);
+            this.lblApellidos.TabIndex = 8;
+            this.lblApellidos.Text = "Apellidos:";
             // 
             // txtApellidos
             // 
             this.txtApellidos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtApellidos.Location = new System.Drawing.Point(79, 123);
+            this.txtApellidos.MaxLength = 50;
             this.txtApellidos.Name = "txtApellidos";
             this.txtApellidos.Size = new System.Drawing.Size(258, 20);
             this.txtApellidos.TabIndex = 7;
+            this.txtApellidos.TextChanged += new System.EventHandler(this.apellidos_changed);
             // 
-            // label6
+            // lblTelefono
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 161);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Teléfono:";
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Location = new System.Drawing.Point(21, 161);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(52, 13);
+            this.lblTelefono.TabIndex = 10;
+            this.lblTelefono.Text = "Teléfono:";
             // 
             // txtTelefono
             // 
             this.txtTelefono.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTelefono.Location = new System.Drawing.Point(79, 157);
+            this.txtTelefono.MaxLength = 10;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(258, 20);
             this.txtTelefono.TabIndex = 9;
+            this.txtTelefono.TextChanged += new System.EventHandler(this.telefono_changed);
             // 
             // btnCancelar
             // 
@@ -168,21 +179,38 @@
             this.btnRemover.UseVisualStyleBackColor = true;
             this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatusEdit});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 200);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(430, 22);
+            this.statusStrip1.TabIndex = 16;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatusEdit
+            // 
+            this.lblStatusEdit.Name = "lblStatusEdit";
+            this.lblStatusEdit.Size = new System.Drawing.Size(101, 17);
+            this.lblStatusEdit.Text = "Estado de editado";
+            // 
             // ClienteDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 209);
+            this.ClientSize = new System.Drawing.Size(430, 222);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnRemover);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblTelefono);
             this.Controls.Add(this.txtTelefono);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblApellidos);
             this.Controls.Add(this.txtApellidos);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblNombres);
             this.Controls.Add(this.txtNombres);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblCedula);
             this.Controls.Add(this.txtCedula);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtIDCliente);
@@ -191,6 +219,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ClienteDetails";
             this.Load += new System.EventHandler(this.ClienteDetails_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,16 +229,18 @@
         #endregion
         private System.Windows.Forms.TextBox txtIDCliente;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblCedula;
         private System.Windows.Forms.TextBox txtCedula;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblNombres;
         private System.Windows.Forms.TextBox txtNombres;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblApellidos;
         private System.Windows.Forms.TextBox txtApellidos;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnRemover;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatusEdit;
     }
 }

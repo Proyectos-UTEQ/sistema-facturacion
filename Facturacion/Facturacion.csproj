@@ -75,13 +75,14 @@
     <Compile Include="clientes\ListClients.Designer.cs">
       <DependentUpon>ListClients.cs</DependentUpon>
     </Compile>
+    <Compile Include="helpers\FormsValidatros.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="models\Cliente.cs" />
+    <Compile Include="data\Cliente.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="clientes\ClienteDetails.resx">
