@@ -23,7 +23,8 @@ namespace Facturacion.models
         private string connectionString = string.Empty;
 
         public ClienteDB() {
-            this.connectionString = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
+            string connectionString = ConfigurationManager.AppSettings["connectionString"].ToString();
+            this.connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
         }
 
         // Probar conexión.
