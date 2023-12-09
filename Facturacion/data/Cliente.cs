@@ -34,7 +34,7 @@ namespace Facturacion.models
                 SqlConnection conn = new SqlConnection(connectionString);
                 conn.Open();
                 conn.Close();
-            } catch (Exception ex)
+            } catch
             {
                 return false;
             }
