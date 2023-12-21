@@ -77,14 +77,14 @@ namespace Facturacion.helpers
             }
         }
 
-        public static bool IsTextLength(TextBox textBox, Label label, int length)
+        public static bool IsTextLength(TextBox textBox, Label label, int length, int minLength = 6)
         {
-            if (textBox.Text.Length < 6)
+            if (textBox.Text.Length < minLength)
             {
                 label.ForeColor = System.Drawing.Color.Red;
                 return false;
             }
-            else if (textBox.Text.Length > 5)
+            else if (textBox.Text.Length > minLength - 1)
             {
                 label.ForeColor = System.Drawing.Color.Blue;
                 return true;
@@ -92,6 +92,23 @@ namespace Facturacion.helpers
 
             return true;
         }
+
+        public static bool IsTextPrecio(TextBox textBox, Label label)
+        {
+            string pattern = @"^[0-9]+(\,[0-9]+)?$";
+
+            if (string.IsNullOrWhiteSpace(textBox.Text) || !System.Text.RegularExpressions.Regex.IsMatch(textBox.Text, pattern))
+            {
+                label.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+            else
+            {
+                label.ForeColor = System.Drawing.Color.Blue;
+                return true;
+            }
+        }
+
 
     }
 }
