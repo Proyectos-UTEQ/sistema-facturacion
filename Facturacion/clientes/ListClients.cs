@@ -132,8 +132,12 @@ namespace Facturacion.clientes
             return Convert.ToInt32(dataUsuarios.SelectedRows[0].Cells["IDCliente"].Value);
         }
 
+
         #endregion
 
-        
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

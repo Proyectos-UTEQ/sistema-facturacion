@@ -38,8 +38,8 @@
             this.dataUsuarios = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressClientes = new System.Windows.Forms.ToolStripProgressBar();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataUsuarios)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -60,6 +60,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(804, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripNuevoCliente
             // 
@@ -140,6 +141,13 @@
             this.toolStripProgressClientes.Size = new System.Drawing.Size(100, 16);
             this.toolStripProgressClientes.Visible = false;
             // 
+            // lblStatus
+            // 
+            this.lblStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(93, 17);
+            this.lblStatus.Text = "Lista actualizada";
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -155,13 +163,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(804, 286);
             this.tableLayoutPanel1.TabIndex = 3;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(93, 17);
-            this.lblStatus.Text = "Lista actualizada";
             // 
             // ListClients
             // 

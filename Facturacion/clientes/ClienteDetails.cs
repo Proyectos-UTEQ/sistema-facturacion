@@ -182,7 +182,7 @@ namespace Facturacion.clientes
         {
             if (!helpers.FormsValidatros.IsEmpty(txtNombres.Text))
             {
-                txtNombres.Tag = helpers.FormsValidatros.IsTextLength(txtNombres, lblNombres, 50);
+                txtNombres.Tag = helpers.FormsValidatros.IsTextLength(txtNombres, lblNombres, 50, 6);
             }
             else { 
                 lblNombres.ForeColor = System.Drawing.Color.Black;
