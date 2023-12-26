@@ -71,7 +71,8 @@ namespace Facturacion.helpers
                 label.ForeColor = System.Drawing.Color.Red;
                 return false;
             }
-            else { 
+            else
+            {
                 label.ForeColor = System.Drawing.Color.Blue;
                 return true;
             }
@@ -109,6 +110,22 @@ namespace Facturacion.helpers
             }
         }
 
+        public static bool IsNumero(Label lblTotal, string text)
+        {
 
+            // generear expresion regular para saber si es un numero
+            string pattern = @"^[0-9]+(\,[0-9]+)?$";
+            // si no es un numero que el label sea rojo y devuelva false para que no se pueda aceptar
+            if (string.IsNullOrWhiteSpace(text) || !Regex.IsMatch(text, pattern))
+            {
+                lblTotal.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+            else
+            {
+                lblTotal.ForeColor = System.Drawing.Color.Blue;
+                return true;
+            }
+        }
     }
 }

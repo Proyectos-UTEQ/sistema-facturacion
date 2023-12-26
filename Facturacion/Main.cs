@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.clientes;
+using Facturacion.facturas;
 using Facturacion.productos;
 
 namespace Facturacion
@@ -16,6 +17,7 @@ namespace Facturacion
     {
         ListClients listcustomer;
         ListadoProductos listadoProductos;
+        ListFactura listFactura;
 
         public Main()
         {
@@ -28,7 +30,8 @@ namespace Facturacion
             {
                 listcustomer.Focus();
             }
-            else {
+            else
+            {
                 listcustomer = new ListClients();
                 listcustomer.MdiParent = this;
                 listcustomer.FormClosed += Listcustomer_FormClosed;
@@ -64,6 +67,32 @@ namespace Facturacion
         private void Main_Load(object sender, EventArgs e)
         {
 
+        }
+
+
+        /// <summary>
+        ///  boton de factura
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listFactura != null)
+            {
+                listFactura.Focus();
+            }
+            else
+            {
+                listFactura = new ListFactura();
+                listFactura.MdiParent = this;
+                listFactura.FormClosed += listFactura_FormClosed;
+                listFactura.Show();
+            }
+        }
+
+        private void listFactura_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            listFactura = null;
         }
     }
 }

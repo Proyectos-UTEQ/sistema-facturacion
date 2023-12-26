@@ -66,7 +66,27 @@
     <Compile Include="clientes\ListClients.Designer.cs">
       <DependentUpon>ListClients.cs</DependentUpon>
     </Compile>
+    <Compile Include="data\DetalleFacturas.cs" />
+    <Compile Include="data\Facturas.cs" />
     <Compile Include="data\Producto.cs" />
+    <Compile Include="detallefacturas\DetalleFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="detallefacturas\DetalleFactura.Designer.cs">
+      <DependentUpon>DetalleFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="facturas\FacturaDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="facturas\FacturaDetails.Designer.cs">
+      <DependentUpon>FacturaDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="facturas\ListFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="facturas\ListFactura.Designer.cs">
+      <DependentUpon>ListFactura.cs</DependentUpon>
+    </Compile>
     <Compile Include="helpers\FormsValidatros.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -94,6 +114,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="clientes\ListClients.resx">
       <DependentUpon>ListClients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="detallefacturas\DetalleFactura.resx">
+      <DependentUpon>DetalleFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="facturas\FacturaDetails.resx">
+      <DependentUpon>FacturaDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="facturas\ListFactura.resx">
+      <DependentUpon>ListFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
