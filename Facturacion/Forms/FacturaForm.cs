@@ -69,7 +69,7 @@ namespace Facturacion.facturas
             // esperamos a la db
             await Task.Delay(500);
             if(txtBuscar.Text.Length > 0)
-                dataDetalleFact.DataSource = facturasDetalleDB.GetAll(txtBuscar.Text);
+                dataDetalleFact.DataSource = facturasDetalleDB.ObtenerFacturaDetalles(txtBuscar.Text);
             else
                 dataDetalleFact.DataSource = facturasDetalleDB.GetListFacturaDetalle(this.id); 
 

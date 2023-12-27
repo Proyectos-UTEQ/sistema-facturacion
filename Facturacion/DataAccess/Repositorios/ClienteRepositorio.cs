@@ -11,7 +11,7 @@ using Facturacion.DataAccess;
 
 namespace Facturacion.models
 {
-
+    // Repositorio de clientes.
     public class ClienteRepositorio : DbContext
     {
 
@@ -33,7 +33,8 @@ namespace Facturacion.models
             return true;
         }
 
-        public List<Cliente> GetAll(string search)
+        // Obtener lista de clientes.
+        public List<Cliente> ObtenerClientes(string search)
         {
             List<Cliente> clientes = new List<Cliente>();
 
@@ -45,11 +46,17 @@ namespace Facturacion.models
 
             using(SqlConnection conn = new SqlConnection(connectionString))
             {
+
+                // Crear comando.
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@SEARCH", "%" + search + "%");
+
                 try {
+                    
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
+
+                    // Recuperar datos.
                     while (reader.Read())
                     {
                         Cliente cliente = new Cliente();
@@ -73,7 +80,8 @@ namespace Facturacion.models
             return clientes;
         }
 
-        public Cliente GetCliente(int id)
+        // Obtener cliente de la base de datos.
+        public Cliente ObtenerCliente(int id)
         {
             Cliente cliente = new Cliente();
 
@@ -90,6 +98,7 @@ namespace Facturacion.models
                 {
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
+                    // Recuperar datos.
                     if (reader.Read())
                     {
                         cliente.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
@@ -110,9 +119,10 @@ namespace Facturacion.models
             return cliente;
         }
 
-        public int AddUser(Cliente cliente) {
+        // Agregar cliente a la base de datos.
+        public int AgregarCliente(Cliente cliente) {
             
-            string query = "insert into CLIENTE(CEDULA, NOMBRES, APELLIDOS, TELEFONO) OUTPUT Inserted.ID_CLIENTE values(@CEDULA, @NOMBRES, @APELLIDOS, @TELEFONO)";
+            string query = "INSERT INTO CLIENTE(CEDULA, NOMBRES, APELLIDOS, TELEFONO) OUTPUT Inserted.ID_CLIENTE values(@CEDULA, @NOMBRES, @APELLIDOS, @TELEFONO)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -128,14 +138,14 @@ namespace Facturacion.models
                     conn.Open();
                     // Ejecutar comando.
                     SqlDataReader reader = cmd.ExecuteReader();
+                    var id = 0;
                     if (reader.Read())
                     {
                         // Obtener ID del cliente.
-                        return Convert.ToInt32(reader["ID_CLIENTE"].ToString());
-                    } else
-                    {
-                        return 0;
+                        id = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
                     }
+                    conn.Close();
+                    return id;
                 }
                 catch (Exception ex)
                 {
@@ -144,12 +154,15 @@ namespace Facturacion.models
             }
         }
 
-        public int UpdateUser(Cliente cliente)
+        // Actualizar cliente en la base de datos.
+        public int ActualizarCliente(Cliente cliente)
         {
             string query = "UPDATE CLIENTE SET CEDULA = @CEDULA, NOMBRES = @NOMBRES, APELLIDOS = @APELLIDOS, TELEFONO = @TELEFONO " +
                 "WHERE ID_CLIENTE=@ID_CLIENTE";
+
             using(SqlConnection conn = new SqlConnection(connectionString))
             {
+                // Pasamos los parámetros al comando.
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@CEDULA", cliente.Cedula);
                 cmd.Parameters.AddWithValue("@NOMBRES", cliente.Nombres);
@@ -160,7 +173,9 @@ namespace Facturacion.models
                 try
                 {
                     conn.Open();
-                    return cmd.ExecuteNonQuery();
+                    var rowAffected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return rowAffected;
                 }
                 catch (Exception ex)
                 {
@@ -169,8 +184,10 @@ namespace Facturacion.models
             }
         }
 
-        public int DeleteCliente(int id)
+        // Eliminar cliente en la base de datos. simplemente desabilita el cliente.
+        public int EliminarCliente(int id)
         {
+
             string query = "UPDATE CLIENTE SET ESTADO = 0 WHERE ID_CLIENTE=@ID_CLIENTE";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -180,7 +197,9 @@ namespace Facturacion.models
                 try
                 {
                     conn.Open();
-                    return cmd.ExecuteNonQuery();
+                    var rowAffected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return rowAffected;
                 }
                 catch (Exception ex)
                 {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Facturacion.Models
 {
+    // Modelo de datos para Producto.
     public class Producto
     {
         public int IDProducto { get; set; }

@@ -14,7 +14,7 @@ using Facturacion.productos;
 
 namespace Facturacion
 {
-    public partial class Main : Form
+    public partial class MainForm : Form
     {
 
         // variables globales para las ventanas.
@@ -22,7 +22,7 @@ namespace Facturacion
         ProductoListaForm listadoProductos;
         FacturaLIstaForm listFactura;
 
-        public Main()
+        public MainForm()
         {
             InitializeComponent();
         }

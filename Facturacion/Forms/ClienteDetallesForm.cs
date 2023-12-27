@@ -12,13 +12,16 @@ using System.Windows.Forms;
 
 namespace Facturacion.clientes
 {
+    // enumera los modos de edicion.
     public enum Modo
     {
         CREAR,
         EDITAR
     }
+
     public partial class ClienteDetallesForm : Form
     {
+        // establecemos el modo y el id si es para editar.
         private Modo modo = Modo.CREAR;
         private int id = 0;
         private bool isModified = false;
@@ -34,10 +37,11 @@ namespace Facturacion.clientes
             
         }
 
+        // Carga los datos del cliente
         private void loadCliente()
         {
             ClienteRepositorio clienteDB = new ClienteRepositorio();
-            Cliente cliente = clienteDB.GetCliente(this.id);
+            Cliente cliente = clienteDB.ObtenerCliente(this.id);
             txtIDCliente.Text = cliente.IDCliente.ToString();
             txtCedula.Text = cliente.Cedula.Trim();
             txtNombres.Text = cliente.Nombres.Trim();
@@ -52,7 +56,7 @@ namespace Facturacion.clientes
 
         private void ClienteDetails_Load(object sender, EventArgs e)
         {
-            
+            // Establecemos el modo de funcionamiento del formulario.            
             if (this.modo == Modo.CREAR)
             {
                 this.Text = "Crear Cliente";
@@ -60,14 +64,17 @@ namespace Facturacion.clientes
             else if (this.modo == Modo.EDITAR)
             {
                 this.loadCliente();
-                this.updateTitle();
+                this.ActualizarTitulo();
             }
-            this.UpdateStateForms(false);
+            this.ActualizarEstadoFormulario(false);
         }
 
+
+        // boton aplicar del formulario.
+        // dependiendo del modo, crea o edita el cliente.
         private void btnAplicar_Click(object sender, EventArgs e)
         {
-            if (!this.ValidateForm())
+            if (!this.ValidarFormulario())
             {
                 MessageBox.Show("Formulario invalido");
                 return;
@@ -81,10 +88,11 @@ namespace Facturacion.clientes
                 this.EditarCliente();
             }
 
-            this.UpdateStateForms(false);
+            this.ActualizarEstadoFormulario(false);
             this.Close();
         }
 
+        // Crea un nuevo cliente
         private void CrearCliente()
         {
             ClienteRepositorio clienteDB = new ClienteRepositorio();
@@ -94,14 +102,16 @@ namespace Facturacion.clientes
             cliente.Nombres = txtNombres.Text.Trim();
             cliente.Apellidos = txtApellidos.Text.Trim();
             cliente.Telefonos = txtTelefono.Text.Trim();
-            cliente.IDCliente = clienteDB.AddUser(cliente);
+            cliente.IDCliente = clienteDB.AgregarCliente(cliente);
 
             // actualizamos el id del cliente en el formulario
             txtIDCliente.Text = cliente.IDCliente.ToString();
-            this.updateTitle();
+            this.ActualizarTitulo();
             this.modo = Modo.EDITAR;
         }
 
+
+        // Edita el cliente existente.
         private void EditarCliente()
         {
             ClienteRepositorio clienteDB = new ClienteRepositorio();
@@ -112,11 +122,11 @@ namespace Facturacion.clientes
             cliente.Nombres = txtNombres.Text.Trim();
             cliente.Apellidos = txtApellidos.Text.Trim();
             cliente.Telefonos = txtTelefono.Text.Trim();
-            var rowAffect = clienteDB.UpdateUser(cliente);
+            var rowAffect = clienteDB.ActualizarCliente(cliente);
             if (rowAffect > 0)
             {
                 MessageBox.Show("Cliente actualizado correctamente");
-                this.updateTitle();
+                this.ActualizarTitulo();
             }
             else
             {
@@ -124,16 +134,19 @@ namespace Facturacion.clientes
             }   
         }
 
-        private void updateTitle()
+        // Actualiza el titulo del formulario.
+        private void ActualizarTitulo()
         {
             this.Text = $"Cliente <{txtNombres.Text.Trim()}>";
         }
 
+        // boton cancelar.
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // boton remover del formulario, solo esta activo si el usuario existe.
         private void btnRemover_Click(object sender, EventArgs e)
         {
             // si el cliente no ha sido creado, no se puede eliminar
@@ -152,7 +165,7 @@ namespace Facturacion.clientes
 
             // eliminar cliente
             ClienteRepositorio clienteDB = new ClienteRepositorio();
-            var rowAffect = clienteDB.DeleteCliente(this.id);
+            var rowAffect = clienteDB.EliminarCliente(this.id);
             if (rowAffect > 0)
             {
                 MessageBox.Show("Cliente eliminado correctamente");
@@ -164,6 +177,7 @@ namespace Facturacion.clientes
             }
         }
 
+        // validaciones.
         private void cedula_changed(object sender, EventArgs e)
         {
             
@@ -176,7 +190,7 @@ namespace Facturacion.clientes
                 lblCedula.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
         private void nombres_changed(object sender, EventArgs e)
@@ -189,7 +203,7 @@ namespace Facturacion.clientes
                 lblNombres.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
         private void apellidos_changed(object sender, EventArgs e)
@@ -204,7 +218,7 @@ namespace Facturacion.clientes
                 lblApellidos.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
         private void telefono_changed(object sender, EventArgs e)
@@ -220,10 +234,11 @@ namespace Facturacion.clientes
                 lblTelefono.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
-        private void UpdateStateForms(bool isModified)
+        // Actualizar estado del formulario.
+        private void ActualizarEstadoFormulario(bool isModified)
         { 
             // controlar el estado de los botones
             if (this.modo == Modo.CREAR)
@@ -236,7 +251,7 @@ namespace Facturacion.clientes
             }
 
             // controlar el estado del boton aplicar
-            if (this.ValidateForm())
+            if (this.ValidarFormulario())
             {
                 this.btnAplicar.Enabled = true;
             }
@@ -248,7 +263,8 @@ namespace Facturacion.clientes
             this.lblStatusEdit.Text = this.isModified ? "Modificado" : "Sin Modificar";
         }
 
-        private bool ValidateForm()
+        // Validar formulario
+        private bool ValidarFormulario()
         {
             bool cedula = txtCedula.Tag != null ? (bool)txtCedula.Tag : false;
             bool nombres = txtNombres.Tag != null ? (bool)txtNombres.Tag : false;

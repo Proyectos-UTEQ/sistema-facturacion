@@ -13,6 +13,8 @@ namespace Facturacion.DataAccess
         public string connectionString = string.Empty;
 
         public DbContext() {
+
+            // Obtener la cadena de conexión desde el archivo de configuración
             string connectionString = ConfigurationManager.AppSettings["connectionString"].ToString();
             this.connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
         }

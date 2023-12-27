@@ -39,7 +39,7 @@ namespace Facturacion.clientes
             
             // esperamos a la db
             await Task.Delay(500);
-            dataUsuarios.DataSource = clienteRepositorio.GetAll(txtSearch.Text);
+            dataUsuarios.DataSource = clienteRepositorio.ObtenerClientes(txtSearch.Text);
             dataUsuarios.Columns["IDCliente"].Visible = false;
 
             toolStripProgressClientes.Style = ProgressBarStyle.Continuous;
@@ -114,7 +114,7 @@ namespace Facturacion.clientes
             }
 
             ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
-            var row = clienteRepositorio.DeleteCliente(id);
+            var row = clienteRepositorio.EliminarCliente(id);
             if (row > 0)
             {
                 MessageBox.Show("Cliente eliminado correctamente");

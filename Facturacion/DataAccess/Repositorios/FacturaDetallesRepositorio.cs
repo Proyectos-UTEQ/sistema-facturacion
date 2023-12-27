@@ -42,8 +42,9 @@ namespace Facturacion.data
             return true;
         }
 
-
-        public List<DetalleFacturas> GetAll(string search)
+        // Obtener todas las facturas de la base de datos.
+        // Para realizar busquedas por campos especiales.
+        public List<DetalleFacturas> ObtenerFacturaDetalles(string search)
         {
             List<DetalleFacturas> listfacturasdet = new List<DetalleFacturas>();
 

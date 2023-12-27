@@ -67,7 +67,7 @@ namespace Facturacion.facturas
             }
 
             ClienteRepositorio clienteDB = new ClienteRepositorio();
-            var row = clienteDB.DeleteCliente(id);
+            var row = clienteDB.EliminarCliente(id);
             if (row > 0)
             {
                 MessageBox.Show("Cliente eliminado correctamente");
