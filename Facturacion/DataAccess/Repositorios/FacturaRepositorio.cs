@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Facturacion.DataAccess;
+using Facturacion.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -8,23 +10,13 @@ using System.Threading.Tasks;
 
 namespace Facturacion.data
 {
-    public class Factura
-    {
-        public int IDFactura { get; set; }
-        public int IDCliente { get; set; }
-        public DateTime FechaHora { get; set; }
-        public decimal Numero { get; set; }
-        public decimal Total { get; set; }
-    }
+    
 
-    public class FacturaDB
+    public class FacturaRepositorio : DbContext
     {
-        private string connectionString = string.Empty;
-
-        public FacturaDB()
+        
+        public FacturaRepositorio()
         {
-            string connectionString = ConfigurationManager.AppSettings["connectionString"].ToString();
-            this.connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
         }
 
         // Probar conexión.

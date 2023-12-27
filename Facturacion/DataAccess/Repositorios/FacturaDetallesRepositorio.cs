@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Facturacion.DataAccess;
+using Facturacion.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -8,15 +10,7 @@ using System.Threading.Tasks;
 
 namespace Facturacion.data
 {
-    public class DetalleFacturas
-    {
-        public int IDFacturaDetalle { get; set; }
-        public int IDFactura { get; set; }
-        public int IDProducto { get; set; }
-        public decimal Numero { get; set; }
-        public decimal SubTotal { get; set; }
-        public decimal PrecioUnitario { get; set; }
-    }
+    
 
     // SE USAR PARA IDENTIFICAR EL DETALLE DE LA FACTURA SELECCIONADA
     public class IDS
@@ -25,14 +19,11 @@ namespace Facturacion.data
         public int IDProducto { get; set; }
     }
 
-    public class DetalleFacturaDB
+    public class FacturaDetallesRepositorio : DbContext
     {
-        private string connectionString = string.Empty;
-
-        public DetalleFacturaDB()
+       
+        public FacturaDetallesRepositorio()
         {
-            string connectionString = ConfigurationManager.AppSettings["connectionString"].ToString();
-            this.connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
         }
 
         // Probar conexión.

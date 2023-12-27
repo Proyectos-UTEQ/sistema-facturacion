@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.data;
 using Facturacion.detallefacturas;
+using Facturacion.Models;
 
 namespace Facturacion.facturas
 {
@@ -17,14 +18,14 @@ namespace Facturacion.facturas
         CREAR,
         EDITAR
     }
-    public partial class FacturaDetails : Form
+    public partial class FacturaForm : Form
     {
         private Modo modo = Modo.CREAR;
         private int id = 0;
         private bool isModified = false;
         Factura factura = new Factura();
 
-        public FacturaDetails(Modo modo, int id = 0)
+        public FacturaForm(Modo modo, int id = 0)
         {
             InitializeComponent();
             this.modo = modo;
@@ -33,7 +34,7 @@ namespace Facturacion.facturas
          
         private void loadFactura()
         {
-            FacturaDB facturaDB = new FacturaDB();
+            FacturaRepositorio facturaDB = new FacturaRepositorio();
             Factura factura = facturaDB.GetFactura(this.id);
             txtIDFactura.Text = factura.IDFactura.ToString();
             txtIDCliente.Text = factura.IDCliente.ToString();
@@ -59,7 +60,7 @@ namespace Facturacion.facturas
         }
         private async void RefreshList()
         {
-            DetalleFacturaDB facturasDetalleDB = new DetalleFacturaDB();
+            FacturaDetallesRepositorio facturasDetalleDB = new FacturaDetallesRepositorio();
             lblStatusEdit.Text = "Cargando clientes...";
             // configuramos el progresbar
             toolStripProgressDetalle.Visible = true;
@@ -171,17 +172,17 @@ namespace Facturacion.facturas
           
         private void btnAggProd_Click(object sender, EventArgs e)
         {
-            DetalleFactura clienteDetails;
+            FacturaDetallesForm clienteDetails;
             factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             factura.FechaHora = dtFecha.Value;
             factura.Numero = Convert.ToDecimal(txtNumero.Text.Trim());
             factura.Total = Convert.ToDecimal(txtTotal.Text.Trim()); 
             if(this.modo== Modo.CREAR)
             {
-               clienteDetails = new DetalleFactura(factura, Facturacion.detallefacturas.Modo.CREAR, this.id);
+               clienteDetails = new FacturaDetallesForm(factura, Facturacion.detallefacturas.Modo.CREAR, this.id);
             }else
             {
-                clienteDetails = new DetalleFactura(factura, Facturacion.detallefacturas.Modo.EDITAR, this.id);
+                clienteDetails = new FacturaDetallesForm(factura, Facturacion.detallefacturas.Modo.EDITAR, this.id);
             }
              
             clienteDetails.ShowDialog(); 
@@ -204,7 +205,7 @@ namespace Facturacion.facturas
             }
 
             // eliminar cliente
-            FacturaDB facturaDB = new FacturaDB();
+            FacturaRepositorio facturaDB = new FacturaRepositorio();
             var rowAffect = facturaDB.DeleteFactura(this.id);
             if (rowAffect > 0)
             {
@@ -245,7 +246,7 @@ namespace Facturacion.facturas
         {
             IDS ids = new IDS(); 
             ids = GetSelectedFacturaDetalleIDs(); 
-            DetalleFactura obj = new DetalleFactura(Facturacion.detallefacturas.Modo.EDITAR, ids, this.id);
+            FacturaDetallesForm obj = new FacturaDetallesForm(Facturacion.detallefacturas.Modo.EDITAR, ids, this.id);
             obj.ShowDialog();
         }
         private IDS GetSelectedFacturaDetalleIDs()
@@ -264,7 +265,7 @@ namespace Facturacion.facturas
 
         private void CrearFactura()
         {
-            FacturaDB facturaDB = new FacturaDB();
+            FacturaRepositorio facturaDB = new FacturaRepositorio();
 
             factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             factura.FechaHora = dtFecha.Value;
@@ -280,7 +281,7 @@ namespace Facturacion.facturas
 
         private void EditarFactura()
         {
-            FacturaDB facturaDB = new FacturaDB(); 
+            FacturaRepositorio facturaDB = new FacturaRepositorio();
             Factura factura = new Factura();
 
             factura.IDFactura = Convert.ToInt32(txtIDFactura.Text.Trim());

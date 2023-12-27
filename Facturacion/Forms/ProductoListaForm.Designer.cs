@@ -1,7 +1,7 @@
 ﻿
 namespace Facturacion.productos
 {
-    partial class ListadoProductos
+    partial class ProductoListaForm
     {
         /// <summary>
         /// Required designer variable.

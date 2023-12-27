@@ -11,9 +11,9 @@ using Facturacion.models;
 
 namespace Facturacion.productos
 {
-    public partial class ListadoProductos : Form
+    public partial class ProductoListaForm : Form
     {
-        public ListadoProductos()
+        public ProductoListaForm()
         {
             InitializeComponent();
         }
@@ -84,7 +84,7 @@ namespace Facturacion.productos
         }
         private async void RefreshList()
         {
-            ProductoDB productoDB = new ProductoDB();
+            ProductoRespositorio productoDB = new ProductoRespositorio();
             lblStatus.Text = "Cargando productos...";
 
             toolStripProgressProductos.Visible = true;
@@ -102,7 +102,7 @@ namespace Facturacion.productos
 
         private void toolStripButtonNuevoProducto_Click(object sender, EventArgs e)
         {
-            ProductoDetails productoDetails = new ProductoDetails(Modo.CREAR);
+            ProductoDetallesForm productoDetails = new ProductoDetallesForm(Modo.CREAR);
             productoDetails.ShowDialog();
             this.RefreshList();
         }
@@ -115,7 +115,7 @@ namespace Facturacion.productos
         private void Fila_DobleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var id = this.ObtenerIDProductoSeleccionado();
-            ProductoDetails productoDetails = new ProductoDetails(Modo.EDITAR, id);
+            ProductoDetallesForm productoDetails = new ProductoDetallesForm(Modo.EDITAR, id);
             productoDetails.ShowDialog();
             this.RefreshList();
         }
@@ -145,7 +145,7 @@ namespace Facturacion.productos
                 return;
             }
 
-            ProductoDB productoDB = new ProductoDB();
+            ProductoRespositorio productoDB = new ProductoRespositorio();
             var row = productoDB.EliminarProducto(id);
             if (row > 0)
             {

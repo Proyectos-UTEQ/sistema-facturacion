@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.data;
 using Facturacion.facturas;
+using Facturacion.Models;
 
 namespace Facturacion.detallefacturas
 {
@@ -18,7 +19,7 @@ namespace Facturacion.detallefacturas
         EDITAR
     }
 
-    public partial class DetalleFactura : Form
+    public partial class FacturaDetallesForm : Form
     {
         List<DetalleFacturas> detalleFacturas = new List<DetalleFacturas>();
         DetalleFacturas detalle = new DetalleFacturas();
@@ -28,21 +29,21 @@ namespace Facturacion.detallefacturas
         private int idFactura = 0;
         private int idProducto = 0;
         private bool isModified = false;
-        public DetalleFactura(Modo modo, int id = 0)
+        public FacturaDetallesForm(Modo modo, int id = 0)
         {
             InitializeComponent();
             this.id = id;
             this.modo = modo;
         }
 
-        public DetalleFactura(Factura factura, Modo modo, int id=0)
+        public FacturaDetallesForm(Factura factura, Modo modo, int id=0)
         {
             InitializeComponent();
             this.id = id;
             this.modo = modo;
             this.factura = factura; 
         }
-        public DetalleFactura(Modo modo, IDS ids, int id)
+        public FacturaDetallesForm(Modo modo, IDS ids, int id)
         {
             InitializeComponent();
             this.id= id;
@@ -69,7 +70,7 @@ namespace Facturacion.detallefacturas
          
         private void loadFactura()
         {
-            DetalleFacturaDB facturasDetalleDB = new DetalleFacturaDB();
+            FacturaDetallesRepositorio facturasDetalleDB = new FacturaDetallesRepositorio();
             DetalleFacturas facturasDetalle = facturasDetalleDB.GetFacturaDetalle(this.idFactura,this.idProducto);  
 
             txtIDDETFAC.Text = facturasDetalle.IDFacturaDetalle.ToString();
@@ -102,8 +103,8 @@ namespace Facturacion.detallefacturas
 
         private void CrearFactura()
         {
-            DetalleFacturaDB detalleFacturaDB = new DetalleFacturaDB(); 
-            FacturaDB facturaDB = new FacturaDB();
+            FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio(); 
+            FacturaRepositorio facturaDB = new FacturaRepositorio();
 
             // enviamos los datos a detalle factura
             // esperamos a la db  
@@ -117,7 +118,7 @@ namespace Facturacion.detallefacturas
 
         private void CrearProducto()
         {
-            DetalleFacturaDB detalleFacturaDB = new DetalleFacturaDB();
+            FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
        
             // enviamos los datos a detalle factura
             // esperamos a la db    
@@ -129,7 +130,7 @@ namespace Facturacion.detallefacturas
 
         private void EditarFactura()
         {
-            DetalleFacturaDB detalleFacturaDB = new DetalleFacturaDB();
+            FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
 
             DetalleFacturas detalleFactura = new DetalleFacturas();
             detalleFactura.IDFactura = Convert.ToInt32(txtIDFact.Text.Trim());
@@ -265,7 +266,7 @@ namespace Facturacion.detallefacturas
             }
 
             // eliminar cliente
-            DetalleFacturaDB detalleFacturaDB = new DetalleFacturaDB();
+            FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
             var rowAffect = detalleFacturaDB.DeleteFacturaDetalle(this.id);
             if (rowAffect > 0)
             {

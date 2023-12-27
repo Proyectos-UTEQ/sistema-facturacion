@@ -1,4 +1,5 @@
 ﻿using Facturacion.models;
+using Facturacion.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,13 +17,13 @@ namespace Facturacion.clientes
         CREAR,
         EDITAR
     }
-    public partial class ClienteDetails : Form
+    public partial class ClienteDetallesForm : Form
     {
         private Modo modo = Modo.CREAR;
         private int id = 0;
         private bool isModified = false;
 
-        public ClienteDetails(Modo modo, int id = 0)
+        public ClienteDetallesForm(Modo modo, int id = 0)
         {
             InitializeComponent();
 
@@ -35,7 +36,7 @@ namespace Facturacion.clientes
 
         private void loadCliente()
         {
-            ClienteDB clienteDB = new ClienteDB();
+            ClienteRepositorio clienteDB = new ClienteRepositorio();
             Cliente cliente = clienteDB.GetCliente(this.id);
             txtIDCliente.Text = cliente.IDCliente.ToString();
             txtCedula.Text = cliente.Cedula.Trim();
@@ -86,7 +87,7 @@ namespace Facturacion.clientes
 
         private void CrearCliente()
         {
-            ClienteDB clienteDB = new ClienteDB();
+            ClienteRepositorio clienteDB = new ClienteRepositorio();
 
             Cliente cliente = new Cliente();
             cliente.Cedula = txtCedula.Text.Trim();
@@ -103,7 +104,7 @@ namespace Facturacion.clientes
 
         private void EditarCliente()
         {
-            ClienteDB clienteDB = new ClienteDB();
+            ClienteRepositorio clienteDB = new ClienteRepositorio();
 
             Cliente cliente = new Cliente();
             cliente.IDCliente = Convert.ToInt32(txtIDCliente.Text);
@@ -150,7 +151,7 @@ namespace Facturacion.clientes
             }
 
             // eliminar cliente
-            ClienteDB clienteDB = new ClienteDB();
+            ClienteRepositorio clienteDB = new ClienteRepositorio();
             var rowAffect = clienteDB.DeleteCliente(this.id);
             if (rowAffect > 0)
             {

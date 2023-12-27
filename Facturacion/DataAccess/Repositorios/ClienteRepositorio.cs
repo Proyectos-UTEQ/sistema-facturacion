@@ -6,25 +6,17 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms;
+using Facturacion.Models;
+using Facturacion.DataAccess;
 
 namespace Facturacion.models
 {
-    public class Cliente
-    {
-        public int IDCliente { get; set; }
-        public string Cedula { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public string Telefonos { get; set; }
-    }
 
-    public class ClienteDB
+    public class ClienteRepositorio : DbContext
     {
-        private string connectionString = string.Empty;
 
-        public ClienteDB() {
-            string connectionString = ConfigurationManager.AppSettings["connectionString"].ToString();
-            this.connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
+        public ClienteRepositorio() {
+            
         }
 
         // Probar conexión.
@@ -34,7 +26,7 @@ namespace Facturacion.models
                 SqlConnection conn = new SqlConnection(connectionString);
                 await conn.OpenAsync();
                 conn.Close();
-            } catch (Exception ex)
+            } catch
             {
                 return false;
             }

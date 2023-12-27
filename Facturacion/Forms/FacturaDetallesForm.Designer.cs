@@ -1,6 +1,6 @@
 ﻿namespace Facturacion.detallefacturas
 {
-    partial class DetalleFactura
+    partial class FacturaDetallesForm
     {
         /// <summary>
         /// Required designer variable.

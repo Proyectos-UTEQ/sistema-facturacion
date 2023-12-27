@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Facturacion.clientes
 {
-    public partial class ListClients : Form
+    public partial class ClienteListaForm : Form
     {
-        public ListClients()
+        public ClienteListaForm()
         {
             InitializeComponent();
         }
@@ -31,7 +31,7 @@ namespace Facturacion.clientes
 
         private async void RefreshList()
         {
-            ClienteDB clienteDB = new ClienteDB();
+            ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
             lblStatus.Text = "Cargando clientes...";
             // configuramos el progresbar
             toolStripProgressClientes.Visible = true;
@@ -39,7 +39,7 @@ namespace Facturacion.clientes
             
             // esperamos a la db
             await Task.Delay(500);
-            dataUsuarios.DataSource = clienteDB.GetAll(txtSearch.Text);
+            dataUsuarios.DataSource = clienteRepositorio.GetAll(txtSearch.Text);
             dataUsuarios.Columns["IDCliente"].Visible = false;
 
             toolStripProgressClientes.Style = ProgressBarStyle.Continuous;
@@ -61,7 +61,7 @@ namespace Facturacion.clientes
 
         private void toolStripNuevoCliente_Click(object sender, EventArgs e)
         {
-            ClienteDetails clienteDetails = new ClienteDetails(Modo.CREAR);
+            ClienteDetallesForm clienteDetails = new ClienteDetallesForm(Modo.CREAR);
             clienteDetails.ShowDialog();
             this.RefreshList();
         }
@@ -92,7 +92,7 @@ namespace Facturacion.clientes
         private void Fila_DobleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var id = this.GetSelectedClienteID();
-            ClienteDetails clienteDetails = new ClienteDetails(Modo.EDITAR, id);
+            ClienteDetallesForm clienteDetails = new ClienteDetallesForm(Modo.EDITAR, id);
             clienteDetails.ShowDialog();
             this.RefreshList();
         }
@@ -113,8 +113,8 @@ namespace Facturacion.clientes
                 return;
             }
 
-            ClienteDB clienteDB = new ClienteDB();
-            var row = clienteDB.DeleteCliente(id);
+            ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
+            var row = clienteRepositorio.DeleteCliente(id);
             if (row > 0)
             {
                 MessageBox.Show("Cliente eliminado correctamente");

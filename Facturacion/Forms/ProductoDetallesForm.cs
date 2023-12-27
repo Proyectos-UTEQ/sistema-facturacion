@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.models;
+using Facturacion.Models;
 
 namespace Facturacion.productos
 {
@@ -16,13 +17,13 @@ namespace Facturacion.productos
         CREAR,
         EDITAR
     }
-    public partial class ProductoDetails : Form
+    public partial class ProductoDetallesForm : Form
     {
         private Modo modo = Modo.CREAR;
         private int id = 0;
         private bool isModified = false;
 
-        public ProductoDetails(Modo modo, int id = 0)
+        public ProductoDetallesForm(Modo modo, int id = 0)
         {
             InitializeComponent();
             this.modo = modo;
@@ -31,7 +32,7 @@ namespace Facturacion.productos
 
         private void loadProducto()
         {
-            ProductoDB productoDB = new ProductoDB();
+            ProductoRespositorio productoDB = new ProductoRespositorio();
             Producto producto = productoDB.GetProducto(this.id);
             txtIdProducto.Text = producto.IDProducto.ToString();
             txtNombre.Text = producto.Nombre.ToString();
@@ -120,7 +121,7 @@ namespace Facturacion.productos
 
         private void CrearProducto()
         {
-            ProductoDB productoDB = new ProductoDB();
+            ProductoRespositorio productoDB = new ProductoRespositorio();
 
             Producto producto = new Producto();
             producto.Nombre = txtNombre.Text.Trim();
@@ -138,7 +139,7 @@ namespace Facturacion.productos
 
         private void EditarProducto()
         {
-            ProductoDB productoDB = new ProductoDB();
+            ProductoRespositorio productoDB = new ProductoRespositorio();
 
             Producto producto = new Producto();
             producto.IDProducto = Convert.ToInt32(txtIdProducto.Text);
@@ -227,7 +228,7 @@ namespace Facturacion.productos
             }
 
             // eliminar producto
-            ProductoDB productoDB = new ProductoDB();
+            ProductoRespositorio productoDB = new ProductoRespositorio();
             var rowAffect = productoDB.EliminarProducto(this.id);
             if (rowAffect > 0)
             {

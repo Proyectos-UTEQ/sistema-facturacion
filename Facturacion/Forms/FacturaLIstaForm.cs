@@ -13,9 +13,9 @@ using Facturacion.models;
 
 namespace Facturacion.facturas
 {
-    public partial class ListFactura : Form
+    public partial class FacturaLIstaForm : Form
     {
-        public ListFactura()
+        public FacturaLIstaForm()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace Facturacion.facturas
 
         private async void RefreshList()
         {
-            FacturaDB facturaDB = new FacturaDB();
+            FacturaRepositorio facturaDB = new FacturaRepositorio();
             lblStatus.Text = "Cargando facturas...";
             // configuramos el progresbar
             toolStripProgressClientes.Visible = true;
@@ -46,7 +46,7 @@ namespace Facturacion.facturas
         private void Fila_DobleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var id = this.GetSelectedFacturaID();
-            FacturaDetails obj= new FacturaDetails(Modo.EDITAR, id);
+            FacturaForm obj= new FacturaForm(Modo.EDITAR, id);
             obj.ShowDialog();
             this.RefreshList();
         }
@@ -66,7 +66,7 @@ namespace Facturacion.facturas
                 return;
             }
 
-            ClienteDB clienteDB = new ClienteDB();
+            ClienteRepositorio clienteDB = new ClienteRepositorio();
             var row = clienteDB.DeleteCliente(id);
             if (row > 0)
             {
@@ -87,7 +87,7 @@ namespace Facturacion.facturas
 
         private void toolStripNuevaFactura_Click(object sender, EventArgs e)
         {
-            FacturaDetails facturaDetails = new FacturaDetails(Modo.CREAR);
+            FacturaForm facturaDetails = new FacturaForm(Modo.CREAR);
             facturaDetails.ShowDialog();
             this.RefreshList();
         }
@@ -108,7 +108,7 @@ namespace Facturacion.facturas
                 return;
             }
 
-            FacturaDB facturaDB = new FacturaDB();
+            FacturaRepositorio facturaDB = new FacturaRepositorio();
             var row = facturaDB.DeleteFactura(id);
             if (row > 0)
             {

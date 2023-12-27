@@ -54,84 +54,89 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clientes\ClienteDetails.cs">
+    <Compile Include="DataAccess\DbContext.cs" />
+    <Compile Include="Forms\ClienteDetallesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="clientes\ClienteDetails.Designer.cs">
-      <DependentUpon>ClienteDetails.cs</DependentUpon>
+    <Compile Include="Forms\ClienteDetallesForm.Designer.cs">
+      <DependentUpon>ClienteDetallesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="clientes\ListClients.cs">
+    <Compile Include="Forms\ClienteListaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="clientes\ListClients.Designer.cs">
-      <DependentUpon>ListClients.cs</DependentUpon>
+    <Compile Include="Forms\ClienteListaForm.Designer.cs">
+      <DependentUpon>ClienteListaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="data\DetalleFacturas.cs" />
-    <Compile Include="data\Facturas.cs" />
-    <Compile Include="data\Producto.cs" />
-    <Compile Include="detallefacturas\DetalleFactura.cs">
+    <Compile Include="DataAccess\Repositorios\FacturaDetallesRepositorio.cs" />
+    <Compile Include="DataAccess\Repositorios\FacturaRepositorio.cs" />
+    <Compile Include="DataAccess\Repositorios\ProductoRepositorio.cs" />
+    <Compile Include="Forms\FacturaDetallesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="detallefacturas\DetalleFactura.Designer.cs">
-      <DependentUpon>DetalleFactura.cs</DependentUpon>
+    <Compile Include="Forms\FacturaDetallesForm.Designer.cs">
+      <DependentUpon>FacturaDetallesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="facturas\FacturaDetails.cs">
+    <Compile Include="Forms\FacturaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="facturas\FacturaDetails.Designer.cs">
-      <DependentUpon>FacturaDetails.cs</DependentUpon>
+    <Compile Include="Forms\FacturaForm.Designer.cs">
+      <DependentUpon>FacturaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="facturas\ListFactura.cs">
+    <Compile Include="Forms\FacturaLIstaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="facturas\ListFactura.Designer.cs">
-      <DependentUpon>ListFactura.cs</DependentUpon>
+    <Compile Include="Forms\FacturaLIstaForm.Designer.cs">
+      <DependentUpon>FacturaLIstaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="helpers\FormsValidatros.cs" />
-    <Compile Include="Main.cs">
+    <Compile Include="Helpers\FormsValidatros.cs" />
+    <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main.Designer.cs">
+    <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="data\Cliente.cs" />
-    <Compile Include="productos\ListadoProductos.cs">
+    <Compile Include="DataAccess\Repositorios\ClienteRepositorio.cs" />
+    <Compile Include="Forms\ProductoListaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="productos\ListadoProductos.Designer.cs">
-      <DependentUpon>ListadoProductos.cs</DependentUpon>
+    <Compile Include="Forms\ProductoListaForm.Designer.cs">
+      <DependentUpon>ProductoListaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="productos\ProductoDetails.cs">
+    <Compile Include="Forms\ProductoDetallesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="productos\ProductoDetails.Designer.cs">
-      <DependentUpon>ProductoDetails.cs</DependentUpon>
+    <Compile Include="Forms\ProductoDetallesForm.Designer.cs">
+      <DependentUpon>ProductoDetallesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Factura.cs" />
+    <Compile Include="Models\FacturaDetalles.cs" />
+    <Compile Include="Models\Producto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="clientes\ClienteDetails.resx">
-      <DependentUpon>ClienteDetails.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ClienteDetallesForm.resx">
+      <DependentUpon>ClienteDetallesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="clientes\ListClients.resx">
-      <DependentUpon>ListClients.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ClienteListaForm.resx">
+      <DependentUpon>ClienteListaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="detallefacturas\DetalleFactura.resx">
-      <DependentUpon>DetalleFactura.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FacturaDetallesForm.resx">
+      <DependentUpon>FacturaDetallesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="facturas\FacturaDetails.resx">
-      <DependentUpon>FacturaDetails.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FacturaForm.resx">
+      <DependentUpon>FacturaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="facturas\ListFactura.resx">
-      <DependentUpon>ListFactura.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FacturaLIstaForm.resx">
+      <DependentUpon>FacturaLIstaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
+    <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="productos\ListadoProductos.resx">
-      <DependentUpon>ListadoProductos.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ProductoListaForm.resx">
+      <DependentUpon>ProductoListaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="productos\ProductoDetails.resx">
-      <DependentUpon>ProductoDetails.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ProductoDetallesForm.resx">
+      <DependentUpon>ProductoDetallesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -188,6 +193,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

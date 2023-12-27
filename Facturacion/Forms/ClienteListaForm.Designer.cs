@@ -1,6 +1,6 @@
 ﻿namespace Facturacion.clientes
 {
-    partial class ListClients
+    partial class ClienteListaForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListClients));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClienteListaForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripNuevoCliente = new System.Windows.Forms.ToolStripButton();
             this.toolStripDeleteCliente = new System.Windows.Forms.ToolStripButton();

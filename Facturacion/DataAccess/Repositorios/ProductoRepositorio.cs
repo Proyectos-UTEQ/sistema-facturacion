@@ -5,26 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
+using Facturacion.Models;
+using Facturacion.DataAccess;
 
 namespace Facturacion.models
 {
-    public class Producto
-    {
-        public int IDProducto{ get; set; }
-        public string Nombre { get; set; }
-        public decimal Costo { get; set; }
-        public decimal Precio { get; set; }
-        public int Estado { get; set; }
-    }
+   
 
-    public class ProductoDB
+    public class ProductoRespositorio : DbContext
     {
-        private string connectionString = string.Empty;
 
-        public ProductoDB()
+        public ProductoRespositorio()
         {
-            string connectionString = ConfigurationManager.AppSettings["connectionString"].ToString();
-            this.connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
         }
 
         public bool Ok()

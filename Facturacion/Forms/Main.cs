@@ -18,9 +18,9 @@ namespace Facturacion
     {
 
         // variables globales para las ventanas.
-        ListClients listcustomer;
-        ListadoProductos listadoProductos;
-        ListFactura listFactura;
+        ClienteListaForm listcustomer;
+        ProductoListaForm listadoProductos;
+        FacturaLIstaForm listFactura;
 
         public Main()
         {
@@ -36,7 +36,7 @@ namespace Facturacion
             }
             else
             {
-                listcustomer = new ListClients();
+                listcustomer = new ClienteListaForm();
                 listcustomer.MdiParent = this;
                 listcustomer.FormClosed += Listcustomer_FormClosed;
                 listcustomer.Show();
@@ -57,7 +57,7 @@ namespace Facturacion
             }
             else
             {
-                listadoProductos = new ListadoProductos();
+                listadoProductos = new ProductoListaForm();
                 listadoProductos.MdiParent = this;
                 listadoProductos.FormClosed += listadoProductos_FormClosed;
                 listadoProductos.Show();
@@ -79,7 +79,7 @@ namespace Facturacion
         private async Task validarConexionAsync() 
         { 
             // Probar conexion a base de datos, y mostrar mensaje de error en caso de fallo.
-            ClienteDB clienteDB = new ClienteDB();
+            ClienteRepositorio clienteDB = new ClienteRepositorio();
             var ok = clienteDB.Ok();
             UpdateStatus(await ok);
         }
@@ -117,7 +117,7 @@ namespace Facturacion
             }
             else
             {
-                listFactura = new ListFactura();
+                listFactura = new FacturaLIstaForm();
                 listFactura.MdiParent = this;
                 listFactura.FormClosed += listFactura_FormClosed;
                 listFactura.Show();
