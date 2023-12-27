@@ -20,7 +20,7 @@ namespace Facturacion
         // variables globales para las ventanas.
         ClienteListaForm listcustomer;
         ProductoListaForm listadoProductos;
-        FacturaLIstaForm listFactura;
+        FacturaListaForm listFactura;
 
         public MainForm()
         {
@@ -117,7 +117,7 @@ namespace Facturacion
             }
             else
             {
-                listFactura = new FacturaLIstaForm();
+                listFactura = new FacturaListaForm();
                 listFactura.MdiParent = this;
                 listFactura.FormClosed += listFactura_FormClosed;
                 listFactura.Show();

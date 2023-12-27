@@ -13,9 +13,9 @@ using Facturacion.models;
 
 namespace Facturacion.facturas
 {
-    public partial class FacturaLIstaForm : Form
+    public partial class FacturaListaForm : Form
     {
-        public FacturaLIstaForm()
+        public FacturaListaForm()
         {
             InitializeComponent();
         }

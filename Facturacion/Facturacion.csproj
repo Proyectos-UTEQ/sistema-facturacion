@@ -82,11 +82,11 @@
     <Compile Include="Forms\FacturaForm.Designer.cs">
       <DependentUpon>FacturaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FacturaLIstaForm.cs">
+    <Compile Include="Forms\FacturaListaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FacturaLIstaForm.Designer.cs">
-      <DependentUpon>FacturaLIstaForm.cs</DependentUpon>
+    <Compile Include="Forms\FacturaListaForm.Designer.cs">
+      <DependentUpon>FacturaListaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FormsValidatros.cs" />
     <Compile Include="Forms\MainForm.cs">
@@ -127,8 +127,8 @@
     <EmbeddedResource Include="Forms\FacturaForm.resx">
       <DependentUpon>FacturaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FacturaLIstaForm.resx">
-      <DependentUpon>FacturaLIstaForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FacturaListaForm.resx">
+      <DependentUpon>FacturaListaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

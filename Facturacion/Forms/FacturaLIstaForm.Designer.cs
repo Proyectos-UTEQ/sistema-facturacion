@@ -1,6 +1,6 @@
 ﻿namespace Facturacion.facturas
 {
-    partial class FacturaLIstaForm
+    partial class FacturaListaForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FacturaLIstaForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FacturaListaForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripNuevaFactura = new System.Windows.Forms.ToolStripButton();
             this.toolStripDeleteFactura = new System.Windows.Forms.ToolStripButton();
