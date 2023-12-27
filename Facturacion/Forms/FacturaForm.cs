@@ -175,7 +175,7 @@ namespace Facturacion.facturas
             FacturaDetallesForm clienteDetails;
             factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             factura.FechaHora = dtFecha.Value;
-            factura.Numero = Convert.ToDecimal(txtNumero.Text.Trim());
+            factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
             factura.Total = Convert.ToDecimal(txtTotal.Text.Trim()); 
             if(this.modo== Modo.CREAR)
             {
@@ -269,7 +269,7 @@ namespace Facturacion.facturas
 
             factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             factura.FechaHora = dtFecha.Value;
-            factura.Numero = Convert.ToDecimal(txtNumero.Text.Trim());
+            factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
             factura.Total = Convert.ToDecimal(txtTotal.Text.Trim());
             factura.IDCliente = facturaDB.AddFactura(factura);
 
@@ -287,7 +287,7 @@ namespace Facturacion.facturas
             factura.IDFactura = Convert.ToInt32(txtIDFactura.Text.Trim());
             factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             factura.FechaHora = dtFecha.Value;
-            factura.Numero = Convert.ToDecimal(txtNumero.Text.Trim());
+            factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
             factura.Total = Convert.ToDecimal(txtTotal.Text.Trim());
             var rowAffect = facturaDB.UpdateFactura(factura);
             if (rowAffect > 0)

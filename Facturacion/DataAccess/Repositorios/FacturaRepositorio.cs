@@ -4,9 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Facturacion.data
 {
@@ -35,15 +39,20 @@ namespace Facturacion.data
             return true;
         }
 
-        public List<Factura> GetAll(string search)
+        // Recupera todas las facturas con los datos del cliente.
+        public List<Factura> ObtenerFacturas(string search)
         {
+            // TODO: Recuperar las facturas con los datos del cliente.
+
             List<Factura> facturas = new List<Factura>();
 
-            string query = @"SELECT ID_FACTURA, ID_CLIENTE, FECHA_HORA, NUMERO, TOTAL 
-                                from FACTURA
-                                where (ID_FACTURA like @SEARCH or ID_CLIENTE like @SEARCH 
-                                or FECHA_HORA like @SEARCH or NUMERO like @SEARCH) and ESTADO = 1
-                                order by FECHA_HORA asc
+            string query = @"
+                            SELECT f.ID_FACTURA, f.ID_CLIENTE, f.FECHA_HORA, f.NUMERO, f.TOTAL, f.ESTADO, c.ID_CLIENTE, c.CEDULA, c.NOMBRES, c.APELLIDOS, c.TELEFONO, c.ESTADO
+                            FROM FACTURA as f
+                            INNER JOIN CLIENTE as c ON f.ID_CLIENTE=c.ID_CLIENTE
+                            where (f.ID_FACTURA like @SEARCH or f.ID_CLIENTE like @SEARCH 
+	                        or f.FECHA_HORA like @SEARCH or f.NUMERO like @SEARCH) and f.ESTADO = 1
+	                        order by FECHA_HORA asc
                             ";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -56,12 +65,24 @@ namespace Facturacion.data
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        Factura factura = new Factura();
-                        factura.IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString());
-                        factura.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
-                        factura.FechaHora = Convert.ToDateTime(reader["FECHA_HORA"]);
-                        factura.Numero = Convert.ToDecimal(reader["NUMERO"]);
-                        factura.Total = Convert.ToDecimal(reader["TOTAL"]);
+                        // creamos la instancia de factura.
+                        Factura factura = new Factura { 
+                            IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString()),
+                            IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString()),
+                            FechaHora = Convert.ToDateTime(reader["FECHA_HORA"]),
+                            Numero = (int)Convert.ToInt64(reader["NUMERO"].ToString()),
+                            Total = Convert.ToDecimal(reader["TOTAL"]),
+                            Estado = Convert.ToInt32(reader["ESTADO"]),
+
+                            // Instaciamos el cliente.
+                            Cliente = new Cliente { 
+                                IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString()),
+                                Cedula = reader["CEDULA"].ToString(),
+                                Nombres = reader["NOMBRES"].ToString(),
+                                Apellidos = reader["APELLIDOS"].ToString(),
+                                Telefonos = reader["TELEFONO"].ToString(),
+                            },
+                        };
 
                         facturas.Add(factura);
 
@@ -100,7 +121,7 @@ namespace Facturacion.data
                         factura.IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString());
                         factura.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
                         factura.FechaHora = Convert.ToDateTime(reader["FECHA_HORA"]);
-                        factura.Numero = Convert.ToDecimal(reader["NUMERO"]);
+                        factura.Numero = Convert.ToInt32(reader["NUMERO"]);
                         factura.Total = Convert.ToDecimal(reader["TOTAL"].ToString());
                     }
                     conn.Close();
