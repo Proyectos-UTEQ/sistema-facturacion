@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.clientes;
 using Facturacion.facturas;
+using Facturacion.models;
 using Facturacion.productos;
 
 namespace Facturacion
 {
     public partial class Main : Form
     {
+
+        // variables globales para las ventanas.
         ListClients listcustomer;
         ListadoProductos listadoProductos;
         ListFactura listFactura;
@@ -24,6 +27,7 @@ namespace Facturacion
             InitializeComponent();
         }
 
+        // eventos del menu principal, boton para abrir lista de clientes.
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listcustomer != null)
@@ -44,6 +48,7 @@ namespace Facturacion
             listcustomer = null;
         }
 
+        // eventos del menu principal, boton para abrir lista de productos.
         private void productosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listadoProductos != null)
@@ -64,17 +69,46 @@ namespace Facturacion
             listadoProductos = null;
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private async void Main_Load(object sender, EventArgs e)
         {
+            // validamos la base de datos
+            await Task.Run(async () => await validarConexionAsync());
+        }
 
+        // validamos la base de datos y actualizamos el estado de la barra de estado.
+        private async Task validarConexionAsync() 
+        { 
+            // Probar conexion a base de datos, y mostrar mensaje de error en caso de fallo.
+            ClienteDB clienteDB = new ClienteDB();
+            var ok = clienteDB.Ok();
+            UpdateStatus(await ok);
         }
 
 
-        /// <summary>
-        ///  boton de factura
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        // actualizamos el estado de la barra de estado.
+        private void UpdateStatus(bool ok)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<bool>(UpdateStatus), ok);
+            }
+            else { 
+                if (ok)
+                {
+                    toolStripStatusLabelMain.Text = "Conexión a base de datos exitosa.";
+                    toolStripStatusLabelMain.ForeColor = Color.Black;
+                    toolStripStatusLabelMain.Image = Properties.Resources.yes;
+                }
+                else
+                {
+                    toolStripStatusLabelMain.Text = "No se pudo conectar a la base de datos.";
+                    toolStripStatusLabelMain.ForeColor = Color.Red;
+                    toolStripStatusLabelMain.Image = Properties.Resources.warning;
+                }
+            }
+        }
+
+        // eventos del menu principal, boton para abrir lista de facturas.
         private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listFactura != null)

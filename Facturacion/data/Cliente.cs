@@ -28,13 +28,13 @@ namespace Facturacion.models
         }
 
         // Probar conexión.
-        public bool Ok()
+        public async Task<bool> Ok()
         {
             try {
                 SqlConnection conn = new SqlConnection(connectionString);
-                conn.Open();
+                await conn.OpenAsync();
                 conn.Close();
-            } catch
+            } catch (Exception ex)
             {
                 return false;
             }

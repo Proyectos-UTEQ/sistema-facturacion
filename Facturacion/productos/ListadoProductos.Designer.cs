@@ -29,7 +29,6 @@ namespace Facturacion.productos
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoProductos));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -78,7 +77,7 @@ namespace Facturacion.productos
             // 
             // toolStripButtonNuevoProducto
             // 
-            this.toolStripButtonNuevoProducto.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNuevoProducto.Image")));
+            this.toolStripButtonNuevoProducto.Image = global::Facturacion.Properties.Resources.plus;
             this.toolStripButtonNuevoProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripButtonNuevoProducto.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNuevoProducto.Name = "toolStripButtonNuevoProducto";
@@ -88,7 +87,7 @@ namespace Facturacion.productos
             // 
             // toolStripButton2
             // 
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.Image = global::Facturacion.Properties.Resources.delete;
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(122, 22);
@@ -97,7 +96,7 @@ namespace Facturacion.productos
             // 
             // toolStripButton3
             // 
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.Image = global::Facturacion.Properties.Resources.circular_arrow;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(176, 22);
