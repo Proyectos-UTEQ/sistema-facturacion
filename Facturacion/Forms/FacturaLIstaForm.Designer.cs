@@ -155,7 +155,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FacturaListaForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ListFactura";
+            this.Text = "Lista de facturas";
             this.Load += new System.EventHandler(this.ListFactura_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

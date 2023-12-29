@@ -16,7 +16,9 @@ namespace Facturacion.clientes
     public enum Modo
     {
         CREAR,
-        EDITAR
+        EDITAR,
+        NORMAL,
+        SELECIONAR,
     }
 
     public partial class ClienteDetallesForm : Form

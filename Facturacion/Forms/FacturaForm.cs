@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Facturacion.clientes;
 using Facturacion.data;
 using Facturacion.detallefacturas;
+using Facturacion.models;
 using Facturacion.Models;
 
 namespace Facturacion.facturas
@@ -37,9 +39,11 @@ namespace Facturacion.facturas
             FacturaRepositorio facturaDB = new FacturaRepositorio();
             Factura factura = facturaDB.GetFactura(this.id);
             txtIDFactura.Text = factura.IDFactura.ToString();
-            txtIDCliente.Text = factura.IDCliente.ToString();
+            // Establecemos los valores de cliente en el formulario.
+            setCliente(factura.IDCliente);
+            
             dtFecha.Text = Convert.ToDateTime(factura.FechaHora).ToString(); 
-            txtNumero.Text = Convert.ToInt32(factura.Numero).ToString("N2");
+            txtNumero.Text = factura.Numero.ToString("D10");
             txtTotal.Text = Convert.ToDecimal(factura.Total).ToString("N2");
         }
 
@@ -230,6 +234,7 @@ namespace Facturacion.facturas
             }
             else
             {
+                // TODO: Actualizar el usuario.
                 this.EditarFactura();
             }
 
@@ -353,6 +358,43 @@ namespace Facturacion.facturas
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void lblIDCliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            ClienteListaForm clienteListaForm = new ClienteListaForm(clientes.Modo.SELECIONAR);
+            clienteListaForm.OnClienteSelecionado += onClienteSelecionado;
+            clienteListaForm.ShowDialog();
+        }
+
+        // resive el valor del cliente selecionado.
+        private void onClienteSelecionado(object sender, int id) {
+            setCliente(id);
+        }
+
+        private void setCliente(int id)
+        {
+            ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
+            var cliente = clienteRepositorio.ObtenerCliente(id);
+            txtIDCliente.Text = id.ToString();
+            txtCedula.Text = cliente.Cedula;
+            txtNombres.Text = cliente.Nombres;
+            txtApellidos.Text = cliente.Apellidos;
+        }
+
+        private void lblNumero_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFecha_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
