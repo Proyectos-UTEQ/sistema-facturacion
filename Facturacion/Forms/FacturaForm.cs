@@ -228,6 +228,7 @@ namespace Facturacion.facturas
                 MessageBox.Show("Formulario invalido");
                 return;
             }
+
             if (this.modo == Modo.CREAR)
             {
                 this.CrearFactura();

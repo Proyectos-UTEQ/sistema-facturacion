@@ -193,11 +193,12 @@ namespace Facturacion.data
         }
         public int UpdateFactura(Factura factura)
         {
-            string query = "UPDATE FACTURA SET FECHA_HORA = @FECHA_HORA, NUMERO = @NUMERO, TOTAL = @TOTAL " +
+            string query = "UPDATE FACTURA SET ID_CLIENTE=@ID_CLIENTE, FECHA_HORA = @FECHA_HORA, NUMERO = @NUMERO, TOTAL = @TOTAL " +
                 "WHERE ID_FACTURA=@ID_FACTURA";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ID_CLIENTE", factura.IDCliente);
                 cmd.Parameters.AddWithValue("@ID_FACTURA", factura.IDFactura);
                 cmd.Parameters.AddWithValue("@FECHA_HORA", factura.FechaHora);
                 cmd.Parameters.AddWithValue("@NUMERO", factura.Numero);
