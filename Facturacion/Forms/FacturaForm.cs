@@ -10,22 +10,19 @@ using System.Windows.Forms;
 using Facturacion.clientes;
 using Facturacion.data;
 using Facturacion.detallefacturas;
+using Facturacion.Helpers;
 using Facturacion.models;
 using Facturacion.Models;
 
 namespace Facturacion.facturas
 {
-    public enum Modo
-    {
-        CREAR,
-        EDITAR
-    }
+   
     public partial class FacturaForm : Form
     {
         private Modo modo = Modo.CREAR;
         private int id = 0;
         private bool isModified = false;
-        Factura factura = new Factura();
+        private Factura _factura;
 
         public FacturaForm(Modo modo, int id = 0)
         {
@@ -33,54 +30,66 @@ namespace Facturacion.facturas
             this.modo = modo;
             this.id = id;
         }
-         
-        private void loadFactura()
-        {
-            FacturaRepositorio facturaDB = new FacturaRepositorio();
-            Factura factura = facturaDB.GetFactura(this.id);
-            txtIDFactura.Text = factura.IDFactura.ToString();
-            // Establecemos los valores de cliente en el formulario.
-            setCliente(factura.IDCliente);
-            
-            dtFecha.Text = Convert.ToDateTime(factura.FechaHora).ToString(); 
-            txtNumero.Text = factura.Numero.ToString("D10");
-            txtTotal.Text = Convert.ToDecimal(factura.Total).ToString("N2");
-        }
 
         private void FacturaDetails_Load(object sender, EventArgs e)
         {
             if (this.modo == Modo.CREAR)
             {
                 this.Text = "Crear Factura";
-                this.btnAplicar.Enabled = false;
+                this.btnAplicar.Enabled = true;
+                _factura = new Factura();
+                dtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                // TODO: Definir el numero de la factura.
+                FacturaRepositorio facturasDB = new FacturaRepositorio();
+                txtNumero.Text = facturasDB.NuevoNueroFactura().ToString("D10");
             }
             else if (this.modo == Modo.EDITAR)
             {
-                this.loadFactura();
-                this.updateTitle();
+                this.CargarFactura();
+                this.ActualizarTitulo();
             }
-            this.UpdateStateForms(false);
-            this.RefreshList();
+            this.ActualizarEstadoFormulario(false);
         }
-        private async void RefreshList()
+
+        // Carga los datos principales de la factura.
+        private void CargarFactura()
         {
-            FacturaDetallesRepositorio facturasDetalleDB = new FacturaDetallesRepositorio();
+            FacturaRepositorio facturaDB = new FacturaRepositorio();
+            _factura = facturaDB.GetFactura(this.id);
+
+            txtIDFactura.Text = _factura.IDFactura.ToString();
+
+            // Establecemos los valores de cliente en el formulario.
+            setCliente(_factura.IDCliente);
+
+            dtFecha.Text = Convert.ToDateTime(_factura.FechaHora).ToString();
+            txtNumero.Text = _factura.Numero.ToString("D10");
+            LbTotal.Text = Convert.ToDecimal(_factura.Total).ToString("N2");
+            CargarElDetalle();
+        }
+
+        // Carga el detalle de la factura.
+        private void CargarElDetalle()
+        {
+            // FacturaDetallesRepositorio facturasDetalleDB = new FacturaDetallesRepositorio();
             lblStatusEdit.Text = "Cargando clientes...";
             // configuramos el progresbar
             toolStripProgressDetalle.Visible = true;
             toolStripProgressDetalle.Style = ProgressBarStyle.Marquee;
 
-            // esperamos a la db
-            await Task.Delay(500);
-            if(txtBuscar.Text.Length > 0)
-                dataDetalleFact.DataSource = facturasDetalleDB.ObtenerFacturaDetalles(txtBuscar.Text);
-            else
-                dataDetalleFact.DataSource = facturasDetalleDB.GetListFacturaDetalle(this.id); 
+            //if(txtBuscar.Text.Length > 0)
+            //    dataDetalleFact.DataSource = facturasDetalleDB.ObtenerFacturaDetalles(txtBuscar.Text);
+            //else
+            //    dataDetalleFact.DataSource = facturasDetalleDB.ObtenerDetalle(this.id); 
+
+            // Cargamos el detalle de la factura en el datagrid.
+            dataDetalleFact.DataSource = _factura.Detalles;
 
             dataDetalleFact.Columns["IDFacturaDetalle"].Visible = false;
-            dataDetalleFact.Columns["Numero"].DefaultCellStyle.Format = "N2";
+            dataDetalleFact.Columns["Cantidad"].DefaultCellStyle.Format = "N2";
             dataDetalleFact.Columns["SubTotal"].DefaultCellStyle.Format = "N2";
             dataDetalleFact.Columns["PrecioUnitario"].DefaultCellStyle.Format = "N2"; 
+
 
             toolStripProgressDetalle.Style = ProgressBarStyle.Continuous;
             toolStripProgressDetalle.Visible = false;
@@ -88,7 +97,7 @@ namespace Facturacion.facturas
         }
          
 
-        private void updateTitle()
+        private void ActualizarTitulo()
         {
             this.Text = $"Factura <{dtFecha.Text.Trim()}>";
         }
@@ -106,7 +115,7 @@ namespace Facturacion.facturas
                 lblIDFactura.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
         private void idcliente_changed(object sender, EventArgs e)
@@ -120,29 +129,17 @@ namespace Facturacion.facturas
                 lblFecha.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
       
 
-        private void numero_changed(object sender, EventArgs e)
-        { 
-            if (!helpers.FormsValidatros.IsEmpty(txtNumero.Text))
-            {
-                txtNumero.Tag = helpers.FormsValidatros.IsNumeroLength(txtTotal, lblTotal, 10);
-            }
-            else
-            {
-                lblNumero.ForeColor = System.Drawing.Color.Black;
-            }
-
-            this.UpdateStateForms(true);
-        }
+        
           
         private void dtFecha_ValueChanged(object sender, EventArgs e)
         { 
             dtFecha.Tag = helpers.FormsValidatros.IsDate(dtFecha.Text); 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
         private void txtNumero_TextChanged(object sender, EventArgs e)
@@ -156,37 +153,25 @@ namespace Facturacion.facturas
                 lblNumero.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
-        private void txtTotal_TextChanged(object sender, EventArgs e)
-        {
-            if (!helpers.FormsValidatros.IsEmpty(txtTotal.Text))
-            { 
-                txtTotal.Tag = helpers.FormsValidatros.IsNumero(lblTotal, txtTotal.Text);
-            }
-            else
-            {
-                lblTotal.ForeColor = System.Drawing.Color.Black;
-            }
-
-            this.UpdateStateForms(true);
-        }
+       
  
           
         private void btnAggProd_Click(object sender, EventArgs e)
         {
             FacturaDetallesForm clienteDetails;
-            factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
-            factura.FechaHora = dtFecha.Value;
-            factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            factura.Total = Convert.ToDecimal(txtTotal.Text.Trim()); 
-            if(this.modo== Modo.CREAR)
+            _factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
+            _factura.FechaHora = dtFecha.Value;
+            _factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
+            _factura.Total = Convert.ToDecimal(LbTotal.Text.Trim()); 
+            if(this.modo == Modo.CREAR)
             {
-               clienteDetails = new FacturaDetallesForm(factura, Facturacion.detallefacturas.Modo.CREAR, this.id);
+               clienteDetails = new FacturaDetallesForm(_factura, Modo.CREAR, id);
             }else
             {
-                clienteDetails = new FacturaDetallesForm(factura, Facturacion.detallefacturas.Modo.EDITAR, this.id);
+                clienteDetails = new FacturaDetallesForm(_factura, Modo.EDITAR, id);
             }
              
             clienteDetails.ShowDialog(); 
@@ -229,6 +214,12 @@ namespace Facturacion.facturas
                 return;
             }
 
+            if (!TieneProductosEnDetalles())
+            {
+                MessageBox.Show("No tiene productos en el detalle");
+                return;
+            }
+
             if (this.modo == Modo.CREAR)
             {
                 this.CrearFactura();
@@ -239,20 +230,20 @@ namespace Facturacion.facturas
                 this.EditarFactura();
             }
 
-            this.UpdateStateForms(false);
+            this.ActualizarEstadoFormulario(false);
             this.Close();
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
         {
-            this.RefreshList();
+            this.CargarElDetalle();
         }
 
         private void dataDetalleFact_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             IDS ids = new IDS(); 
             ids = GetSelectedFacturaDetalleIDs(); 
-            FacturaDetallesForm obj = new FacturaDetallesForm(Facturacion.detallefacturas.Modo.EDITAR, ids, this.id);
+            FacturaDetallesForm obj = new FacturaDetallesForm(Modo.EDITAR, ids, this.id);
             obj.ShowDialog();
         }
         private IDS GetSelectedFacturaDetalleIDs()
@@ -272,16 +263,23 @@ namespace Facturacion.facturas
         private void CrearFactura()
         {
             FacturaRepositorio facturaDB = new FacturaRepositorio();
+            FacturaDetallesRepositorio facturaDetallesRepositorio = new FacturaDetallesRepositorio();
 
-            factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
-            factura.FechaHora = dtFecha.Value;
-            factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            factura.Total = Convert.ToDecimal(txtTotal.Text.Trim());
-            factura.IDCliente = facturaDB.AddFactura(factura);
+            _factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
+            _factura.FechaHora = dtFecha.Value;
+            _factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
+            _factura.Total = Convert.ToDecimal(LbTotal.Text.Trim());
+
+            // Registro de la factura en la base de datos.
+            _factura.IDFactura = facturaDB.RegistrarNuevaFactura(_factura);
+
+            // Registrar el detalle en base a la factura.
+            facturaDetallesRepositorio.RegistrarDetalleFactura(_factura);
+
 
             // actualizamos el id del cliente en el formulario
-            txtIDCliente.Text = factura.IDCliente.ToString();
-            this.updateTitle();
+            txtIDCliente.Text = _factura.IDCliente.ToString();
+            this.ActualizarTitulo();
             this.modo = Modo.EDITAR;
         }
 
@@ -294,25 +292,25 @@ namespace Facturacion.facturas
             factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             factura.FechaHora = dtFecha.Value;
             factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            factura.Total = Convert.ToDecimal(txtTotal.Text.Trim());
+            factura.Total = Convert.ToDecimal(LbTotal.Text.Trim());
             var rowAffect = facturaDB.UpdateFactura(factura);
             if (rowAffect > 0)
             {
                 MessageBox.Show("Factura actualizada correctamente");
-                this.updateTitle();
+                this.ActualizarTitulo();
             }
             else
             {
                 MessageBox.Show("No se pudo actualizar la factura");
             }
         }
-        private void UpdateStateForms(bool isModified)
+        private void ActualizarEstadoFormulario(bool isModified)
         {
             // controlar el estado de los botones
             if (this.modo == Modo.CREAR)
             {
                 this.btnRemover.Enabled = false;
-                this.btnAggProd.Enabled = false;
+                
             }
             else
             {
@@ -323,11 +321,11 @@ namespace Facturacion.facturas
             // controlar el estado del boton aplicar
             if (this.ValidateForm())
             { 
-                this.btnAggProd.Enabled = true;
+                
             }
             else
             { 
-                this.btnAggProd.Enabled = false;
+                
             }
             this.isModified = isModified;
             this.lblStatusEdit.Text = this.isModified ? "Modificado" : "Sin Modificar";
@@ -335,11 +333,15 @@ namespace Facturacion.facturas
 
         private bool ValidateForm()
         {
-            bool fecha = dtFecha.Tag != null ? (bool)dtFecha.Tag : false;
             bool numero = txtNumero.Tag != null ? (bool)txtNumero.Tag : false;
-            bool total = txtTotal.Tag != null ? (bool)txtTotal.Tag : false;
+            bool total = Convert.ToDecimal(LbTotal.Text) > 0;
 
-            return fecha && numero && total;
+            return numero && total;
+        }
+
+        private bool TieneProductosEnDetalles()
+        {
+            return _factura.Detalles.Count > 0;
         }
 
         private void txtIDCliente_TextChanged(object sender, EventArgs e)
@@ -353,7 +355,7 @@ namespace Facturacion.facturas
                 lblIDCliente.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoFormulario(true);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -368,7 +370,7 @@ namespace Facturacion.facturas
 
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
-            ClienteListaForm clienteListaForm = new ClienteListaForm(clientes.Modo.SELECIONAR);
+            ClienteListaForm clienteListaForm = new ClienteListaForm(Modo.SELECIONAR);
             clienteListaForm.OnClienteSelecionado += onClienteSelecionado;
             clienteListaForm.ShowDialog();
         }
@@ -396,6 +398,29 @@ namespace Facturacion.facturas
         private void lblFecha_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void BtnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            FacturaDetallesForm facturaDetallesForm = new FacturaDetallesForm(Modo.CREAR, id);
+            facturaDetallesForm.OnFacturaDetallesChanged += OnFacturaDetalle;
+            facturaDetallesForm.ShowDialog();
+        }
+
+        private void OnFacturaDetalle(object sender, FacturaDetalles detalles)
+        {
+            _factura.Detalles.Add(detalles);
+            dataDetalleFact.DataSource = null;
+            dataDetalleFact.DataSource = _factura.Detalles;
+
+            // TODO: Recalcular el total.
+            CalcularTotal();
+        }
+
+        private void CalcularTotal() 
+        { 
+            _factura.Total = _factura.Detalles.Sum(d => d.SubTotal);
+            LbTotal.Text = _factura.Total.ToString("N2");
         }
     }
 }

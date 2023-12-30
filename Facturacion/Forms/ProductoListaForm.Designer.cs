@@ -35,6 +35,7 @@ namespace Facturacion.productos
             this.toolStripButtonNuevoProducto = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.BtnSeleccionar = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressProductos = new System.Windows.Forms.ToolStripProgressBar();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -51,11 +52,12 @@ namespace Facturacion.productos
             this.toolStripLabel2,
             this.toolStripButtonNuevoProducto,
             this.toolStripButton2,
-            this.toolStripButton3});
+            this.toolStripButton3,
+            this.BtnSeleccionar});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 8, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(804, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(878, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -103,6 +105,16 @@ namespace Facturacion.productos
             this.toolStripButton3.Text = "Actualizar lista de productos";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
+            // BtnSeleccionar
+            // 
+            this.BtnSeleccionar.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BtnSeleccionar.Image = global::Facturacion.Properties.Resources.touchscreen;
+            this.BtnSeleccionar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnSeleccionar.Name = "BtnSeleccionar";
+            this.BtnSeleccionar.Size = new System.Drawing.Size(87, 22);
+            this.BtnSeleccionar.Text = "Seleccionar";
+            this.BtnSeleccionar.Click += new System.EventHandler(this.BtnSeleccionar_Click_1);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -110,7 +122,7 @@ namespace Facturacion.productos
             this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 289);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(804, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(878, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -133,20 +145,22 @@ namespace Facturacion.productos
             this.dgvProductos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProductos.Location = new System.Drawing.Point(0, 25);
             this.dgvProductos.Name = "dgvProductos";
-            this.dgvProductos.Size = new System.Drawing.Size(804, 264);
+            this.dgvProductos.ReadOnly = true;
+            this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProductos.Size = new System.Drawing.Size(878, 264);
             this.dgvProductos.TabIndex = 2;
             this.dgvProductos.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
             // 
-            // ListadoProductos
+            // ProductoListaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 311);
+            this.ClientSize = new System.Drawing.Size(878, 311);
             this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "ListadoProductos";
+            this.Name = "ProductoListaForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listado de Productos";
@@ -173,5 +187,6 @@ namespace Facturacion.productos
         private System.Windows.Forms.ToolStripButton toolStripButtonNuevoProducto;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton BtnSeleccionar;
     }
 }

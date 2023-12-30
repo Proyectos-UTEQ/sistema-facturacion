@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Facturacion.Models;
 
 namespace Facturacion.Models
 {
@@ -24,5 +25,7 @@ namespace Facturacion.Models
         public decimal Total { get; set; }
 
         public int Estado { get; set; }
+
+        public List<FacturaDetalles> Detalles { get; set; } = new List<FacturaDetalles>();
     }
 }

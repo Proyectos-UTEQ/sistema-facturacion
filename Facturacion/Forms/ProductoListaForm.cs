@@ -7,15 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Facturacion.Helpers;
 using Facturacion.models;
 
 namespace Facturacion.productos
 {
     public partial class ProductoListaForm : Form
     {
-        public ProductoListaForm()
+        private Modo modo;
+
+        public event EventHandler<int> OnProductoSeleccionado;
+
+        public ProductoListaForm(Modo modo = Modo.NORMAL)
         {
             InitializeComponent();
+            this.modo = modo;
+        }
+
+        private void EnviarProductoSeleccionado(int id)
+        {
+            if (OnProductoSeleccionado != null)
+            {
+                OnProductoSeleccionado?.Invoke(this, id);
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -81,6 +95,14 @@ namespace Facturacion.productos
         private void ListadoProductos_Load(object sender, EventArgs e)
         {
             this.RefreshList();
+            if (modo == Modo.SELECIONAR)
+            {
+                BtnSeleccionar.Visible = true;
+            }
+            else
+            { 
+                BtnSeleccionar.Visible = false;
+            }
         }
         private async void RefreshList()
         {
@@ -162,6 +184,23 @@ namespace Facturacion.productos
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
             this.RefreshList();
+        }
+
+        // botón de seleccionar para enviar el producto al otro formulario.
+        private void BtnSeleccionar_Click_1(object sender, EventArgs e)
+        {
+            var id = ObtenerIDProductoSeleccionado();
+            if (id == 0)
+            {
+                MessageBox.Show("Seleccione un producto");
+                return;
+            }
+            else
+            { 
+                // enviamos y cerramos el formulario.
+                EnviarProductoSeleccionado(id);
+                Close();
+            }
         }
     }
 }

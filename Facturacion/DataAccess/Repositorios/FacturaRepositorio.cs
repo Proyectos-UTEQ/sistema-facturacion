@@ -103,19 +103,30 @@ namespace Facturacion.data
         {
             Factura factura = new Factura();
 
-            string query = @"SELECT ID_FACTURA, ID_CLIENTE, FECHA_HORA, NUMERO, TOTAL  
+            // Query para recuperar la cabecera de la factura.
+            string queryFacturaCabezera = @"SELECT ID_FACTURA, ID_CLIENTE, FECHA_HORA, NUMERO, TOTAL  
                                 from FACTURA
+                                where ID_FACTURA = @ID_FACTURA
+                            ";
+
+            // Query para recuperar el detalle de la factura.
+            string queryFacturaDetalle = @"SELECT ID_FACTURA_DETALLE, ID_FACTURA, ID_PRODUCTO, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, SUB_TOTAL
+                                from FACTURAS_DETALLES
                                 where ID_FACTURA = @ID_FACTURA
                             ";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@ID_FACTURA", id);
+                SqlCommand cmdCabezera = new SqlCommand(queryFacturaCabezera, conn);
+                cmdCabezera.Parameters.AddWithValue("@ID_FACTURA", id);
+
+                SqlCommand cmdDetalle = new SqlCommand(queryFacturaDetalle, conn);
+                cmdDetalle.Parameters.AddWithValue("@ID_FACTURA", id);
+
                 try
                 {
                     conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmdCabezera.ExecuteReader();
                     if (reader.Read())
                     {
                         factura.IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString());
@@ -124,6 +135,29 @@ namespace Facturacion.data
                         factura.Numero = Convert.ToInt32(reader["NUMERO"]);
                         factura.Total = Convert.ToDecimal(reader["TOTAL"].ToString());
                     }
+                    reader.Close();
+                    
+
+                    // Recuperamos todos los datos de los detalles de la factura.
+                    SqlDataReader readerDetalle = cmdDetalle.ExecuteReader();
+                    while (readerDetalle.Read())
+                    {
+                        // Instanciamos el detalle.
+                        FacturaDetalles facturasDetalles = new FacturaDetalles { 
+                            IDFacturaDetalle = Convert.ToInt32(readerDetalle["ID_FACTURA_DETALLE"].ToString()),
+                            IDFactura = Convert.ToInt32(readerDetalle["ID_FACTURA"].ToString()),
+                            IDProducto = Convert.ToInt32(readerDetalle["ID_PRODUCTO"].ToString()),
+                            Descripcion = readerDetalle["DESCRIPCION"].ToString(),
+                            Cantidad = Convert.ToDecimal(readerDetalle["CANTIDAD"]),
+                            PrecioUnitario = Convert.ToDecimal(readerDetalle["PRECIO_UNITARIO"]),
+                            SubTotal = Convert.ToDecimal(readerDetalle["SUB_TOTAL"]),
+                        };
+
+                        // agregamos el detalle.
+                        factura.Detalles.Add(facturasDetalles);
+                    }
+                    readerDetalle.Close();
+
                     conn.Close();
 
                 }
@@ -136,11 +170,13 @@ namespace Facturacion.data
             return factura;
         }
 
-        public int AddFactura(Factura factura)
+        public int RegistrarNuevaFactura(Factura factura)
         {
 
-            string query = "insert into FACTURA(ID_CLIENTE, FECHA_HORA, NUMERO,TOTAL, ESTADO) " +
-                "OUTPUT Inserted.ID_CLIENTE values(@ID_CLIENTE, @FECHA_HORA, @NUMERO, @TOTAL, '1')";
+            // TODO: Registrar la factura y recuperamos el id.
+
+            string query = "INSERT INTO FACTURA(ID_CLIENTE, FECHA_HORA, NUMERO, TOTAL, ESTADO) " +
+                "OUTPUT Inserted.ID_FACTURA values(@ID_CLIENTE, @FECHA_HORA, @NUMERO, @TOTAL, '1')";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -153,18 +189,21 @@ namespace Facturacion.data
 
                 try
                 {
+                    int idFactura = 0;
                     conn.Open();
                     // Ejecutar comando.
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
                         // Obtener ID del cliente.
-                        return Convert.ToInt32(reader["ID_CLIENTE"].ToString());
+                        idFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString());
                     }
                     else
                     {
                         return 0;
                     }
+                    conn.Close();
+                    return idFactura;
                 }
                 catch (Exception ex)
                 {
@@ -228,6 +267,30 @@ namespace Facturacion.data
                 {
                     conn.Open();
                     return cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        // Genera un nuevo numero de factura.
+        public int NuevoNueroFactura() 
+        {
+
+            string query = "SELECT TOP 1 MAX(f.NUMERO) + 1 as nueva_factura FROM FACTURA as f;";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                try
+                {
+                    conn.Open();
+                    int nuevaFactura = Convert.ToInt32(cmd.ExecuteScalar());
+                    conn.Close();
+                    return nuevaFactura;
                 }
                 catch (Exception ex)
                 {

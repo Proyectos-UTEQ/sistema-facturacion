@@ -109,6 +109,7 @@
     <Compile Include="Forms\ProductoDetallesForm.Designer.cs">
       <DependentUpon>ProductoDetallesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Modos.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Factura.cs" />
     <Compile Include="Models\FacturaDetalles.cs" />

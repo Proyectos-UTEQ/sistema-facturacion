@@ -9,47 +9,61 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.data;
 using Facturacion.facturas;
+using Facturacion.Helpers;
+using Facturacion.models;
 using Facturacion.Models;
+using Facturacion.productos;
 
 namespace Facturacion.detallefacturas
 {
-    public enum Modo
-    {
-        CREAR,
-        EDITAR
-    }
+
+    // Este formulario estara enfocado en agregar o modificar productos que se 
+    // agregen al detalle de la la factura.
 
     public partial class FacturaDetallesForm : Form
     {
-        List<DetalleFacturas> detalleFacturas = new List<DetalleFacturas>();
-        DetalleFacturas detalle = new DetalleFacturas();
+        List<FacturaDetalles> detalleFacturas = new List<FacturaDetalles>();
+        FacturaDetalles detalle = new FacturaDetalles();
         Factura factura = new Factura();
+
+        public event EventHandler<FacturaDetalles> OnFacturaDetallesChanged;
+
         private Modo modo = Modo.CREAR; 
-        private int id = 0;
+        private int IDFactura = 0;
         private int idFactura = 0;
         private int idProducto = 0;
         private bool isModified = false;
+
         public FacturaDetallesForm(Modo modo, int id = 0)
         {
             InitializeComponent();
-            this.id = id;
+            this.IDFactura = id;
             this.modo = modo;
         }
 
         public FacturaDetallesForm(Factura factura, Modo modo, int id=0)
         {
             InitializeComponent();
-            this.id = id;
+            this.IDFactura = id;
             this.modo = modo;
             this.factura = factura; 
         }
         public FacturaDetallesForm(Modo modo, IDS ids, int id)
         {
             InitializeComponent();
-            this.id= id;
+            this.IDFactura= id;
             this.idFactura = ids.IDFactura;
             this.idProducto = ids.IDProducto;
             this.modo = modo; 
+        }
+
+        // Enviar Factura detalles al formulario padre.
+        private void EmitirFacturaDetalle(FacturaDetalles detalles)
+        {
+            if (OnFacturaDetallesChanged != null)
+            { 
+                OnFacturaDetallesChanged?.Invoke(this, detalles);
+            }
         }
 
 
@@ -57,7 +71,9 @@ namespace Facturacion.detallefacturas
         {
             if (this.modo == Modo.CREAR)
             {
-                this.Text = "Crear Detalle factura"; 
+                // establecemos el titulo y el id de la factura
+                this.Text = "Agregar producto a factura"; 
+                txtIDFact.Text = IDFactura.ToString();
             }
             else if (this.modo == Modo.EDITAR)
             {
@@ -71,34 +87,67 @@ namespace Facturacion.detallefacturas
         private void loadFactura()
         {
             FacturaDetallesRepositorio facturasDetalleDB = new FacturaDetallesRepositorio();
-            DetalleFacturas facturasDetalle = facturasDetalleDB.GetFacturaDetalle(this.idFactura,this.idProducto);  
+            FacturaDetalles facturasDetalle = facturasDetalleDB.GetFacturaDetalle(this.idFactura,this.idProducto);  
 
             txtIDDETFAC.Text = facturasDetalle.IDFacturaDetalle.ToString();
             txtIDFact.Text = facturasDetalle.IDFactura.ToString();
             txtIDProd.Text = facturasDetalle.IDProducto.ToString();
-            txtNumero.Text = facturasDetalle.Numero.ToString("N2"); 
-            txtPrecUnit.Text = facturasDetalle.PrecioUnitario.ToString("N2"); 
+            TxtCantidad.Text = facturasDetalle.Cantidad.ToString("N2"); 
+            TxtPrecUnit.Text = facturasDetalle.PrecioUnitario.ToString("N2"); 
         }
 
-        private void Aplicar_Click(object sender, EventArgs e)
+        private void Guardar_Click(object sender, EventArgs e)
         {
-            if (!this.ValidateForm())
+            // validar 
+
+            if (!ValidateForm()) 
             {
-                MessageBox.Show("Formulario invalido");
+                MessageBox.Show("Formulario incompleto.");
                 return;
             }
-            if (this.modo == Modo.CREAR)
-            {
-                this.CrearFactura();
-            }
-            else
-            {
-                this.EditarFactura();
-            }
 
-            this.UpdateStateForms(false);
-            MessageBox.Show("SE A REALIZADO LA VENTA EXITOSAMENTE");
-            this.Close();
+            FacturaDetalles detalle = new FacturaDetalles
+            {
+                IDFactura = Convert.ToInt32(txtIDFact.Text),
+                IDProducto = Convert.ToInt32(txtIDProd.Text),
+                Descripcion = TxtDescripcion.Text,
+                Cantidad = Convert.ToDecimal(TxtCantidad.Text),
+                SubTotal = GetSubTotal(),
+                PrecioUnitario = Convert.ToDecimal(TxtPrecUnit.Text)
+            };
+
+            // TODO: Enviar al formulario de factura.
+            EmitirFacturaDetalle(detalle);
+            LimpiarFormulario();
+
+            //if (!this.ValidateForm())
+            //{
+            //    MessageBox.Show("Formulario invalido");
+            //    return;
+            //}
+
+            //if (this.modo == Modo.CREAR)
+            //{
+            //    this.CrearFactura();
+            //}
+            //else
+            //{
+            //    this.EditarFactura();
+            //}
+
+            //this.UpdateStateForms(false);
+            //MessageBox.Show("SE A REALIZADO LA VENTA EXITOSAMENTE");
+            //this.Close();
+        }
+
+        public void LimpiarFormulario() { 
+            txtIDProd.Text = string.Empty;
+            txtNombre.Text = string.Empty;
+            txtCosto.Text = string.Empty;
+            txtPrecio.Text = string.Empty;
+            TxtDescripcion.Text = string.Empty;
+            TxtCantidad.Text = "0";
+            TxtPrecUnit.Text = "0";
         }
 
         private void CrearFactura()
@@ -108,7 +157,7 @@ namespace Facturacion.detallefacturas
 
             // enviamos los datos a detalle factura
             // esperamos a la db  
-            facturaDB.AddFactura(this.factura);
+            facturaDB.RegistrarNuevaFactura(this.factura);
             int id= facturaDB.GetIDFinal();
             detalleFacturaDB.AddFacturaDetalle(detalleFacturas, id);
 
@@ -122,7 +171,7 @@ namespace Facturacion.detallefacturas
        
             // enviamos los datos a detalle factura
             // esperamos a la db    
-            detalleFacturaDB.AddFacturaDetalle(detalleFacturas, this.id);
+            detalleFacturaDB.AddFacturaDetalle(detalleFacturas, this.IDFactura);
 
             this.updateTitle();
             this.modo = Modo.EDITAR;
@@ -132,11 +181,11 @@ namespace Facturacion.detallefacturas
         {
             FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
 
-            DetalleFacturas detalleFactura = new DetalleFacturas();
+            FacturaDetalles detalleFactura = new FacturaDetalles();
             detalleFactura.IDFactura = Convert.ToInt32(txtIDFact.Text.Trim());
             detalleFactura.IDProducto = Convert.ToInt32(txtIDProd.Text.Trim());
-            detalleFactura.Numero = Convert.ToDecimal(txtNumero.Text.Trim()); 
-            detalleFactura.PrecioUnitario = Convert.ToDecimal(txtPrecUnit.Text.Trim());
+            detalleFactura.Cantidad = Convert.ToDecimal(TxtCantidad.Text.Trim()); 
+            detalleFactura.PrecioUnitario = Convert.ToDecimal(TxtPrecUnit.Text.Trim());
             var rowAffect = detalleFacturaDB.UpdateFacturaDetalle(detalleFactura);
 
             if (rowAffect > 0)
@@ -173,57 +222,69 @@ namespace Facturacion.detallefacturas
 
         private void btnAggProd_Click(object sender, EventArgs e)
         { 
-            DetalleFacturas detalle = new DetalleFacturas();
-             
-            detalle.IDProducto= Convert.ToInt32(txtIDProd.Text);
-            detalle.Numero= Convert.ToDecimal(txtNumero.Text); 
-            detalle.PrecioUnitario = Convert.ToDecimal(txtPrecUnit.Text);
-             
-            detalleFacturas.Add(detalle);
+            
 
-            if(this.modo==Modo.EDITAR)
-            {
-                CrearProducto();
-                this.btnAplicar.Enabled = false;
+            //detalleFacturas.Add(detalle);
+
+            //if (this.modo == Modo.EDITAR)
+            //{
+            //    CrearProducto();
+            //    this.btnGuardar.Enabled = false;
+            //}
+            //else
+            //{
+            //    this.btnGuardar.Enabled = true;
+            //}
+            //MessageBox.Show("PRODUCTO AGREGADO CORRECTAMENTE");
+            //this.UpdateStateForms(true);
+        }
+
+        // Calculamos el subtotal del producto.
+        private decimal GetSubTotal()
+        {
+
+            // validar que precio unitario y cantidad estan bien
+            if (!ValidateForm()) {
+                return 0;
             }
-            else
-            {
-                this.btnAplicar.Enabled = true;
-            }
-            MessageBox.Show("PRODUCTO AGREGADO CORRECTAMENTE");
-            this.UpdateStateForms(true); 
+            var subtotal = Convert.ToDecimal(TxtPrecUnit.Text) * Convert.ToDecimal(TxtCantidad.Text);
+            LbSubTotal.Text = subtotal.ToString("N2");
+            return subtotal;
         }
 
         private void txtNumero_TextChanged(object sender, EventArgs e)
         {
-            if (!helpers.FormsValidatros.IsEmpty(txtNumero.Text))
+            if (!helpers.FormsValidatros.IsEmpty(TxtCantidad.Text))
             {
-                txtNumero.Tag = helpers.FormsValidatros.IsNumero(lblNumero, txtNumero.Text);
+                TxtCantidad.Tag = helpers.FormsValidatros.IsNumero(lblNumero, TxtCantidad.Text);
             }
             else
             {
                 lblNumero.ForeColor = System.Drawing.Color.Black;
             }
             this.UpdateStateForms(true);
+            GetSubTotal();
         }
          
         private void txtPrecUnit_TextChanged(object sender, EventArgs e)
         {
-            if (!helpers.FormsValidatros.IsEmpty(txtPrecUnit.Text))
+            if (!helpers.FormsValidatros.IsEmpty(TxtPrecUnit.Text))
             {
-                txtPrecUnit.Tag = helpers.FormsValidatros.IsNumero(lblPrecioUnit, txtPrecUnit.Text);
+                TxtPrecUnit.Tag = helpers.FormsValidatros.IsDecimal(lblPrecioUnit, TxtPrecUnit.Text);
             }
             else
             {
                 lblPrecioUnit.ForeColor = System.Drawing.Color.Black;
             }
             this.UpdateStateForms(true);
+            GetSubTotal();
         }
 
+        // valida los campos precio unitario y cantidad
         private bool ValidateForm()
         {
-            bool cant = txtNumero.Tag != null ? (bool)txtNumero.Tag : false; 
-            bool preciounit = txtPrecUnit.Tag != null ? (bool)txtPrecUnit.Tag : false;
+            bool cant = TxtCantidad.Tag != null ? (bool)TxtCantidad.Tag : false; 
+            bool preciounit = TxtPrecUnit.Tag != null ? (bool)TxtPrecUnit.Tag : false;
 
             return cant && preciounit;
         }
@@ -267,7 +328,7 @@ namespace Facturacion.detallefacturas
 
             // eliminar cliente
             FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
-            var rowAffect = detalleFacturaDB.DeleteFacturaDetalle(this.id);
+            var rowAffect = detalleFacturaDB.DeleteFacturaDetalle(this.IDFactura);
             if (rowAffect > 0)
             {
                 MessageBox.Show("Producto eliminado correctamente");
@@ -277,6 +338,30 @@ namespace Facturacion.detallefacturas
             {
                 MessageBox.Show("No se pudo eliminar el producto");
             }
+        }
+
+        private void BtnBuscarProducto_Click(object sender, EventArgs e)
+        {
+            ProductoListaForm productoListaForm = new ProductoListaForm(Modo.SELECIONAR);
+            productoListaForm.OnProductoSeleccionado += OnProductoSeleccionado;
+            productoListaForm.ShowDialog();
+        }
+
+        private void OnProductoSeleccionado(object sender, int id) 
+        { 
+            ProductoRespositorio productoRespositorio = new ProductoRespositorio();
+            var producto = productoRespositorio.GetProducto(id);
+            txtIDProd.Text = producto.IDProducto.ToString();
+            txtNombre.Text = producto.Nombre;
+            txtCosto.Text = producto.Costo.ToString();
+            txtPrecio.Text = producto.Precio.ToString();
+
+            // Automaticamente el nombre del Producto se establece en descripción.
+            TxtDescripcion.Text = producto.Nombre;
+            TxtCantidad.Text = 1.ToString();
+            TxtPrecUnit.Text = producto.Precio.ToString();
+
+            GetSubTotal();
         }
     }
 }
