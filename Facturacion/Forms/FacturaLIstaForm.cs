@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.data;
 using Facturacion.detallefacturas;
+using Facturacion.Helpers;
 using Facturacion.models;
+using Facturacion.Services;
 
 namespace Facturacion.facturas
 {
@@ -24,18 +26,27 @@ namespace Facturacion.facturas
             this.RefreshList();
         }
 
-        private async void RefreshList()
+        private void RefreshList()
         {
-            FacturaRepositorio facturaDB = new FacturaRepositorio();
+            
+            FacturacionService service = new FacturacionService();
             lblStatus.Text = "Cargando facturas...";
             // configuramos el progresbar
             toolStripProgressClientes.Visible = true;
             toolStripProgressClientes.Style = ProgressBarStyle.Marquee;
 
-            // esperamos a la db
-            await Task.Delay(500);
-            dataFacturas.DataSource = facturaDB.GetAll(txtSearch.Text);
+
+            dataFacturas.DataSource = service.ObtenerFacturas(txtSearch.Text);
             dataFacturas.Columns["TOTAL"].DefaultCellStyle.Format = "N2";
+            dataFacturas.Columns["Id"].Visible = false;
+            dataFacturas.Columns["IDCliente"].Visible = false;
+            dataFacturas.Columns["Numero"].HeaderText = "Número de factura";
+            dataFacturas.Columns["Fecha"].HeaderText = "Creada";
+            dataFacturas.Columns["Cedula"].HeaderText = "Cédula del cliente";
+            dataFacturas.Columns["Cliente"].HeaderText = "Cliente";
+            dataFacturas.Columns["Cliente"].Width = 200;
+
+
 
             toolStripProgressClientes.Style = ProgressBarStyle.Continuous;
             toolStripProgressClientes.Visible = false;
@@ -82,7 +93,7 @@ namespace Facturacion.facturas
             {
                 return 0;
             }
-            return Convert.ToInt32(dataFacturas.SelectedRows[0].Cells["IDFactura"].Value);
+            return Convert.ToInt32(dataFacturas.SelectedRows[0].Cells["Id"].Value);
         }
 
         private void toolStripNuevaFactura_Click(object sender, EventArgs e)
@@ -131,5 +142,7 @@ namespace Facturacion.facturas
         {
             this.RefreshList();
         }
+
+     
     }
 }

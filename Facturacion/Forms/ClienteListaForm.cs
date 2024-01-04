@@ -1,4 +1,5 @@
-﻿using Facturacion.models;
+﻿using Facturacion.Helpers;
+using Facturacion.models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,11 +13,19 @@ using System.Windows.Forms;
 
 namespace Facturacion.clientes
 {
+
     public partial class ClienteListaForm : Form
     {
-        public ClienteListaForm()
+        // modo de utilizacion del formulario.
+        private Modo modo;
+
+        public event EventHandler<int> OnClienteSelecionado;
+
+        public ClienteListaForm(Modo modo = Modo.NORMAL)
         {
             InitializeComponent();
+
+            this.modo = modo;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -24,9 +33,26 @@ namespace Facturacion.clientes
 
         }
 
+        // Emite el evento.
+        private void EnviarCliente(int id)
+        {
+            if (this.OnClienteSelecionado != null)
+            {
+                this.OnClienteSelecionado?.Invoke(this, id);
+            }
+        }
+
         private void ListCustomers_Load(object sender, EventArgs e)
         {
             this.RefreshList();
+            if (this.modo == Modo.SELECIONAR)
+            {
+                this.btnSeleccionar.Visible = true;
+            }
+            else 
+            { 
+                this.btnSeleccionar.Visible = false;
+            }
         }
 
         private async void RefreshList()
@@ -138,6 +164,21 @@ namespace Facturacion.clientes
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        // boton para seleccionar un cliente.
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            var id = GetSelectedClienteID();
+            if (id == 0)
+            {
+                MessageBox.Show("Seleccione un cliente");
+            }
+            else 
+            { 
+                EnviarCliente(id);
+                Close();
+            }
         }
     }
 }

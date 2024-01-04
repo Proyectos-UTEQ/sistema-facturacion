@@ -127,5 +127,19 @@ namespace Facturacion.helpers
                 return true;
             }
         }
+
+        public static bool IsDecimal(Label lblTotal, string text) 
+        {
+            if (decimal.TryParse(text, out decimal resultado))
+            {
+                lblTotal.ForeColor = System.Drawing.Color.Blue;
+                return true;
+            }
+            else 
+            {
+                lblTotal.ForeColor = System.Drawing.Color.Red;
+                return false;
+            }
+        }
     }
 }

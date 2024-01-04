@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using Facturacion.Models;
 
 namespace Facturacion.Models
 {
@@ -10,9 +12,20 @@ namespace Facturacion.Models
     public class Factura
     {
         public int IDFactura { get; set; }
+
+        // Referencia hacia el cliente.
         public int IDCliente { get; set; }
+
+        public Cliente Cliente { get; set; } = new Cliente();
+
         public DateTime FechaHora { get; set; }
-        public decimal Numero { get; set; }
+
+        public int Numero { get; set; }
+
         public decimal Total { get; set; }
+
+        public int Estado { get; set; }
+
+        public List<FacturaDetalles> Detalles { get; set; } = new List<FacturaDetalles>();
     }
 }

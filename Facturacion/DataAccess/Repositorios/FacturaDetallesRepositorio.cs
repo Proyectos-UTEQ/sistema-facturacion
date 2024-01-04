@@ -44,9 +44,9 @@ namespace Facturacion.data
 
         // Obtener todas las facturas de la base de datos.
         // Para realizar busquedas por campos especiales.
-        public List<DetalleFacturas> ObtenerFacturaDetalles(string search)
+        public List<FacturaDetalles> ObtenerFacturaDetalles(string search)
         {
-            List<DetalleFacturas> listfacturasdet = new List<DetalleFacturas>();
+            List<FacturaDetalles> listfacturasdet = new List<FacturaDetalles>();
 
 
             string query = @"SELECT ID_FACTURA_DETALLE, ID_FACTURA,ID_PRODUCTO, CANTIDAD, SUB_TOTAL, PRECIO_UNITARIO  
@@ -66,11 +66,11 @@ namespace Facturacion.data
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        DetalleFacturas facturasDetalle = new DetalleFacturas();
+                        FacturaDetalles facturasDetalle = new FacturaDetalles();
                         facturasDetalle.IDFacturaDetalle = Convert.ToInt32(reader["ID_FACTURA_DETALLE"].ToString());
                         facturasDetalle.IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString());
                         facturasDetalle.IDProducto = Convert.ToInt32(reader["ID_PRODUCTO"].ToString());
-                        facturasDetalle.Numero = Convert.ToDecimal(reader["CANTIDAD"].ToString().Trim());
+                        facturasDetalle.Cantidad = Convert.ToDecimal(reader["CANTIDAD"].ToString().Trim());
                         facturasDetalle.SubTotal = Convert.ToDecimal(reader["SUB_TOTAL"].ToString().Trim());
                         facturasDetalle.PrecioUnitario = Convert.ToDecimal(reader["PRECIO_UNITARIO"].ToString().Trim());
 
@@ -89,31 +89,34 @@ namespace Facturacion.data
             return listfacturasdet;
         }
 
-        public List<DetalleFacturas> GetListFacturaDetalle(int id)
+
+        // Obtener el detalle de una factura, tambien para realizar busquedas por campos especiales.
+        public List<FacturaDetalles> ObtenerDetalle(int id, string search = "")
         {
-            List<DetalleFacturas> facturasDetalle = new List<DetalleFacturas>();
+            List<FacturaDetalles> facturasDetalle = new List<FacturaDetalles>();
 
 
-            string query = @"SELECT ID_FACTURA_DETALLE, ID_FACTURA,ID_PRODUCTO, CANTIDAD, SUB_TOTAL, PRECIO_UNITARIO  
-                                from FACTURAS_DETALLES
-                                where ID_FACTURA = @ID_FACTURA
+            string query = @"SELECT ID_FACTURA_DETALLE, ID_FACTURA, ID_PRODUCTO, CANTIDAD, SUB_TOTAL, PRECIO_UNITARIO  
+                                FROM FACTURAS_DETALLES
+                                WHERE ID_FACTURA = @ID_FACTURA AND (ID_PRODUCTO like @SEARCH or CANTIDAD like @SEARCH or SUB_TOTAL like @SEARCH or PRECIO_UNITARIO like @SEARCH)
                             ";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@ID_FACTURA", id);
+                cmd.Parameters.AddWithValue("@SEARCH", "%" + search + "%");
                 try
                 {
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        DetalleFacturas factDetalle = new DetalleFacturas();
+                        FacturaDetalles factDetalle = new FacturaDetalles();
                         factDetalle.IDFacturaDetalle = Convert.ToInt32(reader["ID_FACTURA_DETALLE"].ToString());
                         factDetalle.IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString());
                         factDetalle.IDProducto = Convert.ToInt32(reader["ID_PRODUCTO"].ToString());
-                        factDetalle.Numero = Convert.ToDecimal(reader["CANTIDAD"].ToString().Trim());
+                        factDetalle.Cantidad = Convert.ToDecimal(reader["CANTIDAD"].ToString().Trim());
                         factDetalle.SubTotal = Convert.ToDecimal(reader["SUB_TOTAL"].ToString().Trim());
                         factDetalle.PrecioUnitario = Convert.ToDecimal(reader["PRECIO_UNITARIO"].ToString().Trim());
 
@@ -131,9 +134,9 @@ namespace Facturacion.data
             return facturasDetalle;
         }
 
-        public DetalleFacturas GetFacturaDetalle(int idFactura, int idProducto)
+        public FacturaDetalles GetFacturaDetalle(int idFactura, int idProducto)
         {
-            DetalleFacturas facturasDetalle = new DetalleFacturas();
+            FacturaDetalles facturasDetalle = new FacturaDetalles();
 
 
             string query = @"SELECT ID_FACTURA_DETALLE, ID_FACTURA,ID_PRODUCTO, CANTIDAD, SUB_TOTAL, PRECIO_UNITARIO  
@@ -155,7 +158,7 @@ namespace Facturacion.data
                         facturasDetalle.IDFacturaDetalle = Convert.ToInt32(reader["ID_FACTURA_DETALLE"].ToString());
                         facturasDetalle.IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString());
                         facturasDetalle.IDProducto = Convert.ToInt32(reader["ID_PRODUCTO"].ToString());
-                        facturasDetalle.Numero = Convert.ToDecimal(reader["CANTIDAD"].ToString().Trim());
+                        facturasDetalle.Cantidad = Convert.ToDecimal(reader["CANTIDAD"].ToString().Trim());
                         facturasDetalle.SubTotal = Convert.ToDecimal(reader["SUB_TOTAL"].ToString().Trim());
                         facturasDetalle.PrecioUnitario = Convert.ToDecimal(reader["PRECIO_UNITARIO"].ToString().Trim());
                     }
@@ -171,7 +174,7 @@ namespace Facturacion.data
             return facturasDetalle;
         }
 
-        public List<int> AddFacturaDetalle(List<DetalleFacturas> facturasDetalle, int id)
+        public List<int> AddFacturaDetalle(List<FacturaDetalles> facturasDetalle, int id)
         {
             List<int> insertedIds = new List<int>();
 
@@ -195,7 +198,7 @@ namespace Facturacion.data
                     {
                         cmd.Parameters.AddWithValue("@ID_FACTURA", id);
                         cmd.Parameters.AddWithValue("@ID_PRODUCTO", detalle.IDProducto);
-                        cmd.Parameters.AddWithValue("@CANTIDAD", detalle.Numero);
+                        cmd.Parameters.AddWithValue("@CANTIDAD", detalle.Cantidad);
                         cmd.Parameters.AddWithValue("@PRECIO_UNITARIO", detalle.PrecioUnitario);
 
                         try
@@ -214,7 +217,7 @@ namespace Facturacion.data
             return insertedIds;
         }
 
-        public List<int> AddProducto(List<DetalleFacturas> facturasDetalle, IDS ids)
+        public List<int> AddProducto(List<FacturaDetalles> facturasDetalle, IDS ids)
         {
             List<int> insertedIds = new List<int>();
 
@@ -238,7 +241,7 @@ namespace Facturacion.data
                     {
                         cmd.Parameters.AddWithValue("@ID_FACTURA", ids.IDFactura);
                         cmd.Parameters.AddWithValue("@ID_PRODUCTO", ids.IDProducto);
-                        cmd.Parameters.AddWithValue("@CANTIDAD", detalle.Numero);
+                        cmd.Parameters.AddWithValue("@CANTIDAD", detalle.Cantidad);
                         cmd.Parameters.AddWithValue("@PRECIO_UNITARIO", detalle.PrecioUnitario);
 
                         try
@@ -259,7 +262,7 @@ namespace Facturacion.data
 
 
 
-        public int UpdateFacturaDetalle(DetalleFacturas facturasDetalle)
+        public int UpdateFacturaDetalle(FacturaDetalles facturasDetalle)
         {
             string query = "UPDATE FACTURAS_DETALLES SET CANTIDAD = @CANTIDAD," +
                 " SUB_TOTAL = @SUB_TOTAL, PRECIO_UNITARIO = @PRECIO_UNITARIO " +
@@ -268,7 +271,7 @@ namespace Facturacion.data
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@ID_FACTURA", facturasDetalle.IDFactura);
-                cmd.Parameters.AddWithValue("@CANTIDAD", facturasDetalle.Numero);
+                cmd.Parameters.AddWithValue("@CANTIDAD", facturasDetalle.Cantidad);
                 cmd.Parameters.AddWithValue("@SUB_TOTAL", facturasDetalle.SubTotal);
                 cmd.Parameters.AddWithValue("@PRECIO_UNITARIO", facturasDetalle.PrecioUnitario);
 
@@ -301,6 +304,88 @@ namespace Facturacion.data
                 {
                     throw new Exception(ex.Message);
                 }
+            }
+        }
+
+        public void RegistrarDetalleFactura(Factura factura) 
+        {
+            // detalles que se van a crear o insertar en la base de datos
+            var crear = factura.Detalles.Where(detalle => detalle.IDFacturaDetalle == 0).ToList();
+            Insertar(factura.IDFactura, crear);
+
+            // detalles que se van a actualizar.
+            var actualizar = factura.Detalles.Where(detalle => detalle.IDFacturaDetalle != 0).ToList();
+            // actualizar los detalles.
+            Actualizar(factura.IDFactura, actualizar);
+        }
+
+        public void Insertar(int idfactura, List<FacturaDetalles> detalles) 
+        {
+            // insertar detalle de una factura.
+            string query = "INSERT INTO FACTURAS_DETALLES(ID_FACTURA, ID_PRODUCTO, DESCRIPCION, CANTIDAD, PRECIO_UNITARIO, SUB_TOTAL)" +
+                " VALUES(@ID_FACTURA, @ID_PRODUCTO, @DESCRIPCION, @CANTIDAD, @PRECIO_UNITARIO, @SUB_TOTAL)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                // Crear comando.
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.Add("@ID_FACTURA", System.Data.SqlDbType.Int);
+                cmd.Parameters.Add("@ID_PRODUCTO", System.Data.SqlDbType.Int);
+                cmd.Parameters.Add("@DESCRIPCION", System.Data.SqlDbType.VarChar);
+                cmd.Parameters.Add("@CANTIDAD", System.Data.SqlDbType.Int);
+                cmd.Parameters.Add("@PRECIO_UNITARIO", System.Data.SqlDbType.Decimal);
+                cmd.Parameters.Add("@SUB_TOTAL", System.Data.SqlDbType.Decimal);
+
+                foreach (var detalle in detalles)
+                { 
+                    cmd.Parameters["@ID_FACTURA"].Value = idfactura;
+                    cmd.Parameters["@ID_PRODUCTO"].Value = detalle.IDProducto;
+                    cmd.Parameters["@DESCRIPCION"].Value = detalle.Descripcion;
+                    cmd.Parameters["@CANTIDAD"].Value = detalle.Cantidad;
+                    cmd.Parameters["@PRECIO_UNITARIO"].Value = detalle.PrecioUnitario;
+                    cmd.Parameters["@SUB_TOTAL"].Value = detalle.SubTotal;
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        public void Actualizar(int idfactura, List<FacturaDetalles> detalles)
+        {
+            // insertar detalle de una factura.
+            string query = "UPDATE FACTURAS_DETALLES SET ID_FACTURA=@ID_FACTURA, ID_PRODUCTO=@ID_PRODUCTO, DESCRIPCION=@DESCRIPCION, CANTIDAD=@CANTIDAD, PRECIO_UNITARIO=@PRECIO_UNITARIO, SUB_TOTAL=@SUB_TOTAL" +
+                " WHERE ID_FACTURA_DETALLE=@ID_FACTURA_DETALLE";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                // Crear comando.
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.Add("@ID_FACTURA", System.Data.SqlDbType.Int);
+                cmd.Parameters.Add("@ID_PRODUCTO", System.Data.SqlDbType.Int);
+                cmd.Parameters.Add("@DESCRIPCION", System.Data.SqlDbType.VarChar);
+                cmd.Parameters.Add("@CANTIDAD", System.Data.SqlDbType.Int);
+                cmd.Parameters.Add("@PRECIO_UNITARIO", System.Data.SqlDbType.Decimal);
+                cmd.Parameters.Add("@SUB_TOTAL", System.Data.SqlDbType.Decimal);
+                cmd.Parameters.Add("@ID_FACTURA_DETALLE", System.Data.SqlDbType.Int);
+
+                foreach (var detalle in detalles)
+                {
+                    cmd.Parameters["@ID_FACTURA"].Value = idfactura;
+                    cmd.Parameters["@ID_PRODUCTO"].Value = detalle.IDProducto;
+                    cmd.Parameters["@DESCRIPCION"].Value = detalle.Descripcion;
+                    cmd.Parameters["@CANTIDAD"].Value = detalle.Cantidad;
+                    cmd.Parameters["@PRECIO_UNITARIO"].Value = detalle.PrecioUnitario;
+                    cmd.Parameters["@SUB_TOTAL"].Value = detalle.SubTotal;
+                    cmd.Parameters["@ID_FACTURA_DETALLE"].Value = detalle.IDFacturaDetalle;
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
             }
         }
     }

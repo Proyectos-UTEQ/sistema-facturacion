@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\DbContext.cs" />
+    <Compile Include="DTOs\FacturaDTO.cs" />
     <Compile Include="Forms\ClienteDetallesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +109,7 @@
     <Compile Include="Forms\ProductoDetallesForm.Designer.cs">
       <DependentUpon>ProductoDetallesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Modos.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Factura.cs" />
     <Compile Include="Models\FacturaDetalles.cs" />
@@ -195,6 +197,8 @@
   <ItemGroup>
     <None Include="Resources\warning.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\touchscreen.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

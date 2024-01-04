@@ -7,16 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Facturacion.Helpers;
 using Facturacion.models;
 using Facturacion.Models;
 
 namespace Facturacion.productos
 {
-    public enum Modo
-    {
-        CREAR,
-        EDITAR
-    }
+    
     public partial class ProductoDetallesForm : Form
     {
         private Modo modo = Modo.CREAR;

@@ -30,9 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClienteListaForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripNuevoCliente = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDeleteCliente = new System.Windows.Forms.ToolStripButton();
-            this.btnUpdateList = new System.Windows.Forms.ToolStripButton();
             this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.dataUsuarios = new System.Windows.Forms.DataGridView();
@@ -40,6 +37,10 @@
             this.toolStripProgressClientes = new System.Windows.Forms.ToolStripProgressBar();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.toolStripNuevoCliente = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDeleteCliente = new System.Windows.Forms.ToolStripButton();
+            this.btnUpdateList = new System.Windows.Forms.ToolStripButton();
+            this.btnSeleccionar = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataUsuarios)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -53,7 +54,8 @@
             this.toolStripDeleteCliente,
             this.btnUpdateList,
             this.txtSearch,
-            this.toolStripLabel1});
+            this.toolStripLabel1,
+            this.btnSeleccionar});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 8, 0);
@@ -61,34 +63,6 @@
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
-            // 
-            // toolStripNuevoCliente
-            // 
-            this.toolStripNuevoCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripNuevoCliente.Image")));
-            this.toolStripNuevoCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripNuevoCliente.Name = "toolStripNuevoCliente";
-            this.toolStripNuevoCliente.Size = new System.Drawing.Size(100, 22);
-            this.toolStripNuevoCliente.Text = "Nuevo cliente";
-            this.toolStripNuevoCliente.Click += new System.EventHandler(this.toolStripNuevoCliente_Click);
-            // 
-            // toolStripDeleteCliente
-            // 
-            this.toolStripDeleteCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDeleteCliente.Image")));
-            this.toolStripDeleteCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDeleteCliente.Name = "toolStripDeleteCliente";
-            this.toolStripDeleteCliente.Size = new System.Drawing.Size(108, 22);
-            this.toolStripDeleteCliente.Text = "Eliminar cliente";
-            this.toolStripDeleteCliente.ToolTipText = "Eliminar cliente";
-            this.toolStripDeleteCliente.Click += new System.EventHandler(this.toolStripDeleteCliente_Click);
-            // 
-            // btnUpdateList
-            // 
-            this.btnUpdateList.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateList.Image")));
-            this.btnUpdateList.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUpdateList.Name = "btnUpdateList";
-            this.btnUpdateList.Size = new System.Drawing.Size(162, 22);
-            this.btnUpdateList.Text = "Actualizar lista de clientes";
-            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
             // 
             // txtSearch
             // 
@@ -164,7 +138,45 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(804, 286);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
-            // ListClients
+            // toolStripNuevoCliente
+            // 
+            this.toolStripNuevoCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripNuevoCliente.Image")));
+            this.toolStripNuevoCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripNuevoCliente.Name = "toolStripNuevoCliente";
+            this.toolStripNuevoCliente.Size = new System.Drawing.Size(100, 22);
+            this.toolStripNuevoCliente.Text = "Nuevo cliente";
+            this.toolStripNuevoCliente.Click += new System.EventHandler(this.toolStripNuevoCliente_Click);
+            // 
+            // toolStripDeleteCliente
+            // 
+            this.toolStripDeleteCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDeleteCliente.Image")));
+            this.toolStripDeleteCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDeleteCliente.Name = "toolStripDeleteCliente";
+            this.toolStripDeleteCliente.Size = new System.Drawing.Size(108, 22);
+            this.toolStripDeleteCliente.Text = "Eliminar cliente";
+            this.toolStripDeleteCliente.ToolTipText = "Eliminar cliente";
+            this.toolStripDeleteCliente.Click += new System.EventHandler(this.toolStripDeleteCliente_Click);
+            // 
+            // btnUpdateList
+            // 
+            this.btnUpdateList.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateList.Image")));
+            this.btnUpdateList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUpdateList.Name = "btnUpdateList";
+            this.btnUpdateList.Size = new System.Drawing.Size(162, 22);
+            this.btnUpdateList.Text = "Actualizar lista de clientes";
+            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
+            // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnSeleccionar.Image = global::Facturacion.Properties.Resources.touchscreen;
+            this.btnSeleccionar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSeleccionar.Name = "btnSeleccionar";
+            this.btnSeleccionar.Size = new System.Drawing.Size(87, 22);
+            this.btnSeleccionar.Text = "Seleccionar";
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
+            // 
+            // ClienteListaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -172,7 +184,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "ListClients";
+            this.Name = "ClienteListaForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "";
@@ -205,5 +217,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox txtSearch;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.ToolStripButton btnSeleccionar;
     }
 }

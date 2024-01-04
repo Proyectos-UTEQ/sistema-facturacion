@@ -1,4 +1,5 @@
-﻿using Facturacion.models;
+﻿using Facturacion.Helpers;
+using Facturacion.models;
 using Facturacion.Models;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,6 @@ using System.Windows.Forms;
 
 namespace Facturacion.clientes
 {
-    // enumera los modos de edicion.
-    public enum Modo
-    {
-        CREAR,
-        EDITAR
-    }
 
     public partial class ClienteDetallesForm : Form
     {
