@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,7 @@ namespace Facturacion.facturas
             {
                 this.Text = "Crear Factura";
                 this.btnAplicar.Enabled = true;
+                this.btnImprimir.Enabled = false;
                 _factura = new Factura();
                 dtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 // TODO: Definir el numero de la factura.
@@ -223,6 +225,7 @@ namespace Facturacion.facturas
             if (this.modo == Modo.CREAR)
             {
                 this.CrearFactura();
+                this.ImprimirFactura();
             }
             else
             {
@@ -421,6 +424,137 @@ namespace Facturacion.facturas
         { 
             _factura.Total = _factura.Detalles.Sum(d => d.SubTotal);
             LbTotal.Text = _factura.Total.ToString("N2");
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            ImprimirFactura();
+        }
+
+         
+
+        private void ImprimirFactura()
+        {
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintPage += new PrintPageEventHandler(PrintPage);
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDocument;
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                printDocument.Print();
+            }
+        }
+
+        private void PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Font fontTitulo = new Font("Arial", 32, FontStyle.Bold);
+            Font fontCabecera = new Font("Arial", 16, FontStyle.Bold);
+            Font fontCuerpo = new Font("Arial", 12);
+            SolidBrush celesteBrush = new SolidBrush(Color.LightSkyBlue);
+
+            float x = 20;
+            float y = 20;
+
+     
+            e.Graphics.DrawString("NisaSoft", fontTitulo, celesteBrush, x, y);
+
+ 
+            e.Graphics.DrawString("Factura", fontTitulo, celesteBrush, e.PageBounds.Width - 200, y);
+
+ 
+            y += 60;
+            e.Graphics.DrawLine(Pens.Black, x, y, e.PageBounds.Width - x, y);
+
+ 
+            y += 50;
+            e.Graphics.DrawString("Cliente:", fontCabecera, Brushes.Black, x, y);
+            y += 30;
+
+            e.Graphics.DrawString("  Nombre: ", fontCuerpo, Brushes.Black, x, y);
+            e.Graphics.DrawString($"{txtNombres.Text}", fontCuerpo, Brushes.Black, x + 80, y);
+            y += 20;
+
+            e.Graphics.DrawString("  Apellido: ", fontCuerpo, Brushes.Black, x, y);
+            e.Graphics.DrawString($"{txtApellidos.Text}", fontCuerpo, Brushes.Black, x + 80, y);
+            y += 20;
+
+            e.Graphics.DrawString("  Cedula: ", fontCuerpo, Brushes.Black, x, y);
+            e.Graphics.DrawString($"{txtCedula.Text}", fontCuerpo, Brushes.Black, x + 80, y);
+            y += 30;  
+
+         
+            e.Graphics.DrawString($"N Factura: {_factura.IDFactura}", fontCuerpo, Brushes.Black, e.PageBounds.Width - 260, 100);
+            e.Graphics.DrawString($"Fecha: {_factura.FechaHora}", fontCuerpo, Brushes.Black, e.PageBounds.Width - 260, 120);
+
+  
+            y += 20;
+            e.Graphics.DrawString("Detalle de la Compra:", fontCabecera, Brushes.Black, x, y);
+            y += 30;
+
+            // Encabezados del DataGridView
+            fontCabecera = new Font("Arial", 10, FontStyle.Bold);
+            int[] columnWidths = { 120, 80, 100, 130, 80, 80, 120 };  
+            int[] valueWidths = { 100, 80, 100,130, 80, 80, 120 };  
+            int totalWidth = columnWidths.Sum();
+
+         
+            if (totalWidth > e.PageBounds.Width - 40)
+            {
+                float scaleFactor = (e.PageBounds.Width - 40) / (float)totalWidth;
+                for (int i = 0; i < columnWidths.Length; i++)
+                {
+                    columnWidths[i] = (int)(columnWidths[i] * scaleFactor);
+                }
+            }
+
+            for (int i = 0; i < dataDetalleFact.Columns.Count; i++)
+            {
+                e.Graphics.DrawString(dataDetalleFact.Columns[i].HeaderText, fontCabecera, Brushes.Black, x, y);
+                x += columnWidths[i];
+            }
+
+         
+            y += 20;
+            e.Graphics.DrawLine(Pens.Black, 20, y, e.PageBounds.Width - 20, y);
+
+          
+            foreach (DataGridViewRow row in dataDetalleFact.Rows)
+            {
+                x = 20;
+                y += 20;
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
+                    if (i == 3)  
+                    {
+                        e.Graphics.DrawString(row.Cells[i].Value.ToString(), fontCabecera, Brushes.Black, x + 35, y);
+                    }
+                    else if (i == 0)  
+                    {
+                        e.Graphics.DrawString(row.Cells[i].Value.ToString(), fontCuerpo, Brushes.Black, x + 75, y);
+                    }
+                    else if (i == 4 || i == 5 || i == 6)
+                    {
+                        string formattedValue = Math.Round(Convert.ToDecimal(row.Cells[i].Value), 2).ToString();
+                        e.Graphics.DrawString(formattedValue, fontCuerpo, Brushes.Black, new RectangleF(x, y, columnWidths[i], 20), new StringFormat { Alignment = StringAlignment.Far });
+                    }
+                    else
+                    {
+                        e.Graphics.DrawString(row.Cells[i].Value.ToString(), fontCuerpo, Brushes.Black, new RectangleF(x, y, columnWidths[i], 20), new StringFormat { Alignment = StringAlignment.Far });
+                    }
+
+                    x += valueWidths[i];
+                }
+            }
+
+            // Línea divisoria
+            y += 30;
+            e.Graphics.DrawLine(Pens.Black, 20, y, e.PageBounds.Width - 20, y);
+
+            // Imprimir el total en la esquina inferior derecha
+            y += 20;
+            fontCabecera = new Font("Arial", 26, FontStyle.Bold);
+            e.Graphics.DrawString($"Total: {_factura.Total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}", fontCabecera, Brushes.Black, e.PageBounds.Width - 350, y);
         }
     }
 }

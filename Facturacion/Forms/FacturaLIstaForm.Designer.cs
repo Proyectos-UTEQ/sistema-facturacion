@@ -30,15 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FacturaListaForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripNuevaFactura = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDeleteFactura = new System.Windows.Forms.ToolStripButton();
-            this.btnUpdateList = new System.Windows.Forms.ToolStripButton();
             this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressClientes = new System.Windows.Forms.ToolStripProgressBar();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataFacturas = new System.Windows.Forms.DataGridView();
+            this.toolStripNuevaFactura = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDeleteFactura = new System.Windows.Forms.ToolStripButton();
+            this.btnUpdateList = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataFacturas)).BeginInit();
@@ -57,35 +57,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripNuevaFactura
-            // 
-            this.toolStripNuevaFactura.Image = ((System.Drawing.Image)(resources.GetObject("toolStripNuevaFactura.Image")));
-            this.toolStripNuevaFactura.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripNuevaFactura.Name = "toolStripNuevaFactura";
-            this.toolStripNuevaFactura.Size = new System.Drawing.Size(101, 22);
-            this.toolStripNuevaFactura.Text = "Nueva factura";
-            this.toolStripNuevaFactura.ToolTipText = "Nueva factura";
-            this.toolStripNuevaFactura.Click += new System.EventHandler(this.toolStripNuevaFactura_Click);
-            // 
-            // toolStripDeleteFactura
-            // 
-            this.toolStripDeleteFactura.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDeleteFactura.Image")));
-            this.toolStripDeleteFactura.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDeleteFactura.Name = "toolStripDeleteFactura";
-            this.toolStripDeleteFactura.Size = new System.Drawing.Size(110, 22);
-            this.toolStripDeleteFactura.Text = "Eliminar factura";
-            this.toolStripDeleteFactura.ToolTipText = "Eliminar cliente";
-            this.toolStripDeleteFactura.Click += new System.EventHandler(this.toolStripDeleteFactura_Click);
-            // 
-            // btnUpdateList
-            // 
-            this.btnUpdateList.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateList.Image")));
-            this.btnUpdateList.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUpdateList.Name = "btnUpdateList";
-            this.btnUpdateList.Size = new System.Drawing.Size(164, 22);
-            this.btnUpdateList.Text = "Actualizar lista de facturas";
-            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
             // 
             // txtSearch
             // 
@@ -143,6 +114,35 @@
             this.dataFacturas.Size = new System.Drawing.Size(800, 264);
             this.dataFacturas.TabIndex = 2;
             this.dataFacturas.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
+            // 
+            // toolStripNuevaFactura
+            // 
+            this.toolStripNuevaFactura.Image = ((System.Drawing.Image)(resources.GetObject("toolStripNuevaFactura.Image")));
+            this.toolStripNuevaFactura.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripNuevaFactura.Name = "toolStripNuevaFactura";
+            this.toolStripNuevaFactura.Size = new System.Drawing.Size(101, 22);
+            this.toolStripNuevaFactura.Text = "Nueva factura";
+            this.toolStripNuevaFactura.ToolTipText = "Nueva factura";
+            this.toolStripNuevaFactura.Click += new System.EventHandler(this.toolStripNuevaFactura_Click);
+            // 
+            // toolStripDeleteFactura
+            // 
+            this.toolStripDeleteFactura.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDeleteFactura.Image")));
+            this.toolStripDeleteFactura.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDeleteFactura.Name = "toolStripDeleteFactura";
+            this.toolStripDeleteFactura.Size = new System.Drawing.Size(110, 22);
+            this.toolStripDeleteFactura.Text = "Eliminar factura";
+            this.toolStripDeleteFactura.ToolTipText = "Eliminar cliente";
+            this.toolStripDeleteFactura.Click += new System.EventHandler(this.toolStripDeleteFactura_Click);
+            // 
+            // btnUpdateList
+            // 
+            this.btnUpdateList.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateList.Image")));
+            this.btnUpdateList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUpdateList.Name = "btnUpdateList";
+            this.btnUpdateList.Size = new System.Drawing.Size(164, 22);
+            this.btnUpdateList.Text = "Actualizar lista de facturas";
+            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
             // 
             // FacturaListaForm
             // 

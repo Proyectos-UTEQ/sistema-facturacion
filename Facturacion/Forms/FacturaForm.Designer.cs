@@ -56,6 +56,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAgregarProducto = new System.Windows.Forms.ToolStripButton();
             this.LbTotal = new System.Windows.Forms.Label();
+            this.btnImprimir = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDetalleFact)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -366,11 +367,23 @@
             this.LbTotal.TabIndex = 37;
             this.LbTotal.Text = "00,00";
             // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImprimir.Location = new System.Drawing.Point(543, 126);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(79, 23);
+            this.btnImprimir.TabIndex = 66;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
             // FacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 561);
+            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.LbTotal);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.groupBox1);
@@ -437,5 +450,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnAgregarProducto;
         private System.Windows.Forms.Label LbTotal;
+        private System.Windows.Forms.Button btnImprimir;
     }
 }
