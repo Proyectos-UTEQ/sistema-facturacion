@@ -45,6 +45,7 @@ namespace Facturacion.facturas
             dataFacturas.Columns["Cedula"].HeaderText = "Cédula del cliente";
             dataFacturas.Columns["Cliente"].HeaderText = "Cliente";
             dataFacturas.Columns["Cliente"].Width = 200;
+            dataFacturas.Columns["Telefonos"].Width = 200;
 
 
 

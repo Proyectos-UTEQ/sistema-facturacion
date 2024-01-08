@@ -48,11 +48,14 @@ namespace Facturacion.clientes
             if (this.modo == Modo.SELECIONAR)
             {
                 this.btnSeleccionar.Visible = true;
+                this.toolStripNuevoCliente.Visible = false;
+                this.toolStripDeleteCliente.Visible = false;
             }
             else 
             { 
                 this.btnSeleccionar.Visible = false;
             }
+            toolStrip1.Focus();
         }
 
         private async void RefreshList()

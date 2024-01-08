@@ -38,10 +38,11 @@ namespace Facturacion.facturas
                 this.Text = "Crear Factura";
                 this.btnAplicar.Enabled = true;
                 _factura = new Factura();
-                dtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                // TODO: Definir el numero de la factura.
                 FacturaRepositorio facturasDB = new FacturaRepositorio();
                 txtNumero.Text = facturasDB.NuevoNueroFactura().ToString("D10");
+
+                dtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                
             }
             else if (this.modo == Modo.EDITAR)
             {
@@ -49,6 +50,22 @@ namespace Facturacion.facturas
                 this.ActualizarTitulo();
             }
             this.ActualizarEstadoFormulario(false);
+            
+            //SetTaxIndexControllers();
+        }
+
+       
+        private void SetTaxIndexControllers()
+        {
+            dataDetalleFact.TabStop = false;
+            dtFecha.TabIndex = 0;
+            
+            // Grupo de cliente
+            groupBoxCliente.TabIndex = 1;
+            btnBuscarCliente.TabIndex = 1;
+
+            btnAplicar.TabIndex = 2;
+            btnCancelar.TabIndex = 3;
         }
 
         // Carga los datos principales de la factura.
@@ -421,6 +438,26 @@ namespace Facturacion.facturas
         { 
             _factura.Total = _factura.Detalles.Sum(d => d.SubTotal);
             LbTotal.Text = _factura.Total.ToString("N2");
+        }
+
+        private void FacturaForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) 
+            {
+                Close();
+            }
+        }
+
+        private void toolStripContainer1_TopToolStripPanel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddProducto_Click(object sender, EventArgs e)
+        {
+            FacturaDetallesForm facturaDetallesForm = new FacturaDetallesForm(Modo.CREAR, id);
+            facturaDetallesForm.OnFacturaDetallesChanged += OnFacturaDetalle;
+            facturaDetallesForm.ShowDialog();
         }
     }
 }

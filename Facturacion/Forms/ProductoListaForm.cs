@@ -98,6 +98,8 @@ namespace Facturacion.productos
             if (modo == Modo.SELECIONAR)
             {
                 BtnSeleccionar.Visible = true;
+                toolStripButtonNuevoProducto.Visible = false;
+                toolStripButton2.Visible = false;
             }
             else
             { 
