@@ -129,11 +129,6 @@ namespace Facturacion.facturas
             }
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
             this.RefreshList();

@@ -62,7 +62,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(804, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripNuevoCliente
             // 
@@ -132,7 +131,6 @@
             this.dataUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataUsuarios.Size = new System.Drawing.Size(800, 260);
             this.dataUsuarios.TabIndex = 2;
-            this.dataUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataUsuarios_CellContentClick);
             this.dataUsuarios.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
             // 
             // statusStrip1
@@ -183,15 +181,12 @@
             this.ClientSize = new System.Drawing.Size(804, 311);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ClienteListaForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "";
             this.Text = "Lista de clientes";
             this.Load += new System.EventHandler(this.ListCustomers_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListCustomers_MouseDown);
-            this.Resize += new System.EventHandler(this.ListCustomers_Resize);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataUsuarios)).EndInit();

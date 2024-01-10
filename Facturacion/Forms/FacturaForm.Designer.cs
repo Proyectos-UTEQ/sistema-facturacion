@@ -102,7 +102,6 @@
             this.lblNumero.Size = new System.Drawing.Size(72, 13);
             this.lblNumero.TabIndex = 21;
             this.lblNumero.Text = "N. de factura:";
-            this.lblNumero.Click += new System.EventHandler(this.lblNumero_Click);
             // 
             // txtNumero
             // 
@@ -125,7 +124,6 @@
             this.lblFecha.Size = new System.Drawing.Size(40, 13);
             this.lblFecha.TabIndex = 19;
             this.lblFecha.Text = "Fecha:";
-            this.lblFecha.Click += new System.EventHandler(this.lblFecha_Click);
             // 
             // lblIDCliente
             // 
@@ -135,7 +133,6 @@
             this.lblIDCliente.Size = new System.Drawing.Size(65, 13);
             this.lblIDCliente.TabIndex = 99;
             this.lblIDCliente.Text = "Identificador";
-            this.lblIDCliente.Click += new System.EventHandler(this.lblIDCliente_Click);
             // 
             // txtIDCliente
             // 
@@ -340,7 +337,6 @@
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Click += new System.EventHandler(this.toolStripContainer1_TopToolStripPanel_Click);
             // 
             // LbTotal
             // 

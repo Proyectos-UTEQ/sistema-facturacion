@@ -32,66 +32,6 @@ namespace Facturacion.productos
             }
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripLabel1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void ListadoProductos_Load(object sender, EventArgs e)
         {
             this.RefreshList();
@@ -129,11 +69,6 @@ namespace Facturacion.productos
             ProductoDetallesForm productoDetails = new ProductoDetallesForm(Modo.CREAR);
             productoDetails.ShowDialog();
             this.RefreshList();
-        }
-
-        private void dgvProductos_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            //aquí
         }
 
         private void Fila_DobleClick(object sender, DataGridViewCellMouseEventArgs e)

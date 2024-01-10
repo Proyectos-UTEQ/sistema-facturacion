@@ -147,11 +147,7 @@ namespace Facturacion.facturas
             }
 
             this.ActualizarEstadoFormulario(true);
-        }
-
-      
-
-        
+        }        
           
         private void dtFecha_ValueChanged(object sender, EventArgs e)
         { 
@@ -172,9 +168,6 @@ namespace Facturacion.facturas
 
             this.ActualizarEstadoFormulario(true);
         }
-
-       
- 
           
         private void btnAggProd_Click(object sender, EventArgs e)
         {
@@ -223,6 +216,7 @@ namespace Facturacion.facturas
                 MessageBox.Show("No se pudo eliminar la factura");
             }
         }
+
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             if (!this.ValidateForm())
@@ -263,6 +257,7 @@ namespace Facturacion.facturas
             FacturaDetallesForm obj = new FacturaDetallesForm(Modo.EDITAR, ids, this.id);
             obj.ShowDialog();
         }
+
         private IDS GetSelectedFacturaDetalleIDs()
         {
             if (dataDetalleFact.SelectedRows.Count == 0)
@@ -380,11 +375,6 @@ namespace Facturacion.facturas
             this.Close();
         }
 
-        private void lblIDCliente_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
             ClienteListaForm clienteListaForm = new ClienteListaForm(Modo.SELECIONAR);
@@ -405,16 +395,6 @@ namespace Facturacion.facturas
             txtCedula.Text = cliente.Cedula;
             txtNombres.Text = cliente.Nombres;
             txtApellidos.Text = cliente.Apellidos;
-        }
-
-        private void lblNumero_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFecha_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void BtnAgregarProducto_Click(object sender, EventArgs e)
@@ -446,11 +426,6 @@ namespace Facturacion.facturas
             {
                 Close();
             }
-        }
-
-        private void toolStripContainer1_TopToolStripPanel_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnAddProducto_Click(object sender, EventArgs e)

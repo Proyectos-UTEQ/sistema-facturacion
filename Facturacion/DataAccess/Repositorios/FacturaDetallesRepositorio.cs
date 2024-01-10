@@ -19,7 +19,7 @@ namespace Facturacion.data
         public int IDProducto { get; set; }
     }
 
-    public class FacturaDetallesRepositorio : DbContext
+    public class FacturaDetallesRepositorio : ConexionBD
     {
        
         public FacturaDetallesRepositorio()

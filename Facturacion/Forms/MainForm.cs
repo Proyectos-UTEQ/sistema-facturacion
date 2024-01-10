@@ -69,20 +69,7 @@ namespace Facturacion
             listadoProductos = null;
         }
 
-        private async void Main_Load(object sender, EventArgs e)
-        {
-            // validamos la base de datos
-            await Task.Run(async () => await validarConexionAsync());
-        }
-
-        // validamos la base de datos y actualizamos el estado de la barra de estado.
-        private async Task validarConexionAsync() 
-        { 
-            // Probar conexion a base de datos, y mostrar mensaje de error en caso de fallo.
-            ClienteRepositorio clienteDB = new ClienteRepositorio();
-            var ok = clienteDB.Ok();
-            UpdateStatus(await ok);
-        }
+    
 
 
         // actualizamos el estado de la barra de estado.

@@ -8,11 +8,12 @@ using System.Configuration;
 using System.Windows.Forms;
 using Facturacion.Models;
 using Facturacion.DataAccess;
+using System.Data;
 
 namespace Facturacion.models
 {
     // Repositorio de clientes.
-    public class ClienteRepositorio : DbContext
+    public class ClienteRepositorio : ConexionBD
     {
 
         public ClienteRepositorio() {
@@ -34,50 +35,58 @@ namespace Facturacion.models
         }
 
         // Obtener lista de clientes.
-        public List<Cliente> ObtenerClientes(string search)
+        public DataTable ObtenerClientes(string search)
         {
-            List<Cliente> clientes = new List<Cliente>();
+            //List<Cliente> clientes = new List<Cliente>();
 
-            string query = @"SELECT ID_CLIENTE, CEDULA, NOMBRES, APELLIDOS, TELEFONO 
+            string query = @"SELECT ID_CLIENTE, CEDULA, TRIM(NOMBRES) AS NOMBRES, TRIM(APELLIDOS) AS APELLIDOS, TELEFONO 
                                 from CLIENTE
                                 where (CEDULA like @SEARCH or NOMBRES like @SEARCH or APELLIDOS like @SEARCH or TELEFONO like @SEARCH) and ESTADO = 1
                                 order by APELLIDOS asc
                             ";
-
-            using(SqlConnection conn = new SqlConnection(connectionString))
+            SqlParameter[] parameters = new SqlParameter[]
             {
+                new SqlParameter("@SEARCH", "%" + search + "%")
+            };
 
-                // Crear comando.
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@SEARCH", "%" + search + "%");
+            DataTable data = EjecutarConsulta(query, parameters);
+            return data;
 
-                try {
-                    
-                    conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    // Recuperar datos.
-                    while (reader.Read())
-                    {
-                        Cliente cliente = new Cliente();
-                        cliente.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
-                        cliente.Cedula = reader["CEDULA"].ToString().Trim();
-                        cliente.Nombres = reader["NOMBRES"].ToString().Trim();
-                        cliente.Apellidos = reader["APELLIDOS"].ToString().Trim();
-                        cliente.Telefonos = reader["TELEFONO"].ToString().Trim();
+            //using(SqlConnection conn = new SqlConnection(connectionString))
+            //{
 
-                        clientes.Add(cliente);
+            //    // Crear comando.
+            //    SqlCommand cmd = new SqlCommand(query, conn);
+            //    cmd.Parameters.AddWithValue("@SEARCH", "%" + search + "%");
 
-                    }
-                    conn.Close();
+            //    try {
 
-                } catch(Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-            }
+            //        conn.Open();
+            //        SqlDataReader reader = cmd.ExecuteReader();
 
-            return clientes;
+            //        // Recuperar datos.
+            //        while (reader.Read())
+            //        {
+            //            Cliente cliente = new Cliente();
+            //            cliente.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
+            //            cliente.Cedula = reader["CEDULA"].ToString().Trim();
+            //            cliente.Nombres = reader["NOMBRES"].ToString().Trim();
+            //            cliente.Apellidos = reader["APELLIDOS"].ToString().Trim();
+            //            cliente.Telefonos = reader["TELEFONO"].ToString().Trim();
+
+            //            clientes.Add(cliente);
+
+            //        }
+            //        conn.Close();
+
+            //    } catch(Exception ex)
+            //    {
+            //        throw new Exception(ex.Message);
+            //    }
+            //}
+
+            //return clientes;
         }
 
         // Obtener cliente de la base de datos.
