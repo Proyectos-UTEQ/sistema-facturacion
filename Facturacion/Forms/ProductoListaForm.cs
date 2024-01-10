@@ -34,7 +34,7 @@ namespace Facturacion.productos
 
         private void ListadoProductos_Load(object sender, EventArgs e)
         {
-            this.RefreshList();
+            // this.RefreshList();
             if (modo == Modo.SELECIONAR)
             {
                 BtnSeleccionar.Visible = true;

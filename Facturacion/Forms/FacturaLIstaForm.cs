@@ -23,7 +23,7 @@ namespace Facturacion.facturas
         }
         private void ListFactura_Load(object sender, EventArgs e)
         {
-            this.RefreshList();
+            // this.RefreshList();
         }
 
         private void RefreshList()

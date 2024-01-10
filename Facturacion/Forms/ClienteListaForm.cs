@@ -39,7 +39,7 @@ namespace Facturacion.clientes
 
         private void ListCustomers_Load(object sender, EventArgs e)
         {
-            this.RefreshList();
+            // this.RefreshList();
             if (this.modo == Modo.SELECIONAR)
             {
                 this.btnSeleccionar.Visible = true;
