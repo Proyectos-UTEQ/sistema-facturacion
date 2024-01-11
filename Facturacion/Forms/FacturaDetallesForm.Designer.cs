@@ -42,7 +42,6 @@
             this.txtIDFact = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblIDProducto = new System.Windows.Forms.Label();
-            this.btnAggProd = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
@@ -63,10 +62,10 @@
             // btnRemover
             // 
             this.btnRemover.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemover.Location = new System.Drawing.Point(455, 110);
+            this.btnRemover.Location = new System.Drawing.Point(455, 82);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(100, 23);
-            this.btnRemover.TabIndex = 52;
+            this.btnRemover.TabIndex = 6;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
             this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
@@ -77,8 +76,8 @@
             this.btnCancelar.Location = new System.Drawing.Point(455, 20);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(100, 23);
-            this.btnCancelar.TabIndex = 50;
-            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.Text = "Cerrar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
@@ -99,7 +98,7 @@
             this.TxtPrecUnit.MaxLength = 50;
             this.TxtPrecUnit.Name = "TxtPrecUnit";
             this.TxtPrecUnit.Size = new System.Drawing.Size(338, 20);
-            this.TxtPrecUnit.TabIndex = 46;
+            this.TxtPrecUnit.TabIndex = 3;
             this.TxtPrecUnit.TextChanged += new System.EventHandler(this.txtPrecUnit_TextChanged);
             // 
             // lblNumero
@@ -119,7 +118,7 @@
             this.TxtCantidad.MaxLength = 10;
             this.TxtCantidad.Name = "TxtCantidad";
             this.TxtCantidad.Size = new System.Drawing.Size(338, 20);
-            this.TxtCantidad.TabIndex = 42;
+            this.TxtCantidad.TabIndex = 2;
             this.TxtCantidad.TextChanged += new System.EventHandler(this.txtNumero_TextChanged);
             // 
             // label2
@@ -140,6 +139,7 @@
             this.txtIDDETFAC.Name = "txtIDDETFAC";
             this.txtIDDETFAC.Size = new System.Drawing.Size(315, 20);
             this.txtIDDETFAC.TabIndex = 40;
+            this.txtIDDETFAC.TabStop = false;
             // 
             // statusStrip1
             // 
@@ -167,6 +167,7 @@
             this.txtIDProd.ReadOnly = true;
             this.txtIDProd.Size = new System.Drawing.Size(315, 20);
             this.txtIDProd.TabIndex = 55;
+            this.txtIDProd.TabStop = false;
             this.txtIDProd.TextChanged += new System.EventHandler(this.txtIDProd_TextChanged);
             // 
             // txtIDFact
@@ -179,6 +180,7 @@
             this.txtIDFact.Name = "txtIDFact";
             this.txtIDFact.Size = new System.Drawing.Size(315, 20);
             this.txtIDFact.TabIndex = 54;
+            this.txtIDFact.TabStop = false;
             // 
             // label1
             // 
@@ -198,25 +200,14 @@
             this.lblIDProducto.TabIndex = 57;
             this.lblIDProducto.Text = "ID Producto:";
             // 
-            // btnAggProd
-            // 
-            this.btnAggProd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAggProd.Location = new System.Drawing.Point(455, 50);
-            this.btnAggProd.Name = "btnAggProd";
-            this.btnAggProd.Size = new System.Drawing.Size(100, 23);
-            this.btnAggProd.TabIndex = 58;
-            this.btnAggProd.Text = "Agregar a factura";
-            this.btnAggProd.UseVisualStyleBackColor = true;
-            this.btnAggProd.Click += new System.EventHandler(this.btnAggProd_Click);
-            // 
             // BtnGuardar
             // 
             this.BtnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnGuardar.Location = new System.Drawing.Point(455, 80);
+            this.BtnGuardar.Location = new System.Drawing.Point(455, 51);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(100, 23);
-            this.BtnGuardar.TabIndex = 59;
-            this.BtnGuardar.Text = "Guardar";
+            this.BtnGuardar.TabIndex = 4;
+            this.BtnGuardar.Text = "Agregar a factura";
             this.BtnGuardar.UseVisualStyleBackColor = true;
             this.BtnGuardar.Click += new System.EventHandler(this.Guardar_Click);
             // 
@@ -237,7 +228,7 @@
             this.TxtDescripcion.MaxLength = 80;
             this.TxtDescripcion.Name = "TxtDescripcion";
             this.TxtDescripcion.Size = new System.Drawing.Size(338, 20);
-            this.TxtDescripcion.TabIndex = 61;
+            this.TxtDescripcion.TabIndex = 1;
             // 
             // groupBox1
             // 
@@ -253,7 +244,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 80);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(437, 158);
-            this.groupBox1.TabIndex = 62;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Producto";
             // 
@@ -262,7 +253,7 @@
             this.BtnBuscarProducto.Location = new System.Drawing.Point(304, 124);
             this.BtnBuscarProducto.Name = "BtnBuscarProducto";
             this.BtnBuscarProducto.Size = new System.Drawing.Size(110, 23);
-            this.BtnBuscarProducto.TabIndex = 64;
+            this.BtnBuscarProducto.TabIndex = 1;
             this.BtnBuscarProducto.Text = "Buscar producto";
             this.BtnBuscarProducto.UseVisualStyleBackColor = true;
             this.BtnBuscarProducto.Click += new System.EventHandler(this.BtnBuscarProducto_Click);
@@ -277,6 +268,7 @@
             this.txtPrecio.ReadOnly = true;
             this.txtPrecio.Size = new System.Drawing.Size(315, 20);
             this.txtPrecio.TabIndex = 62;
+            this.txtPrecio.TabStop = false;
             // 
             // label6
             // 
@@ -297,6 +289,7 @@
             this.txtCosto.ReadOnly = true;
             this.txtCosto.Size = new System.Drawing.Size(315, 20);
             this.txtCosto.TabIndex = 60;
+            this.txtCosto.TabStop = false;
             // 
             // label5
             // 
@@ -317,6 +310,7 @@
             this.txtNombre.ReadOnly = true;
             this.txtNombre.Size = new System.Drawing.Size(315, 20);
             this.txtNombre.TabIndex = 58;
+            this.txtNombre.TabStop = false;
             // 
             // label4
             // 
@@ -358,7 +352,6 @@
             this.Controls.Add(this.TxtDescripcion);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.BtnGuardar);
-            this.Controls.Add(this.btnAggProd);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtIDFact);
             this.Controls.Add(this.statusStrip1);
@@ -370,7 +363,7 @@
             this.Controls.Add(this.TxtCantidad);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtIDDETFAC);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FacturaDetallesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detalle factura";
@@ -400,7 +393,6 @@
         private System.Windows.Forms.TextBox txtIDFact;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblIDProducto;
-        private System.Windows.Forms.Button btnAggProd;
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TxtDescripcion;

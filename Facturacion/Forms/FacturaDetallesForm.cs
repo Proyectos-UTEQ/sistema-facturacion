@@ -221,24 +221,7 @@ namespace Facturacion.detallefacturas
             // VERIFICAR SI EL PRODUCTO EXISTE
         } 
 
-        private void btnAggProd_Click(object sender, EventArgs e)
-        { 
-            
-
-            //detalleFacturas.Add(detalle);
-
-            //if (this.modo == Modo.EDITAR)
-            //{
-            //    CrearProducto();
-            //    this.btnGuardar.Enabled = false;
-            //}
-            //else
-            //{
-            //    this.btnGuardar.Enabled = true;
-            //}
-            //MessageBox.Show("PRODUCTO AGREGADO CORRECTAMENTE");
-            //this.UpdateStateForms(true);
-        }
+    
 
         // Calculamos el subtotal del producto.
         private decimal GetSubTotal()

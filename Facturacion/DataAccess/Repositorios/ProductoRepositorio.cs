@@ -12,7 +12,7 @@ namespace Facturacion.models
 {
    
 
-    public class ProductoRespositorio : DbContext
+    public class ProductoRespositorio : ConexionBD
     {
 
         public ProductoRespositorio()

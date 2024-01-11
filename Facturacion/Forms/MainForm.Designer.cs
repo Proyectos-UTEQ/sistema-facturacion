@@ -48,12 +48,13 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(820, 24);
-            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // usuariosToolStripMenuItem
             // 
             this.usuariosToolStripMenuItem.Image = global::Facturacion.Properties.Resources.user;
+            this.usuariosToolStripMenuItem.MergeIndex = 1;
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
             this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.usuariosToolStripMenuItem.Text = "Clientes";
@@ -62,6 +63,7 @@
             // productosToolStripMenuItem
             // 
             this.productosToolStripMenuItem.Image = global::Facturacion.Properties.Resources.products;
+            this.productosToolStripMenuItem.MergeIndex = 2;
             this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
             this.productosToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
             this.productosToolStripMenuItem.Text = "Productos";
@@ -70,6 +72,7 @@
             // facturasToolStripMenuItem
             // 
             this.facturasToolStripMenuItem.Image = global::Facturacion.Properties.Resources.bill__1_;
+            this.facturasToolStripMenuItem.MergeIndex = 3;
             this.facturasToolStripMenuItem.Name = "facturasToolStripMenuItem";
             this.facturasToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
             this.facturasToolStripMenuItem.Text = "Facturas";
@@ -93,7 +96,7 @@
             this.toolStripStatusLabelMain.Size = new System.Drawing.Size(60, 17);
             this.toolStripStatusLabelMain.Text = "Listo";
             // 
-            // Main
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,11 +105,10 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema de facturación";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Main_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

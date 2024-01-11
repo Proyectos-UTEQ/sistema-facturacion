@@ -16,7 +16,7 @@ namespace Facturacion.data
 {
     
 
-    public class FacturaRepositorio : DbContext
+    public class FacturaRepositorio : ConexionBD
     {
         
         public FacturaRepositorio()

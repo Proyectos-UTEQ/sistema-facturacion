@@ -24,7 +24,7 @@ namespace Facturacion.facturas
         }
         private void ListFactura_Load(object sender, EventArgs e)
         {
-            this.RefreshList();
+            // this.RefreshList();
         }
 
         private void RefreshList()
@@ -46,6 +46,7 @@ namespace Facturacion.facturas
             dataFacturas.Columns["Cedula"].HeaderText = "Cédula del cliente";
             dataFacturas.Columns["Cliente"].HeaderText = "Cliente";
             dataFacturas.Columns["Cliente"].Width = 200;
+            dataFacturas.Columns["Telefonos"].Width = 200;
 
 
 
@@ -127,11 +128,6 @@ namespace Facturacion.facturas
                 MessageBox.Show("Factura eliminado correctamente");
                 this.RefreshList();
             }
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)

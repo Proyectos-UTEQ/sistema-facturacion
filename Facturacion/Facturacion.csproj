@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\DbContext.cs" />
+    <Compile Include="DataAccess\ConexionBD.cs" />
     <Compile Include="DTOs\FacturaDTO.cs" />
     <Compile Include="Forms\ClienteDetallesForm.cs">
       <SubType>Form</SubType>
@@ -202,6 +202,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\impresora.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\magnifier.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

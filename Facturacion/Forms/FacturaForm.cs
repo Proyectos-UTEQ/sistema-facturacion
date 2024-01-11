@@ -40,10 +40,11 @@ namespace Facturacion.facturas
                 this.btnAplicar.Enabled = true;
                 this.btnImprimir.Enabled = false;
                 _factura = new Factura();
-                dtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                // TODO: Definir el numero de la factura.
                 FacturaRepositorio facturasDB = new FacturaRepositorio();
                 txtNumero.Text = facturasDB.NuevoNueroFactura().ToString("D10");
+
+                dtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                
             }
             else if (this.modo == Modo.EDITAR)
             {
@@ -51,6 +52,22 @@ namespace Facturacion.facturas
                 this.ActualizarTitulo();
             }
             this.ActualizarEstadoFormulario(false);
+            
+            //SetTaxIndexControllers();
+        }
+
+       
+        private void SetTaxIndexControllers()
+        {
+            dataDetalleFact.TabStop = false;
+            dtFecha.TabIndex = 0;
+            
+            // Grupo de cliente
+            groupBoxCliente.TabIndex = 1;
+            btnBuscarCliente.TabIndex = 1;
+
+            btnAplicar.TabIndex = 2;
+            btnCancelar.TabIndex = 3;
         }
 
         // Carga los datos principales de la factura.
@@ -132,11 +149,7 @@ namespace Facturacion.facturas
             }
 
             this.ActualizarEstadoFormulario(true);
-        }
-
-      
-
-        
+        }        
           
         private void dtFecha_ValueChanged(object sender, EventArgs e)
         { 
@@ -157,9 +170,6 @@ namespace Facturacion.facturas
 
             this.ActualizarEstadoFormulario(true);
         }
-
-       
- 
           
         private void btnAggProd_Click(object sender, EventArgs e)
         {
@@ -208,6 +218,7 @@ namespace Facturacion.facturas
                 MessageBox.Show("No se pudo eliminar la factura");
             }
         }
+
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             if (!this.ValidateForm())
@@ -249,6 +260,7 @@ namespace Facturacion.facturas
             FacturaDetallesForm obj = new FacturaDetallesForm(Modo.EDITAR, ids, this.id);
             obj.ShowDialog();
         }
+
         private IDS GetSelectedFacturaDetalleIDs()
         {
             if (dataDetalleFact.SelectedRows.Count == 0)
@@ -366,11 +378,6 @@ namespace Facturacion.facturas
             this.Close();
         }
 
-        private void lblIDCliente_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
             ClienteListaForm clienteListaForm = new ClienteListaForm(Modo.SELECIONAR);
@@ -391,16 +398,6 @@ namespace Facturacion.facturas
             txtCedula.Text = cliente.Cedula;
             txtNombres.Text = cliente.Nombres;
             txtApellidos.Text = cliente.Apellidos;
-        }
-
-        private void lblNumero_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFecha_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void BtnAgregarProducto_Click(object sender, EventArgs e)
@@ -555,6 +552,19 @@ namespace Facturacion.facturas
             y += 20;
             fontCabecera = new Font("Arial", 26, FontStyle.Bold);
             e.Graphics.DrawString($"Total: {_factura.Total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}", fontCabecera, Brushes.Black, e.PageBounds.Width - 350, y);
+        private void FacturaForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) 
+            {
+                Close();
+            }
+        }
+
+        private void btnAddProducto_Click(object sender, EventArgs e)
+        {
+            FacturaDetallesForm facturaDetallesForm = new FacturaDetallesForm(Modo.CREAR, id);
+            facturaDetallesForm.OnFacturaDetallesChanged += OnFacturaDetalle;
+            facturaDetallesForm.ShowDialog();
         }
     }
 }

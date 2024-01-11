@@ -28,11 +28,6 @@ namespace Facturacion.clientes
             this.modo = modo;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         // Emite el evento.
         private void EnviarCliente(int id)
         {
@@ -44,18 +39,23 @@ namespace Facturacion.clientes
 
         private void ListCustomers_Load(object sender, EventArgs e)
         {
-            this.RefreshList();
+            // this.RefreshList();
             if (this.modo == Modo.SELECIONAR)
             {
                 this.btnSeleccionar.Visible = true;
+                this.toolStripNuevoCliente.Visible = false;
+                this.toolStripDeleteCliente.Visible = false;
             }
             else 
             { 
                 this.btnSeleccionar.Visible = false;
             }
+            toolStrip1.Focus();
+
+            CampoSelecionado.SelectedIndex = 2;
         }
 
-        private async void RefreshList()
+        private void RecargarClientes()
         {
             ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
             lblStatus.Text = "Cargando clientes...";
@@ -63,10 +63,8 @@ namespace Facturacion.clientes
             toolStripProgressClientes.Visible = true;
             toolStripProgressClientes.Style = ProgressBarStyle.Marquee;
             
-            // esperamos a la db
-            await Task.Delay(500);
-            dataUsuarios.DataSource = clienteRepositorio.ObtenerClientes(txtSearch.Text);
-            dataUsuarios.Columns["IDCliente"].Visible = false;
+            dataUsuarios.DataSource = clienteRepositorio.ObtenerClientes(txtSearch.Text, CampoSelecionado.Text);
+            //dataUsuarios.Columns["IDCliente"].Visible = false;
 
             toolStripProgressClientes.Style = ProgressBarStyle.Continuous;
             toolStripProgressClientes.Visible = false;
@@ -75,43 +73,15 @@ namespace Facturacion.clientes
         }
 
 
-        private void ListCustomers_MouseDown(object sender, MouseEventArgs e)
-        {
-            
-        }
-
-        private void ListCustomers_Resize(object sender, EventArgs e)
-        {
-
-        }
-
         private void toolStripNuevoCliente_Click(object sender, EventArgs e)
         {
             ClienteDetallesForm clienteDetails = new ClienteDetallesForm(Modo.CREAR);
             clienteDetails.ShowDialog();
-            this.RefreshList();
-        }
-
-        private void toolStripLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void btnUpdateList_Click(object sender, EventArgs e)
         {
-            this.RefreshList();
-        }
-
-    
-
-        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
-        {
-            this.RefreshList();
+            this.RecargarClientes();
         }
 
         // Doble click en la fila del datagrid para editar el cliente
@@ -120,7 +90,7 @@ namespace Facturacion.clientes
             var id = this.GetSelectedClienteID();
             ClienteDetallesForm clienteDetails = new ClienteDetallesForm(Modo.EDITAR, id);
             clienteDetails.ShowDialog();
-            this.RefreshList();
+            this.RecargarClientes();
         }
 
         private void toolStripDeleteCliente_Click(object sender, EventArgs e)
@@ -144,27 +114,20 @@ namespace Facturacion.clientes
             if (row > 0)
             {
                 MessageBox.Show("Cliente eliminado correctamente");
-                this.RefreshList();
+                this.RecargarClientes();
             }
         }
 
-        #region helpers
         private int GetSelectedClienteID()
         {
             if (dataUsuarios.SelectedRows.Count == 0)
             {
                 return 0;
             }
-            return Convert.ToInt32(dataUsuarios.SelectedRows[0].Cells["IDCliente"].Value);
+            return Convert.ToInt32(dataUsuarios.SelectedRows[0].Cells["ID_CLIENTE"].Value);
         }
 
-
-        #endregion
-
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
+ 
 
         // boton para seleccionar un cliente.
         private void btnSeleccionar_Click(object sender, EventArgs e)
@@ -178,6 +141,20 @@ namespace Facturacion.clientes
             { 
                 EnviarCliente(id);
                 Close();
+            }
+        }
+
+        private void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            this.RecargarClientes();
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                RecargarClientes();
+                e.Handled = true;
             }
         }
     }

@@ -105,7 +105,14 @@ namespace Facturacion.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap impresora {
             get {
-                object obj = ResourceManager.GetObject("impresora", resourceCulture);
+                object obj = ResourceManager.GetObject("impresora", resourceCulture);]
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap magnifier {
+            get {
+                object obj = ResourceManager.GetObject("magnifier", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

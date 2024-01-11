@@ -44,10 +44,6 @@ namespace Facturacion.clientes
             txtTelefono.Text = cliente.Telefonos.Trim();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void ClienteDetails_Load(object sender, EventArgs e)
         {
