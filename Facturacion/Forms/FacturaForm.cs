@@ -453,17 +453,17 @@ namespace Facturacion.facturas
             float x = 20;
             float y = 20;
 
-     
+
             e.Graphics.DrawString("NisaSoft", fontTitulo, celesteBrush, x, y);
 
- 
+
             e.Graphics.DrawString("Factura", fontTitulo, celesteBrush, e.PageBounds.Width - 200, y);
 
- 
+
             y += 60;
             e.Graphics.DrawLine(Pens.Black, x, y, e.PageBounds.Width - x, y);
 
- 
+
             y += 50;
             e.Graphics.DrawString("Cliente:", fontCabecera, Brushes.Black, x, y);
             y += 30;
@@ -478,24 +478,24 @@ namespace Facturacion.facturas
 
             e.Graphics.DrawString("  Cedula: ", fontCuerpo, Brushes.Black, x, y);
             e.Graphics.DrawString($"{txtCedula.Text}", fontCuerpo, Brushes.Black, x + 80, y);
-            y += 30;  
+            y += 30;
 
-         
+
             e.Graphics.DrawString($"N Factura: {_factura.IDFactura}", fontCuerpo, Brushes.Black, e.PageBounds.Width - 260, 100);
             e.Graphics.DrawString($"Fecha: {_factura.FechaHora}", fontCuerpo, Brushes.Black, e.PageBounds.Width - 260, 120);
 
-  
+
             y += 20;
             e.Graphics.DrawString("Detalle de la Compra:", fontCabecera, Brushes.Black, x, y);
             y += 30;
 
             // Encabezados del DataGridView
             fontCabecera = new Font("Arial", 10, FontStyle.Bold);
-            int[] columnWidths = { 120, 80, 100, 130, 80, 80, 120 };  
-            int[] valueWidths = { 100, 80, 100,130, 80, 80, 120 };  
+            int[] columnWidths = { 120, 80, 100, 130, 80, 80, 120 };
+            int[] valueWidths = { 100, 80, 100, 130, 80, 80, 120 };
             int totalWidth = columnWidths.Sum();
 
-         
+
             if (totalWidth > e.PageBounds.Width - 40)
             {
                 float scaleFactor = (e.PageBounds.Width - 40) / (float)totalWidth;
@@ -511,22 +511,22 @@ namespace Facturacion.facturas
                 x += columnWidths[i];
             }
 
-         
+
             y += 20;
             e.Graphics.DrawLine(Pens.Black, 20, y, e.PageBounds.Width - 20, y);
 
-          
+
             foreach (DataGridViewRow row in dataDetalleFact.Rows)
             {
                 x = 20;
                 y += 20;
                 for (int i = 0; i < row.Cells.Count; i++)
                 {
-                    if (i == 3)  
+                    if (i == 3)
                     {
                         e.Graphics.DrawString(row.Cells[i].Value.ToString(), fontCabecera, Brushes.Black, x + 35, y);
                     }
-                    else if (i == 0)  
+                    else if (i == 0)
                     {
                         e.Graphics.DrawString(row.Cells[i].Value.ToString(), fontCuerpo, Brushes.Black, x + 75, y);
                     }
@@ -552,6 +552,8 @@ namespace Facturacion.facturas
             y += 20;
             fontCabecera = new Font("Arial", 26, FontStyle.Bold);
             e.Graphics.DrawString($"Total: {_factura.Total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}", fontCabecera, Brushes.Black, e.PageBounds.Width - 350, y);
+        }
+        
         private void FacturaForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) 
