@@ -35,18 +35,18 @@ namespace Facturacion.models
         }
 
         // Obtener lista de clientes.
-        public DataTable ObtenerClientes(string search)
+        public DataTable ObtenerClientes(string palabra, string campo)
         {
             //List<Cliente> clientes = new List<Cliente>();
 
-            string query = @"SELECT ID_CLIENTE, CEDULA, TRIM(NOMBRES) AS NOMBRES, TRIM(APELLIDOS) AS APELLIDOS, TELEFONO 
+            string query = $@"SELECT ID_CLIENTE, CEDULA, TRIM(NOMBRES) AS NOMBRES, TRIM(APELLIDOS) AS APELLIDOS, TELEFONO 
                                 from CLIENTE
-                                where (CEDULA like @SEARCH or NOMBRES like @SEARCH or APELLIDOS like @SEARCH or TELEFONO like @SEARCH) and ESTADO = 1
+                                where {campo} LIKE @SEARCH and ESTADO = 1
                                 order by APELLIDOS asc
                             ";
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@SEARCH", "%" + search + "%")
+                new SqlParameter("@SEARCH", "%" + palabra + "%")
             };
 
             DataTable data = EjecutarConsulta(query, parameters);

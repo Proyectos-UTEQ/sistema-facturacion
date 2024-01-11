@@ -200,5 +200,8 @@
   <ItemGroup>
     <None Include="Resources\touchscreen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\magnifier.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

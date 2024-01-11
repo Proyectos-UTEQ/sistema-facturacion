@@ -51,9 +51,11 @@ namespace Facturacion.clientes
                 this.btnSeleccionar.Visible = false;
             }
             toolStrip1.Focus();
+
+            CampoSelecionado.SelectedIndex = 2;
         }
 
-        private void RefreshList()
+        private void RecargarClientes()
         {
             ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
             lblStatus.Text = "Cargando clientes...";
@@ -61,7 +63,7 @@ namespace Facturacion.clientes
             toolStripProgressClientes.Visible = true;
             toolStripProgressClientes.Style = ProgressBarStyle.Marquee;
             
-            dataUsuarios.DataSource = clienteRepositorio.ObtenerClientes(txtSearch.Text);
+            dataUsuarios.DataSource = clienteRepositorio.ObtenerClientes(txtSearch.Text, CampoSelecionado.Text);
             //dataUsuarios.Columns["IDCliente"].Visible = false;
 
             toolStripProgressClientes.Style = ProgressBarStyle.Continuous;
@@ -75,17 +77,11 @@ namespace Facturacion.clientes
         {
             ClienteDetallesForm clienteDetails = new ClienteDetallesForm(Modo.CREAR);
             clienteDetails.ShowDialog();
-            this.RefreshList();
         }
 
         private void btnUpdateList_Click(object sender, EventArgs e)
         {
-            this.RefreshList();
-        }
-
-        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
-        {
-            this.RefreshList();
+            this.RecargarClientes();
         }
 
         // Doble click en la fila del datagrid para editar el cliente
@@ -94,7 +90,7 @@ namespace Facturacion.clientes
             var id = this.GetSelectedClienteID();
             ClienteDetallesForm clienteDetails = new ClienteDetallesForm(Modo.EDITAR, id);
             clienteDetails.ShowDialog();
-            this.RefreshList();
+            this.RecargarClientes();
         }
 
         private void toolStripDeleteCliente_Click(object sender, EventArgs e)
@@ -118,7 +114,7 @@ namespace Facturacion.clientes
             if (row > 0)
             {
                 MessageBox.Show("Cliente eliminado correctamente");
-                this.RefreshList();
+                this.RecargarClientes();
             }
         }
 
@@ -128,7 +124,7 @@ namespace Facturacion.clientes
             {
                 return 0;
             }
-            return Convert.ToInt32(dataUsuarios.SelectedRows[0].Cells["IDCliente"].Value);
+            return Convert.ToInt32(dataUsuarios.SelectedRows[0].Cells["ID_CLIENTE"].Value);
         }
 
  
@@ -145,6 +141,20 @@ namespace Facturacion.clientes
             { 
                 EnviarCliente(id);
                 Close();
+            }
+        }
+
+        private void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            this.RecargarClientes();
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                RecargarClientes();
+                e.Handled = true;
             }
         }
     }
