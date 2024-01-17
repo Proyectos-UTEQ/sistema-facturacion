@@ -42,7 +42,7 @@ namespace Facturacion.models
             string query = $@"SELECT ID_CLIENTE, CEDULA, TRIM(NOMBRES) AS NOMBRES, TRIM(APELLIDOS) AS APELLIDOS, TELEFONO 
                                 from CLIENTE
                                 where {campo} LIKE @SEARCH and ESTADO = 1
-                                order by APELLIDOS asc
+                                order by {campo} asc
                             ";
             SqlParameter[] parameters = new SqlParameter[]
             {

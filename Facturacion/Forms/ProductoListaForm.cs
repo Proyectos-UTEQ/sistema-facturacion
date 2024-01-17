@@ -45,19 +45,26 @@ namespace Facturacion.productos
             { 
                 BtnSeleccionar.Visible = false;
             }
+
+            // selecionamos el nombre para buscar por defecto.
+            CampoSelecionado.SelectedIndex = 1;
         }
-        private async void RefreshList()
+        private void CargarLista()
         {
+
+            // En caso de estar basico el campo para buscar.
+            if (txtSearch.Text.Length == 0)
+            {
+                return;
+            }
+
             ProductoRespositorio productoDB = new ProductoRespositorio();
             lblStatus.Text = "Cargando productos...";
 
             toolStripProgressProductos.Visible = true;
             toolStripProgressProductos.Style = ProgressBarStyle.Marquee;
 
-            await Task.Delay(500);
-            dgvProductos.DataSource = productoDB.ObtenerListaProductos(txtSearch.Text);
-            dgvProductos.Columns["IDProducto"].Visible = false;
-            dgvProductos.Columns["Estado"].Visible = false;
+            dgvProductos.DataSource = productoDB.ObtenerListaProductos(txtSearch.Text, CampoSelecionado.Text);
 
             toolStripProgressProductos.Style = ProgressBarStyle.Continuous;
             toolStripProgressProductos.Visible = false;
@@ -68,7 +75,7 @@ namespace Facturacion.productos
         {
             ProductoDetallesForm productoDetails = new ProductoDetallesForm(Modo.CREAR);
             productoDetails.ShowDialog();
-            this.RefreshList();
+            this.CargarLista();
         }
 
         private void Fila_DobleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -76,7 +83,7 @@ namespace Facturacion.productos
             var id = this.ObtenerIDProductoSeleccionado();
             ProductoDetallesForm productoDetails = new ProductoDetallesForm(Modo.EDITAR, id);
             productoDetails.ShowDialog();
-            this.RefreshList();
+            this.CargarLista();
         }
 
         private int ObtenerIDProductoSeleccionado()
@@ -85,7 +92,7 @@ namespace Facturacion.productos
             {
                 return 0;
             }
-            return Convert.ToInt32(dgvProductos.SelectedRows[0].Cells["IDProducto"].Value);
+            return Convert.ToInt32(dgvProductos.SelectedRows[0].Cells["ID_PRODUCTO"].Value);
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -109,18 +116,18 @@ namespace Facturacion.productos
             if (row > 0)
             {
                 MessageBox.Show("Producto eliminado correctamente");
-                this.RefreshList();
+                this.CargarLista();
             }
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            this.RefreshList();
+            this.CargarLista();
         }
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
-            this.RefreshList();
+            this.CargarLista();
         }
 
         // botón de seleccionar para enviar el producto al otro formulario.
@@ -137,6 +144,19 @@ namespace Facturacion.productos
                 // enviamos y cerramos el formulario.
                 EnviarProductoSeleccionado(id);
                 Close();
+            }
+        }
+
+        private void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            CargarLista();
+        }
+
+        private void txtSearch_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                CargarLista();
             }
         }
     }

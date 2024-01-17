@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Facturacion.Models;
 using Facturacion.DataAccess;
+using System.Data;
 
 namespace Facturacion.models
 {
@@ -34,42 +35,52 @@ namespace Facturacion.models
             return true;
         }
 
-        public List<Producto> ObtenerListaProductos(string search)
+        public DataTable ObtenerListaProductos(string palabra, string campo)
         {
-            List<Producto> productos = new List<Producto>();
+            // List<Producto> productos = new List<Producto>();
 
-            string query = @"SELECT ID_PRODUCTO, NOMBRE, COSTO, PRECIO, ESTADO FROM PRODUCTO WHERE (NOMBRE like @SEARCH or COSTO like @SEARCH or PRECIO like @SEARCH) and ESTADO = 1 order by NOMBRE asc";
+            string query = $@"SELECT ID_PRODUCTO, TRIM(NOMBRE) AS NOMBRE, COSTO, PRECIO FROM PRODUCTO WHERE {campo} LIKE @SEARCH and ESTADO = 1 order by {campo} asc";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            // string query = @"SELECT ID_PRODUCTO, NOMBRE, COSTO, PRECIO, ESTADO FROM PRODUCTO WHERE (NOMBRE like @SEARCH or COSTO like @SEARCH or PRECIO like @SEARCH) and ESTADO = 1 order by NOMBRE asc";
+
+            SqlParameter[] parameters = new SqlParameter[]
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@SEARCH", "%" + search + "%");
-                try
-                {
-                    conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        Producto producto = new Producto();
-                        producto.IDProducto = Convert.ToInt32(reader["ID_PRODUCTO"].ToString());
-                        producto.Nombre = reader["NOMBRE"].ToString().Trim();
-                        producto.Costo = Decimal.Parse(reader["COSTO"].ToString());
-                        producto.Precio = Decimal.Parse(reader["PRECIO"].ToString());
-                        producto.Estado = reader["ESTADO"].ToString().ToLower() == "true" ? 1 : 0;
+                new SqlParameter("@SEARCH", "%" + palabra + "%")
+            };
 
-                        productos.Add(producto);
+            DataTable data = EjecutarConsulta(query, parameters);
+            return data;
 
-                    }
-                    conn.Close();
+            //using (SqlConnection conn = new SqlConnection(connectionString))
+            //{
+            //    SqlCommand cmd = new SqlCommand(query, conn);
+            //    cmd.Parameters.AddWithValue("@SEARCH", "%" + palabra + "%");
+            //    try
+            //    {
+            //        conn.Open();
+            //        SqlDataReader reader = cmd.ExecuteReader();
+            //        while (reader.Read())
+            //        {
+            //            Producto producto = new Producto();
+            //            producto.IDProducto = Convert.ToInt32(reader["ID_PRODUCTO"].ToString());
+            //            producto.Nombre = reader["NOMBRE"].ToString().Trim();
+            //            producto.Costo = Decimal.Parse(reader["COSTO"].ToString());
+            //            producto.Precio = Decimal.Parse(reader["PRECIO"].ToString());
+            //            producto.Estado = reader["ESTADO"].ToString().ToLower() == "true" ? 1 : 0;
 
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-            }
+            //            productos.Add(producto);
 
-            return productos;
+            //        }
+            //        conn.Close();
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw new Exception(ex.Message);
+            //    }
+            //}
+
+            //return productos;
         }
 
         public Producto GetProducto(int id)
