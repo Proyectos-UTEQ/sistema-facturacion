@@ -57,6 +57,12 @@ namespace Facturacion.clientes
 
         private void RecargarClientes()
         {
+            // En caso de estar basico el campo para buscar.
+            if (txtSearch.Text.Length == 0)
+            {
+                return;
+            }
+
             ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
             lblStatus.Text = "Cargando clientes...";
             // configuramos el progresbar
