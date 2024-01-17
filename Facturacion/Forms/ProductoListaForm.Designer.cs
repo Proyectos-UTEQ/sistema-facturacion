@@ -30,7 +30,11 @@ namespace Facturacion.productos
         private void InitializeComponent()
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.BtnBuscar = new System.Windows.Forms.ToolStripButton();
+            this.CampoSelecionado = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButtonNuevoProducto = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
@@ -39,10 +43,6 @@ namespace Facturacion.productos
             this.toolStripProgressProductos = new System.Windows.Forms.ToolStripProgressBar();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.dgvProductos = new System.Windows.Forms.DataGridView();
-            this.BtnBuscar = new System.Windows.Forms.ToolStripButton();
-            this.CampoSelecionado = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
@@ -63,93 +63,9 @@ namespace Facturacion.productos
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStrip1.Size = new System.Drawing.Size(1251, 45);
+            this.toolStrip1.Size = new System.Drawing.Size(1274, 45);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(65, 26);
-            this.toolStripLabel2.Text = "Buscar:";
-            // 
-            // toolStripButtonNuevoProducto
-            // 
-            this.toolStripButtonNuevoProducto.Image = global::Facturacion.Properties.Resources.plus;
-            this.toolStripButtonNuevoProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripButtonNuevoProducto.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonNuevoProducto.Name = "toolStripButtonNuevoProducto";
-            this.toolStripButtonNuevoProducto.Size = new System.Drawing.Size(114, 22);
-            this.toolStripButtonNuevoProducto.Text = "Nuevo producto";
-            this.toolStripButtonNuevoProducto.Click += new System.EventHandler(this.toolStripButtonNuevoProducto_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.Image = global::Facturacion.Properties.Resources.delete;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(122, 22);
-            this.toolStripButton2.Text = "Eliminar producto";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.Image = global::Facturacion.Properties.Resources.circular_arrow;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(176, 22);
-            this.toolStripButton3.Text = "Actualizar lista de productos";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-            // 
-            // BtnSeleccionar
-            // 
-            this.BtnSeleccionar.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.BtnSeleccionar.Image = global::Facturacion.Properties.Resources.touchscreen;
-            this.BtnSeleccionar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BtnSeleccionar.Name = "BtnSeleccionar";
-            this.BtnSeleccionar.Size = new System.Drawing.Size(87, 22);
-            this.BtnSeleccionar.Text = "Seleccionar";
-            this.BtnSeleccionar.Click += new System.EventHandler(this.BtnSeleccionar_Click_1);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressProductos,
-            this.lblStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 372);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1251, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripProgressProductos
-            // 
-            this.toolStripProgressProductos.Name = "toolStripProgressProductos";
-            this.toolStripProgressProductos.Size = new System.Drawing.Size(100, 16);
-            this.toolStripProgressProductos.Visible = false;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(93, 17);
-            this.lblStatus.Text = "Lista actualizada";
-            // 
-            // dgvProductos
-            // 
-            this.dgvProductos.AllowUserToAddRows = false;
-            this.dgvProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvProductos.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvProductos.Location = new System.Drawing.Point(0, 45);
-            this.dgvProductos.Name = "dgvProductos";
-            this.dgvProductos.ReadOnly = true;
-            this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductos.Size = new System.Drawing.Size(1251, 327);
-            this.dgvProductos.TabIndex = 2;
-            this.dgvProductos.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
             // 
             // BtnBuscar
             // 
@@ -178,13 +94,13 @@ namespace Facturacion.productos
             this.CampoSelecionado.Name = "CampoSelecionado";
             this.CampoSelecionado.Size = new System.Drawing.Size(125, 29);
             // 
-            // toolStripLabel1
+            // toolStripLabel2
             // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(156, 26);
-            this.toolStripLabel1.Text = "Campo de búsqueda:";
+            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(65, 26);
+            this.toolStripLabel2.Text = "Buscar:";
             // 
             // txtSearch
             // 
@@ -196,11 +112,98 @@ namespace Facturacion.productos
             this.txtSearch.Size = new System.Drawing.Size(250, 29);
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress_1);
             // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(156, 26);
+            this.toolStripLabel1.Text = "Campo de búsqueda:";
+            // 
+            // toolStripButtonNuevoProducto
+            // 
+            this.toolStripButtonNuevoProducto.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButtonNuevoProducto.Image = global::Facturacion.Properties.Resources.plus;
+            this.toolStripButtonNuevoProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripButtonNuevoProducto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNuevoProducto.Name = "toolStripButtonNuevoProducto";
+            this.toolStripButtonNuevoProducto.Size = new System.Drawing.Size(143, 26);
+            this.toolStripButtonNuevoProducto.Text = "Nuevo producto";
+            this.toolStripButtonNuevoProducto.Click += new System.EventHandler(this.toolStripButtonNuevoProducto_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButton2.Image = global::Facturacion.Properties.Resources.delete;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(154, 26);
+            this.toolStripButton2.Text = "Eliminar producto";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButton3.Image = global::Facturacion.Properties.Resources.circular_arrow;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(225, 25);
+            this.toolStripButton3.Text = "Actualizar lista de productos";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // BtnSeleccionar
+            // 
+            this.BtnSeleccionar.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BtnSeleccionar.Image = global::Facturacion.Properties.Resources.touchscreen;
+            this.BtnSeleccionar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnSeleccionar.Name = "BtnSeleccionar";
+            this.BtnSeleccionar.Size = new System.Drawing.Size(87, 20);
+            this.BtnSeleccionar.Text = "Seleccionar";
+            this.BtnSeleccionar.Click += new System.EventHandler(this.BtnSeleccionar_Click_1);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressProductos,
+            this.lblStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 372);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1274, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressProductos
+            // 
+            this.toolStripProgressProductos.Name = "toolStripProgressProductos";
+            this.toolStripProgressProductos.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressProductos.Visible = false;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(93, 17);
+            this.lblStatus.Text = "Lista actualizada";
+            // 
+            // dgvProductos
+            // 
+            this.dgvProductos.AllowUserToAddRows = false;
+            this.dgvProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvProductos.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvProductos.Location = new System.Drawing.Point(0, 45);
+            this.dgvProductos.Name = "dgvProductos";
+            this.dgvProductos.ReadOnly = true;
+            this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProductos.Size = new System.Drawing.Size(1274, 327);
+            this.dgvProductos.TabIndex = 2;
+            this.dgvProductos.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
+            // 
             // ProductoListaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1251, 394);
+            this.ClientSize = new System.Drawing.Size(1274, 394);
             this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);

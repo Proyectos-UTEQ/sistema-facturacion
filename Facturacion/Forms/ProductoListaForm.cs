@@ -157,6 +157,7 @@ namespace Facturacion.productos
             if (e.KeyChar == (char)Keys.Enter)
             {
                 CargarLista();
+                e.Handled = true;
             }
         }
     }

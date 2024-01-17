@@ -25,30 +25,28 @@ namespace Facturacion.facturas
         private void ListFactura_Load(object sender, EventArgs e)
         {
             // this.RefreshList();
+            CampoSelecionado.SelectedIndex = 2;
         }
 
-        private void RefreshList()
+        private void CargarListaFactura()
         {
-            
-            FacturacionService service = new FacturacionService();
+
+            // En caso de estar basico el campo para buscar.
+            if (txtSearch.Text.Length == 0)
+            {
+                return;
+            }
+
+            FacturaRepositorio facturaRepositorio = new FacturaRepositorio();
             lblStatus.Text = "Cargando facturas...";
             // configuramos el progresbar
             toolStripProgressClientes.Visible = true;
             toolStripProgressClientes.Style = ProgressBarStyle.Marquee;
 
-
-            dataFacturas.DataSource = service.ObtenerFacturas(txtSearch.Text);
+            // Recuperamos los datos de la base de datos.
+            dataFacturas.DataSource = facturaRepositorio.ObtenerFacturas(txtSearch.Text, CampoSelecionado.Text);
+            
             dataFacturas.Columns["TOTAL"].DefaultCellStyle.Format = "N2";
-            dataFacturas.Columns["Id"].Visible = false;
-            dataFacturas.Columns["IDCliente"].Visible = false;
-            dataFacturas.Columns["Numero"].HeaderText = "Número de factura";
-            dataFacturas.Columns["Fecha"].HeaderText = "Creada";
-            dataFacturas.Columns["Cedula"].HeaderText = "Cédula del cliente";
-            dataFacturas.Columns["Cliente"].HeaderText = "Cliente";
-            dataFacturas.Columns["Cliente"].Width = 200;
-            dataFacturas.Columns["Telefonos"].Width = 200;
-
-
 
             toolStripProgressClientes.Style = ProgressBarStyle.Continuous;
             toolStripProgressClientes.Visible = false;
@@ -61,7 +59,7 @@ namespace Facturacion.facturas
             var id = this.GetSelectedFacturaID();
             FacturaForm obj= new FacturaForm(Modo.EDITAR, id);
             obj.ShowDialog();
-            this.RefreshList();
+            this.CargarListaFactura();
         }
         private void toolStripDeleteCliente_Click(object sender, EventArgs e)
         {
@@ -84,7 +82,7 @@ namespace Facturacion.facturas
             if (row > 0)
             {
                 MessageBox.Show("Cliente eliminado correctamente");
-                this.RefreshList();
+                this.CargarListaFactura();
             }
         }
  
@@ -95,14 +93,14 @@ namespace Facturacion.facturas
             {
                 return 0;
             }
-            return Convert.ToInt32(dataFacturas.SelectedRows[0].Cells["Id"].Value);
+            return Convert.ToInt32(dataFacturas.SelectedRows[0].Cells["ID_FACTURA"].Value);
         }
 
         private void toolStripNuevaFactura_Click(object sender, EventArgs e)
         {
             FacturaForm facturaDetails = new FacturaForm(Modo.CREAR);
             facturaDetails.ShowDialog();
-            this.RefreshList();
+            this.CargarListaFactura();
         }
 
         private void toolStripDeleteFactura_Click(object sender, EventArgs e)
@@ -126,20 +124,33 @@ namespace Facturacion.facturas
             if (row > 0)
             {
                 MessageBox.Show("Factura eliminado correctamente");
-                this.RefreshList();
+                this.CargarListaFactura();
             }
         }
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
-            this.RefreshList();
+            this.CargarListaFactura();
         }
   
         private void btnUpdateList_Click(object sender, EventArgs e)
         {
-            this.RefreshList();
+            this.CargarListaFactura();
         }
-         
 
+        private void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            CargarListaFactura();
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                CargarListaFactura();
+                e.Handled = true;
+            }
+        }
     }
 }

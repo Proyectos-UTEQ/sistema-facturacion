@@ -3,6 +3,7 @@ using Facturacion.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -40,63 +41,83 @@ namespace Facturacion.data
         }
 
         // Recupera todas las facturas con los datos del cliente.
-        public List<Factura> ObtenerFacturas(string search)
+        public DataTable ObtenerFacturas(string palabra, string campo)
         {
             // TODO: Recuperar las facturas con los datos del cliente.
 
-            List<Factura> facturas = new List<Factura>();
+            //List<Factura> facturas = new List<Factura>();
 
-            string query = @"
-                            SELECT f.ID_FACTURA, f.ID_CLIENTE, f.FECHA_HORA, f.NUMERO, f.TOTAL, f.ESTADO, c.ID_CLIENTE, c.CEDULA, c.NOMBRES, c.APELLIDOS, c.TELEFONO, c.ESTADO
-                            FROM FACTURA as f
-                            INNER JOIN CLIENTE as c ON f.ID_CLIENTE=c.ID_CLIENTE
-                            where (f.ID_FACTURA like @SEARCH or f.ID_CLIENTE like @SEARCH 
-	                        or f.FECHA_HORA like @SEARCH or f.NUMERO like @SEARCH) and f.ESTADO = 1
-	                        order by FECHA_HORA asc
-                            ";
+            //string query = @"
+            //                SELECT f.ID_FACTURA, f.ID_CLIENTE, f.FECHA_HORA, f.NUMERO, f.TOTAL, f.ESTADO, c.ID_CLIENTE, c.CEDULA, c.NOMBRES, c.APELLIDOS, c.TELEFONO, c.ESTADO
+            //                FROM FACTURA as f
+            //                INNER JOIN CLIENTE as c ON f.ID_CLIENTE=c.ID_CLIENTE
+            //                where (f.ID_FACTURA like @SEARCH or f.ID_CLIENTE like @SEARCH 
+            //             or f.FECHA_HORA like @SEARCH or f.NUMERO like @SEARCH) and f.ESTADO = 1
+            //             order by FECHA_HORA asc
+            //                ";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@SEARCH", "%" + search + "%");
-                try
-                {
-                    conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        // creamos la instancia de factura.
-                        Factura factura = new Factura { 
-                            IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString()),
-                            IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString()),
-                            FechaHora = Convert.ToDateTime(reader["FECHA_HORA"]),
-                            Numero = (int)Convert.ToInt64(reader["NUMERO"].ToString()),
-                            Total = Convert.ToDecimal(reader["TOTAL"]),
-                            Estado = Convert.ToInt32(reader["ESTADO"]),
-
-                            // Instaciamos el cliente.
-                            Cliente = new Cliente { 
-                                IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString()),
-                                Cedula = reader["CEDULA"].ToString(),
-                                Nombres = reader["NOMBRES"].ToString(),
-                                Apellidos = reader["APELLIDOS"].ToString(),
-                                Telefonos = reader["TELEFONO"].ToString(),
-                            },
-                        };
-
-                        facturas.Add(factura);
-
-                    }
-                    conn.Close();
-
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
+            if (campo.Equals("CLIENTE"))
+            { 
+                campo = "TRIM(NOMBRES) + ' ' + TRIM(APELLIDOS)";
             }
 
-            return facturas;
+            string query = $@"
+                        SELECT f.ID_FACTURA, f.ID_CLIENTE, f.FECHA_HORA, f.NUMERO, f.TOTAL, c.ID_CLIENTE, c.CEDULA, TRIM(NOMBRES) + ' ' + TRIM(APELLIDOS) AS CLIENTE, c.TELEFONO
+                        FROM FACTURA as f
+                        INNER JOIN CLIENTE as c ON f.ID_CLIENTE=c.ID_CLIENTE
+                        where {campo} LIKE @SEARCH and f.ESTADO = 1
+                        order by {campo} asc
+                        ";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@SEARCH", "%" + palabra + "%")
+            };
+
+            DataTable data = EjecutarConsulta(query, parameters);
+            return data;
+
+            //using (SqlConnection conn = new SqlConnection(connectionString))
+            //{
+            //    SqlCommand cmd = new SqlCommand(query, conn);
+            //    cmd.Parameters.AddWithValue("@SEARCH", "%" + palabra + "%");
+            //    try
+            //    {
+            //        conn.Open();
+            //        SqlDataReader reader = cmd.ExecuteReader();
+            //        while (reader.Read())
+            //        {
+            //            // creamos la instancia de factura.
+            //            Factura factura = new Factura { 
+            //                IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString()),
+            //                IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString()),
+            //                FechaHora = Convert.ToDateTime(reader["FECHA_HORA"]),
+            //                Numero = (int)Convert.ToInt64(reader["NUMERO"].ToString()),
+            //                Total = Convert.ToDecimal(reader["TOTAL"]),
+            //                Estado = Convert.ToInt32(reader["ESTADO"]),
+
+            //                // Instaciamos el cliente.
+            //                Cliente = new Cliente { 
+            //                    IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString()),
+            //                    Cedula = reader["CEDULA"].ToString(),
+            //                    Nombres = reader["NOMBRES"].ToString(),
+            //                    Apellidos = reader["APELLIDOS"].ToString(),
+            //                    Telefonos = reader["TELEFONO"].ToString(),
+            //                },
+            //            };
+
+            //            facturas.Add(factura);
+
+            //        }
+            //        conn.Close();
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw new Exception(ex.Message);
+            //    }
+            //}
+
+            //return facturas;
         }
 
         public Factura GetFactura(int id)
