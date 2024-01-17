@@ -30,21 +30,20 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClienteListaForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripNuevoCliente = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDeleteCliente = new System.Windows.Forms.ToolStripButton();
+            this.btnUpdateList = new System.Windows.Forms.ToolStripButton();
+            this.BtnBuscar = new System.Windows.Forms.ToolStripButton();
+            this.CampoSelecionado = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.dataUsuarios = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressClientes = new System.Windows.Forms.ToolStripProgressBar();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.CampoSelecionado = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripNuevoCliente = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDeleteCliente = new System.Windows.Forms.ToolStripButton();
-            this.btnUpdateList = new System.Windows.Forms.ToolStripButton();
-            this.BtnBuscar = new System.Windows.Forms.ToolStripButton();
-            this.btnSeleccionar = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataUsuarios)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -62,14 +61,80 @@
             this.toolStripLabel2,
             this.txtSearch,
             this.toolStripLabel1,
-            this.btnSeleccionar,
             this.toolStripSeparator1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStrip1.Size = new System.Drawing.Size(1274, 45);
+            this.toolStrip1.Size = new System.Drawing.Size(1311, 45);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripNuevoCliente
+            // 
+            this.toolStripNuevoCliente.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripNuevoCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripNuevoCliente.Image")));
+            this.toolStripNuevoCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripNuevoCliente.Name = "toolStripNuevoCliente";
+            this.toolStripNuevoCliente.Size = new System.Drawing.Size(125, 26);
+            this.toolStripNuevoCliente.Text = "Nuevo cliente";
+            this.toolStripNuevoCliente.Click += new System.EventHandler(this.toolStripNuevoCliente_Click);
+            // 
+            // toolStripDeleteCliente
+            // 
+            this.toolStripDeleteCliente.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripDeleteCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDeleteCliente.Image")));
+            this.toolStripDeleteCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDeleteCliente.Name = "toolStripDeleteCliente";
+            this.toolStripDeleteCliente.Size = new System.Drawing.Size(136, 26);
+            this.toolStripDeleteCliente.Text = "Eliminar cliente";
+            this.toolStripDeleteCliente.ToolTipText = "Eliminar cliente";
+            this.toolStripDeleteCliente.Click += new System.EventHandler(this.toolStripDeleteCliente_Click);
+            // 
+            // btnUpdateList
+            // 
+            this.btnUpdateList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateList.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateList.Image")));
+            this.btnUpdateList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUpdateList.Name = "btnUpdateList";
+            this.btnUpdateList.Size = new System.Drawing.Size(207, 26);
+            this.btnUpdateList.Text = "Actualizar lista de clientes";
+            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
+            // 
+            // BtnBuscar
+            // 
+            this.BtnBuscar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.BtnBuscar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnBuscar.Image = global::Facturacion.Properties.Resources.magnifier;
+            this.BtnBuscar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnBuscar.Name = "BtnBuscar";
+            this.BtnBuscar.Size = new System.Drawing.Size(76, 26);
+            this.BtnBuscar.Text = "Buscar";
+            this.BtnBuscar.Click += new System.EventHandler(this.BtnBuscar_Click);
+            // 
+            // CampoSelecionado
+            // 
+            this.CampoSelecionado.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.CampoSelecionado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CampoSelecionado.DropDownWidth = 121;
+            this.CampoSelecionado.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.CampoSelecionado.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CampoSelecionado.Items.AddRange(new object[] {
+            "ID_CLIENTE",
+            "CEDULA",
+            "NOMBRES",
+            "APELLIDOS",
+            "TELEFONO"});
+            this.CampoSelecionado.Margin = new System.Windows.Forms.Padding(1, 0, 8, 0);
+            this.CampoSelecionado.Name = "CampoSelecionado";
+            this.CampoSelecionado.Size = new System.Drawing.Size(125, 29);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(156, 26);
+            this.toolStripLabel2.Text = "Campo de búsqueda:";
             // 
             // txtSearch
             // 
@@ -86,8 +151,13 @@
             this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(65, 25);
+            this.toolStripLabel1.Size = new System.Drawing.Size(65, 26);
             this.toolStripLabel1.Text = "Buscar:";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 29);
             // 
             // dataUsuarios
             // 
@@ -102,8 +172,9 @@
             this.dataUsuarios.Name = "dataUsuarios";
             this.dataUsuarios.ReadOnly = true;
             this.dataUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataUsuarios.Size = new System.Drawing.Size(1270, 355);
+            this.dataUsuarios.Size = new System.Drawing.Size(1307, 355);
             this.dataUsuarios.TabIndex = 2;
+            this.dataUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataUsuarios_CellDoubleClick);
             this.dataUsuarios.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
             // 
             // statusStrip1
@@ -114,7 +185,7 @@
             this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 359);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1274, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1311, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -144,96 +215,14 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1274, 381);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1311, 381);
             this.tableLayoutPanel1.TabIndex = 3;
-            // 
-            // CampoSelecionado
-            // 
-            this.CampoSelecionado.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.CampoSelecionado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CampoSelecionado.DropDownWidth = 121;
-            this.CampoSelecionado.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.CampoSelecionado.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CampoSelecionado.Items.AddRange(new object[] {
-            "ID_CLIENTE",
-            "CEDULA",
-            "NOMBRES",
-            "APELLIDOS",
-            "TELEFONO"});
-            this.CampoSelecionado.Margin = new System.Windows.Forms.Padding(1, 0, 8, 0);
-            this.CampoSelecionado.Name = "CampoSelecionado";
-            this.CampoSelecionado.Size = new System.Drawing.Size(125, 29);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(156, 25);
-            this.toolStripLabel2.Text = "Campo de búsqueda:";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
-            // 
-            // toolStripNuevoCliente
-            // 
-            this.toolStripNuevoCliente.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripNuevoCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripNuevoCliente.Image")));
-            this.toolStripNuevoCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripNuevoCliente.Name = "toolStripNuevoCliente";
-            this.toolStripNuevoCliente.Size = new System.Drawing.Size(125, 26);
-            this.toolStripNuevoCliente.Text = "Nuevo cliente";
-            this.toolStripNuevoCliente.Click += new System.EventHandler(this.toolStripNuevoCliente_Click);
-            // 
-            // toolStripDeleteCliente
-            // 
-            this.toolStripDeleteCliente.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripDeleteCliente.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDeleteCliente.Image")));
-            this.toolStripDeleteCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDeleteCliente.Name = "toolStripDeleteCliente";
-            this.toolStripDeleteCliente.Size = new System.Drawing.Size(136, 25);
-            this.toolStripDeleteCliente.Text = "Eliminar cliente";
-            this.toolStripDeleteCliente.ToolTipText = "Eliminar cliente";
-            this.toolStripDeleteCliente.Click += new System.EventHandler(this.toolStripDeleteCliente_Click);
-            // 
-            // btnUpdateList
-            // 
-            this.btnUpdateList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateList.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateList.Image")));
-            this.btnUpdateList.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUpdateList.Name = "btnUpdateList";
-            this.btnUpdateList.Size = new System.Drawing.Size(207, 25);
-            this.btnUpdateList.Text = "Actualizar lista de clientes";
-            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
-            // 
-            // BtnBuscar
-            // 
-            this.BtnBuscar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BtnBuscar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnBuscar.Image = global::Facturacion.Properties.Resources.magnifier;
-            this.BtnBuscar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BtnBuscar.Name = "BtnBuscar";
-            this.BtnBuscar.Size = new System.Drawing.Size(76, 26);
-            this.BtnBuscar.Text = "Buscar";
-            this.BtnBuscar.Click += new System.EventHandler(this.BtnBuscar_Click);
-            // 
-            // btnSeleccionar
-            // 
-            this.btnSeleccionar.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnSeleccionar.Image = global::Facturacion.Properties.Resources.touchscreen;
-            this.btnSeleccionar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSeleccionar.Name = "btnSeleccionar";
-            this.btnSeleccionar.Size = new System.Drawing.Size(87, 25);
-            this.btnSeleccionar.Text = "Seleccionar";
-            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
             // 
             // ClienteListaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1274, 426);
+            this.ClientSize = new System.Drawing.Size(1311, 426);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "ClienteListaForm";
@@ -267,7 +256,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox txtSearch;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
-        private System.Windows.Forms.ToolStripButton btnSeleccionar;
         private System.Windows.Forms.ToolStripComboBox CampoSelecionado;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

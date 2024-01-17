@@ -42,16 +42,11 @@ namespace Facturacion.clientes
             // this.RefreshList();
             if (this.modo == Modo.SELECIONAR)
             {
-                this.btnSeleccionar.Visible = true;
                 this.toolStripNuevoCliente.Visible = false;
                 this.toolStripDeleteCliente.Visible = false;
             }
-            else 
-            { 
-                this.btnSeleccionar.Visible = false;
-            }
-            toolStrip1.Focus();
 
+            toolStrip1.Focus();
             CampoSelecionado.SelectedIndex = 2;
         }
 
@@ -161,6 +156,20 @@ namespace Facturacion.clientes
             {
                 RecargarClientes();
                 e.Handled = true;
+            }
+        }
+
+        private void dataUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var id = GetSelectedClienteID();
+            if (id == 0)
+            {
+                MessageBox.Show("Seleccione un cliente");
+            }
+            else
+            {
+                EnviarCliente(id);
+                Close();
             }
         }
     }
