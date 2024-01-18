@@ -14,6 +14,7 @@ using Facturacion.detallefacturas;
 using Facturacion.Helpers;
 using Facturacion.models;
 using Facturacion.Models;
+using Facturacion.productos;
 
 namespace Facturacion.facturas
 {
@@ -102,6 +103,7 @@ namespace Facturacion.facturas
             //    dataDetalleFact.DataSource = facturasDetalleDB.ObtenerDetalle(this.id); 
 
             // Cargamos el detalle de la factura en el datagrid.
+            dataDetalleFact.DataSource = null;
             dataDetalleFact.DataSource = _factura.Detalles;
 
             dataDetalleFact.Columns["IDFacturaDetalle"].Visible = false;
@@ -564,9 +566,73 @@ namespace Facturacion.facturas
 
         private void btnAddProducto_Click(object sender, EventArgs e)
         {
-            FacturaDetallesForm facturaDetallesForm = new FacturaDetallesForm(Modo.CREAR, id);
-            facturaDetallesForm.OnFacturaDetallesChanged += OnFacturaDetalle;
-            facturaDetallesForm.ShowDialog();
+            //FacturaDetallesForm facturaDetallesForm = new FacturaDetallesForm(Modo.CREAR, id);
+            //facturaDetallesForm.OnFacturaDetallesChanged += OnFacturaDetalle;
+            //facturaDetallesForm.ShowDialog();
+
+            ProductoListaForm productoListaForm = new ProductoListaForm(Modo.SELECIONAR);
+            productoListaForm.OnProductoSeleccionado += OnProductoSeleccionado;
+            productoListaForm.ShowDialog();
+        }
+
+        // Controlamos el evento para recuperar el producto selecionado.
+        private void OnProductoSeleccionado(object sender, int id)
+        {
+            ProductoRespositorio productoRespositorio = new ProductoRespositorio();
+            var producto = productoRespositorio.GetProducto(id);
+
+            // agregar el producto recuperado en el detalle de la factura
+            _factura.Detalles.Add(
+                new FacturaDetalles() { 
+                    IDProducto = id, 
+                    Descripcion = producto.Nombre,
+                    Cantidad = 1, 
+                    PrecioUnitario = producto.Precio, 
+                    SubTotal = producto.Precio * 1,
+                });
+
+            CargarElDetalle();
+            ActualizarTotal();
+        }
+
+        private void dataDetalleFact_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataDetalleFact.Columns["Cantidad"].Index ||
+                e.ColumnIndex == dataDetalleFact.Columns["PrecioUnitario"].Index) 
+            {
+                CalcularSubTotal(e.RowIndex);
+            }
+        }
+
+        private void CalcularSubTotal(int rowIndex)
+        { 
+            
+            int cantidad = Convert.ToInt32(dataDetalleFact.Rows[rowIndex].Cells["Cantidad"].Value);
+            decimal precioUnitario = Convert.ToDecimal(dataDetalleFact.Rows[rowIndex].Cells["PrecioUnitario"].Value);
+
+            // Calcula el nuevo total
+            decimal subtotal = cantidad * precioUnitario;
+
+            // Actualiza el valor en la columna "Total" de la misma fila
+            dataDetalleFact.Rows[rowIndex].Cells["SubTotal"].Value = subtotal;
+            ActualizarTotal();
+        }
+
+        private void ActualizarTotal()
+        {
+            decimal sumaTotal = 0;
+             // Itera a través de todas las filas y suma los valores de la columna "Total"
+            foreach (DataGridViewRow row in dataDetalleFact.Rows)
+            {
+                if (!row.IsNewRow) // Verifica si la fila no es una fila nueva
+                {
+                    sumaTotal += Convert.ToDecimal(row.Cells["SubTotal"].Value);
+                }
+            }
+
+            // Actualiza el valor en el Label lbTotal
+            LbTotal.Text = sumaTotal.ToString(); // Muestra la suma en formato de moneda
         }
     }
 }
+

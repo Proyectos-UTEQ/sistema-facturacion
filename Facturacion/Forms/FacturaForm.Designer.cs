@@ -52,21 +52,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtCedula = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.LbTotal = new System.Windows.Forms.Label();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnAddProducto = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDetalleFact)).BeginInit();
             this.groupBoxCliente.SuspendLayout();
-            this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnRemover
             // 
             this.btnRemover.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemover.Location = new System.Drawing.Point(543, 80);
+            this.btnRemover.Location = new System.Drawing.Point(572, 80);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(75, 23);
             this.btnRemover.TabIndex = 99;
@@ -77,7 +74,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelar.Location = new System.Drawing.Point(543, 14);
+            this.btnCancelar.Location = new System.Drawing.Point(572, 14);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 4;
@@ -89,7 +86,7 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(417, 260);
+            this.lblTotal.Location = new System.Drawing.Point(482, 518);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(56, 24);
             this.lblTotal.TabIndex = 99;
@@ -112,7 +109,7 @@
             this.txtNumero.MaxLength = 50;
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.ReadOnly = true;
-            this.txtNumero.Size = new System.Drawing.Size(421, 20);
+            this.txtNumero.Size = new System.Drawing.Size(450, 20);
             this.txtNumero.TabIndex = 51;
             this.txtNumero.TabStop = false;
             this.txtNumero.TextChanged += new System.EventHandler(this.txtNumero_TextChanged);
@@ -143,7 +140,7 @@
             this.txtIDCliente.MaxLength = 10;
             this.txtIDCliente.Name = "txtIDCliente";
             this.txtIDCliente.ReadOnly = true;
-            this.txtIDCliente.Size = new System.Drawing.Size(240, 20);
+            this.txtIDCliente.Size = new System.Drawing.Size(269, 20);
             this.txtIDCliente.TabIndex = 99;
             this.txtIDCliente.TabStop = false;
             this.txtIDCliente.TextChanged += new System.EventHandler(this.txtIDCliente_TextChanged);
@@ -164,7 +161,7 @@
             this.txtIDFactura.Location = new System.Drawing.Point(101, 14);
             this.txtIDFactura.Name = "txtIDFactura";
             this.txtIDFactura.ReadOnly = true;
-            this.txtIDFactura.Size = new System.Drawing.Size(421, 20);
+            this.txtIDFactura.Size = new System.Drawing.Size(450, 20);
             this.txtIDFactura.TabIndex = 50;
             this.txtIDFactura.TabStop = false;
             // 
@@ -173,9 +170,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatusEdit,
             this.toolStripProgressDetalle});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 539);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 550);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(630, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(659, 22);
             this.statusStrip1.TabIndex = 27;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -197,7 +194,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtFecha.Location = new System.Drawing.Point(101, 40);
             this.dtFecha.Name = "dtFecha";
-            this.dtFecha.Size = new System.Drawing.Size(421, 20);
+            this.dtFecha.Size = new System.Drawing.Size(450, 20);
             this.dtFecha.TabIndex = 0;
             this.dtFecha.ValueChanged += new System.EventHandler(this.dtFecha_ValueChanged);
             // 
@@ -205,20 +202,19 @@
             // 
             this.dataDetalleFact.BackgroundColor = System.Drawing.Color.White;
             this.dataDetalleFact.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataDetalleFact.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataDetalleFact.Location = new System.Drawing.Point(0, 0);
+            this.dataDetalleFact.Location = new System.Drawing.Point(26, 308);
             this.dataDetalleFact.Name = "dataDetalleFact";
-            this.dataDetalleFact.ReadOnly = true;
             this.dataDetalleFact.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataDetalleFact.Size = new System.Drawing.Size(630, 240);
+            this.dataDetalleFact.Size = new System.Drawing.Size(621, 207);
             this.dataDetalleFact.TabIndex = 99;
             this.dataDetalleFact.TabStop = false;
+            this.dataDetalleFact.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDetalleFact_CellValueChanged);
             this.dataDetalleFact.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataDetalleFact_RowHeaderMouseDoubleClick);
             // 
             // btnAplicar
             // 
             this.btnAplicar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAplicar.Location = new System.Drawing.Point(543, 47);
+            this.btnAplicar.Location = new System.Drawing.Point(572, 47);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(75, 23);
             this.btnAplicar.TabIndex = 3;
@@ -241,7 +237,7 @@
             this.groupBoxCliente.Controls.Add(this.lblIDCliente);
             this.groupBoxCliente.Location = new System.Drawing.Point(26, 108);
             this.groupBoxCliente.Name = "groupBoxCliente";
-            this.groupBoxCliente.Size = new System.Drawing.Size(506, 138);
+            this.groupBoxCliente.Size = new System.Drawing.Size(535, 138);
             this.groupBoxCliente.TabIndex = 1;
             this.groupBoxCliente.TabStop = false;
             this.groupBoxCliente.Text = "Cliente";
@@ -252,7 +248,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBuscarCliente.Location = new System.Drawing.Point(395, 109);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
-            this.btnBuscarCliente.Size = new System.Drawing.Size(101, 23);
+            this.btnBuscarCliente.Size = new System.Drawing.Size(130, 23);
             this.btnBuscarCliente.TabIndex = 1;
             this.btnBuscarCliente.Text = "Buscar cliente";
             this.btnBuscarCliente.UseVisualStyleBackColor = true;
@@ -261,7 +257,7 @@
             // txtApellidos
             // 
             this.txtApellidos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtApellidos.Location = new System.Drawing.Point(256, 83);
+            this.txtApellidos.Location = new System.Drawing.Point(285, 83);
             this.txtApellidos.MaxLength = 10;
             this.txtApellidos.Name = "txtApellidos";
             this.txtApellidos.ReadOnly = true;
@@ -273,7 +269,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(256, 67);
+            this.label3.Location = new System.Drawing.Point(270, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 99;
@@ -282,7 +278,7 @@
             // txtNombres
             // 
             this.txtNombres.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNombres.Location = new System.Drawing.Point(256, 39);
+            this.txtNombres.Location = new System.Drawing.Point(285, 39);
             this.txtNombres.MaxLength = 10;
             this.txtNombres.Name = "txtNombres";
             this.txtNombres.ReadOnly = true;
@@ -294,7 +290,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(256, 23);
+            this.label2.Location = new System.Drawing.Point(270, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 99;
@@ -308,7 +304,7 @@
             this.txtCedula.MaxLength = 10;
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.ReadOnly = true;
-            this.txtCedula.Size = new System.Drawing.Size(240, 20);
+            this.txtCedula.Size = new System.Drawing.Size(269, 20);
             this.txtCedula.TabIndex = 99;
             this.txtCedula.TabStop = false;
             // 
@@ -321,29 +317,11 @@
             this.label1.TabIndex = 99;
             this.label1.Text = "Cedula";
             // 
-            // toolStripContainer1
-            // 
-            // 
-            // toolStripContainer1.ContentPanel
-            // 
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.dataDetalleFact);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(630, 240);
-            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStripContainer1.Location = new System.Drawing.Point(0, 299);
-            this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(630, 240);
-            this.toolStripContainer1.TabIndex = 2;
-            this.toolStripContainer1.TabStop = false;
-            this.toolStripContainer1.Text = "toolStripContainer1";
-            // 
-            // toolStripContainer1.TopToolStripPanel
-            // 
-            // 
             // LbTotal
             // 
             this.LbTotal.AutoSize = true;
             this.LbTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTotal.Location = new System.Drawing.Point(477, 260);
+            this.LbTotal.Location = new System.Drawing.Point(542, 518);
             this.LbTotal.Name = "LbTotal";
             this.LbTotal.Size = new System.Drawing.Size(55, 24);
             this.LbTotal.TabIndex = 999;
@@ -352,13 +330,14 @@
             // btnImprimir
             // 
             this.btnImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImprimir.Location = new System.Drawing.Point(543, 126);
+            this.btnImprimir.Location = new System.Drawing.Point(572, 126);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(79, 23);
             this.btnImprimir.TabIndex = 66;
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
             // btnAddProducto
             // 
             this.btnAddProducto.BackColor = System.Drawing.SystemColors.Highlight;
@@ -378,11 +357,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 561);
+            this.ClientSize = new System.Drawing.Size(659, 572);
+            this.Controls.Add(this.dataDetalleFact);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.btnAddProducto);
             this.Controls.Add(this.LbTotal);
-            this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.groupBoxCliente);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.dtFecha);
@@ -406,9 +385,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataDetalleFact)).EndInit();
             this.groupBoxCliente.ResumeLayout(false);
             this.groupBoxCliente.PerformLayout();
-            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.ResumeLayout(false);
-            this.toolStripContainer1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,7 +416,6 @@
         private System.Windows.Forms.TextBox txtCedula;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBuscarCliente;
-        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.Label LbTotal;
         private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button btnAddProducto;

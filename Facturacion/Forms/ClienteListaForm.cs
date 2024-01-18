@@ -161,6 +161,12 @@ namespace Facturacion.clientes
 
         private void dataUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            // en caso de que no sea de selecionar.
+            if (modo != Modo.SELECIONAR)
+            {
+                return;
+            }
+
             var id = GetSelectedClienteID();
             if (id == 0)
             {

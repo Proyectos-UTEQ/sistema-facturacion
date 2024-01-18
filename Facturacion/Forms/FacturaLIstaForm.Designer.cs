@@ -32,9 +32,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.BtnBuscar = new System.Windows.Forms.ToolStripButton();
             this.CampoSelecionado = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripNuevaFactura = new System.Windows.Forms.ToolStripButton();
             this.toolStripDeleteFactura = new System.Windows.Forms.ToolStripButton();
             this.btnUpdateList = new System.Windows.Forms.ToolStripButton();
@@ -85,7 +85,6 @@
             this.CampoSelecionado.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CampoSelecionado.Items.AddRange(new object[] {
             "ID_FACTURA",
-            "ID_CLIENTE",
             "NUMERO",
             "CLIENTE",
             "TOTAL"});
@@ -93,13 +92,13 @@
             this.CampoSelecionado.Name = "CampoSelecionado";
             this.CampoSelecionado.Size = new System.Drawing.Size(125, 29);
             // 
-            // toolStripLabel2
+            // toolStripLabel1
             // 
-            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(65, 26);
-            this.toolStripLabel2.Text = "Buscar:";
+            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(156, 26);
+            this.toolStripLabel1.Text = "Campo de búsqueda:";
             // 
             // txtSearch
             // 
@@ -111,13 +110,13 @@
             this.txtSearch.Size = new System.Drawing.Size(250, 29);
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
-            // toolStripLabel1
+            // toolStripLabel2
             // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(156, 26);
-            this.toolStripLabel1.Text = "Campo de búsqueda:";
+            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(65, 26);
+            this.toolStripLabel2.Text = "Buscar:";
             // 
             // toolStripNuevaFactura
             // 

@@ -32,13 +32,12 @@ namespace Facturacion.productos
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.BtnBuscar = new System.Windows.Forms.ToolStripButton();
             this.CampoSelecionado = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.txtSearch = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButtonNuevoProducto = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.BtnSeleccionar = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressProductos = new System.Windows.Forms.ToolStripProgressBar();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -58,12 +57,11 @@ namespace Facturacion.productos
             this.toolStripLabel2,
             this.toolStripButtonNuevoProducto,
             this.toolStripButton2,
-            this.toolStripButton3,
-            this.BtnSeleccionar});
+            this.toolStripButton3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStrip1.Size = new System.Drawing.Size(1274, 45);
+            this.toolStrip1.Size = new System.Drawing.Size(1362, 45);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -94,13 +92,13 @@ namespace Facturacion.productos
             this.CampoSelecionado.Name = "CampoSelecionado";
             this.CampoSelecionado.Size = new System.Drawing.Size(125, 29);
             // 
-            // toolStripLabel2
+            // toolStripLabel1
             // 
-            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(65, 26);
-            this.toolStripLabel2.Text = "Buscar:";
+            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(156, 26);
+            this.toolStripLabel1.Text = "Campo de búsqueda:";
             // 
             // txtSearch
             // 
@@ -112,13 +110,13 @@ namespace Facturacion.productos
             this.txtSearch.Size = new System.Drawing.Size(250, 29);
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress_1);
             // 
-            // toolStripLabel1
+            // toolStripLabel2
             // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(156, 26);
-            this.toolStripLabel1.Text = "Campo de búsqueda:";
+            this.toolStripLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(65, 26);
+            this.toolStripLabel2.Text = "Buscar:";
             // 
             // toolStripButtonNuevoProducto
             // 
@@ -147,19 +145,9 @@ namespace Facturacion.productos
             this.toolStripButton3.Image = global::Facturacion.Properties.Resources.circular_arrow;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(225, 25);
+            this.toolStripButton3.Size = new System.Drawing.Size(225, 26);
             this.toolStripButton3.Text = "Actualizar lista de productos";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-            // 
-            // BtnSeleccionar
-            // 
-            this.BtnSeleccionar.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.BtnSeleccionar.Image = global::Facturacion.Properties.Resources.touchscreen;
-            this.BtnSeleccionar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BtnSeleccionar.Name = "BtnSeleccionar";
-            this.BtnSeleccionar.Size = new System.Drawing.Size(87, 20);
-            this.BtnSeleccionar.Text = "Seleccionar";
-            this.BtnSeleccionar.Click += new System.EventHandler(this.BtnSeleccionar_Click_1);
             // 
             // statusStrip1
             // 
@@ -168,7 +156,7 @@ namespace Facturacion.productos
             this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 372);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1274, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1362, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -195,15 +183,16 @@ namespace Facturacion.productos
             this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.ReadOnly = true;
             this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductos.Size = new System.Drawing.Size(1274, 327);
+            this.dgvProductos.Size = new System.Drawing.Size(1362, 327);
             this.dgvProductos.TabIndex = 2;
+            this.dgvProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellDoubleClick);
             this.dgvProductos.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
             // 
             // ProductoListaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1274, 394);
+            this.ClientSize = new System.Drawing.Size(1362, 394);
             this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -233,7 +222,6 @@ namespace Facturacion.productos
         private System.Windows.Forms.ToolStripButton toolStripButtonNuevoProducto;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton BtnSeleccionar;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox CampoSelecionado;
         private System.Windows.Forms.ToolStripButton BtnBuscar;

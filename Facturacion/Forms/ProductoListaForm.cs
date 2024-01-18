@@ -37,13 +37,8 @@ namespace Facturacion.productos
             // this.RefreshList();
             if (modo == Modo.SELECIONAR)
             {
-                BtnSeleccionar.Visible = true;
                 toolStripButtonNuevoProducto.Visible = false;
                 toolStripButton2.Visible = false;
-            }
-            else
-            { 
-                BtnSeleccionar.Visible = false;
             }
 
             // selecionamos el nombre para buscar por defecto.
@@ -158,6 +153,28 @@ namespace Facturacion.productos
             {
                 CargarLista();
                 e.Handled = true;
+            }
+        }
+
+        // doble clic en una fila para enviar el producto al otro formulario.
+        private void dgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (modo != Modo.SELECIONAR)
+            {
+                return;
+            }
+
+            var id = ObtenerIDProductoSeleccionado();
+            if (id == 0)
+            {
+                MessageBox.Show("Seleccione un producto");
+                return;
+            }
+            else
+            {
+                // enviamos y cerramos el formulario.
+                EnviarProductoSeleccionado(id);
+                Close();
             }
         }
     }
