@@ -53,8 +53,8 @@
             this.txtCedula = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.LbTotal = new System.Windows.Forms.Label();
-            this.btnImprimir = new System.Windows.Forms.Button();
             this.btnAddProducto = new System.Windows.Forms.Button();
+            this.btnReporte = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDetalleFact)).BeginInit();
             this.groupBoxCliente.SuspendLayout();
@@ -63,7 +63,7 @@
             // btnRemover
             // 
             this.btnRemover.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemover.Location = new System.Drawing.Point(572, 80);
+            this.btnRemover.Location = new System.Drawing.Point(572, 76);
             this.btnRemover.Name = "btnRemover";
             this.btnRemover.Size = new System.Drawing.Size(75, 23);
             this.btnRemover.TabIndex = 99;
@@ -214,7 +214,7 @@
             // btnAplicar
             // 
             this.btnAplicar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAplicar.Location = new System.Drawing.Point(572, 47);
+            this.btnAplicar.Location = new System.Drawing.Point(572, 45);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(75, 23);
             this.btnAplicar.TabIndex = 3;
@@ -327,17 +327,6 @@
             this.LbTotal.TabIndex = 999;
             this.LbTotal.Text = "00,00";
             // 
-            // btnImprimir
-            // 
-            this.btnImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImprimir.Location = new System.Drawing.Point(572, 126);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(79, 23);
-            this.btnImprimir.TabIndex = 66;
-            this.btnImprimir.Text = "Imprimir";
-            this.btnImprimir.UseVisualStyleBackColor = true;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-            // 
             // btnAddProducto
             // 
             this.btnAddProducto.BackColor = System.Drawing.SystemColors.Highlight;
@@ -353,13 +342,23 @@
             this.btnAddProducto.UseVisualStyleBackColor = false;
             this.btnAddProducto.Click += new System.EventHandler(this.btnAddProducto_Click);
             // 
+            // btnReporte
+            // 
+            this.btnReporte.Location = new System.Drawing.Point(572, 107);
+            this.btnReporte.Name = "btnReporte";
+            this.btnReporte.Size = new System.Drawing.Size(75, 23);
+            this.btnReporte.TabIndex = 1000;
+            this.btnReporte.Text = "Imprimir";
+            this.btnReporte.UseVisualStyleBackColor = true;
+            this.btnReporte.Click += new System.EventHandler(this.btnReporte_Click);
+            // 
             // FacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 572);
+            this.Controls.Add(this.btnReporte);
             this.Controls.Add(this.dataDetalleFact);
-            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.btnAddProducto);
             this.Controls.Add(this.LbTotal);
             this.Controls.Add(this.groupBoxCliente);
@@ -417,7 +416,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBuscarCliente;
         private System.Windows.Forms.Label LbTotal;
-        private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button btnAddProducto;
+        private System.Windows.Forms.Button btnReporte;
     }
 }

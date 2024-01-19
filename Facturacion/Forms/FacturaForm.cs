@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Facturacion.clientes;
 using Facturacion.data;
 using Facturacion.detallefacturas;
+using Facturacion.Forms;
 using Facturacion.Helpers;
 using Facturacion.models;
 using Facturacion.Models;
@@ -39,16 +40,17 @@ namespace Facturacion.facturas
             {
                 this.Text = "Crear Factura";
                 this.btnAplicar.Enabled = true;
-                this.btnImprimir.Enabled = false;
                 _factura = new Factura();
                 FacturaRepositorio facturasDB = new FacturaRepositorio();
                 txtNumero.Text = facturasDB.NuevoNueroFactura().ToString("D10");
+                btnReporte.Enabled = false;
 
                 dtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 
             }
             else if (this.modo == Modo.EDITAR)
             {
+                btnReporte.Enabled = true;
                 this.CargarFactura();
                 this.ActualizarTitulo();
             }
@@ -238,16 +240,14 @@ namespace Facturacion.facturas
             if (this.modo == Modo.CREAR)
             {
                 this.CrearFactura();
-                this.ImprimirFactura();
             }
             else
             {
-                // TODO: Actualizar el usuario.
                 this.EditarFactura();
             }
 
             this.ActualizarEstadoFormulario(false);
-            this.Close();
+            btnReporte.Enabled = true;
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
@@ -400,6 +400,7 @@ namespace Facturacion.facturas
             txtCedula.Text = cliente.Cedula;
             txtNombres.Text = cliente.Nombres;
             txtApellidos.Text = cliente.Apellidos;
+            _factura.Cliente = cliente;
         }
 
         private void BtnAgregarProducto_Click(object sender, EventArgs e)
@@ -424,14 +425,7 @@ namespace Facturacion.facturas
             _factura.Total = _factura.Detalles.Sum(d => d.SubTotal);
             LbTotal.Text = _factura.Total.ToString("N2");
         }
-
-        private void btnImprimir_Click(object sender, EventArgs e)
-        {
-            ImprimirFactura();
-        }
-
          
-
         private void ImprimirFactura()
         {
             PrintDocument printDocument = new PrintDocument();
@@ -632,6 +626,12 @@ namespace Facturacion.facturas
 
             // Actualiza el valor en el Label lbTotal
             LbTotal.Text = sumaTotal.ToString(); // Muestra la suma en formato de moneda
+        }
+
+        private void btnReporte_Click(object sender, EventArgs e)
+        {
+            ImprimirForm imprimirForm = new ImprimirForm(_factura);
+            imprimirForm.ShowDialog();
         }
     }
 }

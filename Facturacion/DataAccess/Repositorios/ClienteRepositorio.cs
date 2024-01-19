@@ -112,8 +112,8 @@ namespace Facturacion.models
                     {
                         cliente.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
                         cliente.Cedula = reader["CEDULA"].ToString();
-                        cliente.Nombres = reader["NOMBRES"].ToString();
-                        cliente.Apellidos = reader["APELLIDOS"].ToString();
+                        cliente.Nombres = reader["NOMBRES"].ToString().Trim();
+                        cliente.Apellidos = reader["APELLIDOS"].ToString().Trim();
                         cliente.Telefonos = reader["TELEFONO"].ToString();
                     }
                     conn.Close();
