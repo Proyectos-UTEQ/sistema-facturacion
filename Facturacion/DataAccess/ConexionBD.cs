@@ -30,7 +30,7 @@ namespace Facturacion.DataAccess
             {
                 AbrirConexion();
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
