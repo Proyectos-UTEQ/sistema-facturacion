@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,23 @@ namespace Facturacion.DataAccess
             string typeConn = ConfigurationManager.AppSettings["connectionString"].ToString();
             connectionString = ConfigurationManager.ConnectionStrings[typeConn].ConnectionString;
             conn = new SqlConnection(connectionString);
+        }
+
+        public bool ProbarConexion() {
+            try
+            {
+                AbrirConexion();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                CerrarConexion();
+            }
+
+            return true;
         }
 
         // Metodo para abrir la conexión.

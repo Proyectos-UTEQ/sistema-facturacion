@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.clientes;
+using Facturacion.DataAccess;
 using Facturacion.facturas;
 using Facturacion.models;
 using Facturacion.productos;
@@ -18,7 +19,7 @@ namespace Facturacion
     {
 
         // variables globales para las ventanas.
-        ClienteListaForm listcustomer;
+        ClienteListaForm listadeClientes;
         ProductoListaForm listadoProductos;
         FacturaListaForm listFactura;
 
@@ -27,25 +28,31 @@ namespace Facturacion
             InitializeComponent();
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            ConexionBD conn = new ConexionBD();
+            UpdateStatus(conn.ProbarConexion());
+        }
+
         // eventos del menu principal, boton para abrir lista de clientes.
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listcustomer != null)
+            if (listadeClientes != null)
             {
-                listcustomer.Focus();
+                listadeClientes.Focus();
             }
             else
             {
-                listcustomer = new ClienteListaForm();
-                listcustomer.MdiParent = this;
-                listcustomer.FormClosed += Listcustomer_FormClosed;
-                listcustomer.Show();
+                listadeClientes = new ClienteListaForm();
+                listadeClientes.MdiParent = this;
+                listadeClientes.FormClosed += Listcustomer_FormClosed;
+                listadeClientes.Show();
             }
         }
 
         private void Listcustomer_FormClosed(object sender, FormClosedEventArgs e)
         {
-            listcustomer = null;
+            listadeClientes = null;
         }
 
         // eventos del menu principal, boton para abrir lista de productos.
@@ -115,5 +122,7 @@ namespace Facturacion
         {
             listFactura = null;
         }
+
+        
     }
 }

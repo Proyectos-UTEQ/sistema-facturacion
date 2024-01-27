@@ -168,7 +168,7 @@ namespace Facturacion.data
                             IDFacturaDetalle = Convert.ToInt32(readerDetalle["ID_FACTURA_DETALLE"].ToString()),
                             IDFactura = Convert.ToInt32(readerDetalle["ID_FACTURA"].ToString()),
                             IDProducto = Convert.ToInt32(readerDetalle["ID_PRODUCTO"].ToString()),
-                            Descripcion = readerDetalle["DESCRIPCION"].ToString(),
+                            Descripcion = readerDetalle["DESCRIPCION"].ToString().Trim(),
                             Cantidad = Convert.ToDecimal(readerDetalle["CANTIDAD"]),
                             PrecioUnitario = Convert.ToDecimal(readerDetalle["PRECIO_UNITARIO"]),
                             SubTotal = Convert.ToDecimal(readerDetalle["SUB_TOTAL"]),

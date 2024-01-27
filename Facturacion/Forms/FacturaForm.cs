@@ -320,6 +320,10 @@ namespace Facturacion.facturas
             {
                 MessageBox.Show("No se pudo actualizar la factura");
             }
+
+            // agregar el nuevo detalle factura que el usuario agrego.
+            FacturaDetallesRepositorio facturaDetallesRepositorio = new FacturaDetallesRepositorio();
+            facturaDetallesRepositorio.RegistrarDetalleFactura(_factura);
         }
         private void ActualizarEstadoFormulario(bool isModified)
         {
