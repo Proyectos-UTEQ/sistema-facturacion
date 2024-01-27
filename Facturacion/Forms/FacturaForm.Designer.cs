@@ -208,6 +208,7 @@
             this.dataDetalleFact.Size = new System.Drawing.Size(621, 207);
             this.dataDetalleFact.TabIndex = 99;
             this.dataDetalleFact.TabStop = false;
+            this.dataDetalleFact.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataDetalleFact_CellMouseClick);
             this.dataDetalleFact.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDetalleFact_CellValueChanged);
             this.dataDetalleFact.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataDetalleFact_RowHeaderMouseDoubleClick);
             // 

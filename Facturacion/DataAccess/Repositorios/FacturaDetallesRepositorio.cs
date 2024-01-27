@@ -260,6 +260,25 @@ namespace Facturacion.data
             return insertedIds;
         }
 
+        public void EliminarDetallePorID(int id)
+        {
+            string query = "DELETE FROM FACTURAS_DETALLES WHERE ID_FACTURA=@ID_FACTURA";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ID_FACTURA", id);
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
 
 
         public int UpdateFacturaDetalle(FacturaDetalles facturasDetalle)
@@ -287,24 +306,14 @@ namespace Facturacion.data
             }
         }
 
-        public int DeleteFacturaDetalle(int id)
+        public void DeleteFacturaDetalle(int id)
         {
             string query = "DELETE FACTURAS_DETALLES WHERE ID_FACTURA_DETALLE=@ID_FACTURA_DETALLE";
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@ID_FACTURA_DETALLE", id);
+            SqlParameter[] parameters = new SqlParameter[] {
+                new SqlParameter("@ID_FACTURA_DETALLE", id)
+            };
 
-                try
-                {
-                    conn.Open();
-                    return cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-            }
+            EjecutarComando(query, parameters);
         }
 
         public void RegistrarDetalleFactura(Factura factura) 

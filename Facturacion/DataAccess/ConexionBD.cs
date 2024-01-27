@@ -56,6 +56,33 @@ namespace Facturacion.DataAccess
             }
         }
 
+        // Metodo para ejcutar una consulta que no devuelva datos.
+        public void EjecutarComando(string consulta, SqlParameter[] parametros = null)
+        {
+            try
+            {
+                AbrirConexion();
+                // verificamos si existen parámetros para la consulta
+                using (SqlCommand cmd = new SqlCommand(consulta, conn))
+                {
+                    if (parametros != null)
+                    {
+                        cmd.Parameters.AddRange(parametros);
+                    }
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CerrarConexion();
+            }
+        }
+
         public DataTable EjecutarConsulta(string consulta, SqlParameter[] parametros = null)
         { 
             DataTable dataTable = new DataTable();

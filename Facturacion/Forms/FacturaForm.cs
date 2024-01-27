@@ -633,6 +633,35 @@ namespace Facturacion.facturas
             ImprimirForm imprimirForm = new ImprimirForm(_factura);
             imprimirForm.ShowDialog();
         }
+
+        // Evento para que se muestre el menu contextual del datagridview
+        private void dataDetalleFact_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0) { 
+                Point mouseLocation = dataDetalleFact.PointToClient(Cursor.Position);
+
+                dataDetalleFact.ClearSelection();
+                dataDetalleFact.Rows[e.RowIndex].Selected = true;
+
+                ContextMenuStrip menu = new ContextMenuStrip();
+                menu.Items.Add("Eliminar", null, EliminarDetalle_Click);
+                menu.Show(dataDetalleFact, mouseLocation);
+            }
+        }
+
+        private void EliminarDetalle_Click(object sender, EventArgs e) {
+            // Recuperar la fina seleccionada
+            var idDetalle = Convert.ToInt32(dataDetalleFact.SelectedRows[0].Cells["IDFacturaDetalle"].Value);
+
+            if (idDetalle > 0)
+            {
+                FacturaDetallesRepositorio facturasDetalleDB = new FacturaDetallesRepositorio();
+                facturasDetalleDB.DeleteFacturaDetalle(idDetalle);
+            }
+            _factura.Detalles.Remove(_factura.Detalles.Find(x => x.IDFacturaDetalle == idDetalle));
+            CargarElDetalle();
+
+        }
     }
 }
 

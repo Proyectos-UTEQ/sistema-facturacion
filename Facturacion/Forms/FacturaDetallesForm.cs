@@ -312,16 +312,16 @@ namespace Facturacion.detallefacturas
 
             // eliminar cliente
             FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
-            var rowAffect = detalleFacturaDB.DeleteFacturaDetalle(this.IDFactura);
-            if (rowAffect > 0)
-            {
-                MessageBox.Show("Producto eliminado correctamente");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("No se pudo eliminar el producto");
-            }
+            //var rowAffect = detalleFacturaDB.DeleteFacturaDetalle(this.IDFactura);
+            //if (rowAffect > 0)
+            //{
+            //    MessageBox.Show("Producto eliminado correctamente");
+            //    this.Close();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("No se pudo eliminar el producto");
+            //}
         }
 
         private void BtnBuscarProducto_Click(object sender, EventArgs e)
