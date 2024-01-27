@@ -117,6 +117,7 @@ namespace Facturacion.facturas
             toolStripProgressDetalle.Style = ProgressBarStyle.Continuous;
             toolStripProgressDetalle.Visible = false;
             lblStatusEdit.Text = "Detalle de factura cargado";
+            CalcularTotal();
         }
          
 
