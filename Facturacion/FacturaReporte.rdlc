@@ -846,8 +846,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>11.84748cm</Top>
-            <Left>12.20893cm</Left>
+            <Top>11.83424cm</Top>
+            <Left>0.73766cm</Left>
             <Height>0.99689cm</Height>
             <Width>2.12958cm</Width>
             <ZIndex>14</ZIndex>
@@ -881,10 +881,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Total</rd:DefaultName>
-            <Top>11.86071cm</Top>
-            <Left>14.5149cm</Left>
+            <Top>11.83424cm</Top>
+            <Left>3.86384cm</Left>
             <Height>0.97042cm</Height>
-            <Width>5.17984cm</Width>
+            <Width>6.3259cm</Width>
             <ZIndex>15</ZIndex>
             <Style>
               <Border>
