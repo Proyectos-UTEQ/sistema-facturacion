@@ -48,10 +48,10 @@ namespace Facturacion.productos
         {
 
             // En caso de estar basico el campo para buscar.
-            if (txtSearch.Text.Length == 0)
-            {
-                return;
-            }
+            //if (txtSearch.Text.Length == 0)
+            //{
+            //    return;
+            //}
 
             ProductoRespositorio productoDB = new ProductoRespositorio();
             lblStatus.Text = "Cargando productos...";

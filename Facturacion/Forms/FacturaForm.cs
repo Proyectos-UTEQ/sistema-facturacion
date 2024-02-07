@@ -113,6 +113,12 @@ namespace Facturacion.facturas
             dataDetalleFact.Columns["SubTotal"].DefaultCellStyle.Format = "N2";
             dataDetalleFact.Columns["PrecioUnitario"].DefaultCellStyle.Format = "N2"; 
 
+            dataDetalleFact.Columns["IDFactura"].ReadOnly = true;
+            dataDetalleFact.Columns["IDProducto"].ReadOnly = true;
+            dataDetalleFact.Columns["Descripcion"].ReadOnly = true;
+            dataDetalleFact.Columns["SubTotal"].ReadOnly = true;
+            
+
 
             toolStripProgressDetalle.Style = ProgressBarStyle.Continuous;
             toolStripProgressDetalle.Visible = false;
