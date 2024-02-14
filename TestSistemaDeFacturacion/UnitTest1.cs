@@ -18,5 +18,17 @@ namespace TestSistemaDeFacturacion
             Assert.IsTrue(result);
         }
 
+        [TestMethod]
+        public void TestEjecutarComando()
+        { 
+            var db = new ConexionBD(this.ConnectionString);
+
+            var data = db.EjecutarConsulta("SELECT 1", null);
+            Assert.IsNotNull(data);
+
+        }
+
+
+
     }
 }
