@@ -84,7 +84,7 @@
             this.txtCedula.Name = "txtCedula";
             this.txtCedula.Size = new System.Drawing.Size(258, 20);
             this.txtCedula.TabIndex = 3;
-            this.txtCedula.TextChanged += new System.EventHandler(this.cedula_changed);
+            this.txtCedula.TextChanged += new System.EventHandler(this.CedulaChanged);
             // 
             // lblNombres
             // 
@@ -104,7 +104,7 @@
             this.txtNombres.Name = "txtNombres";
             this.txtNombres.Size = new System.Drawing.Size(258, 20);
             this.txtNombres.TabIndex = 5;
-            this.txtNombres.TextChanged += new System.EventHandler(this.nombres_changed);
+            this.txtNombres.TextChanged += new System.EventHandler(this.Nombres_changed);
             // 
             // lblApellidos
             // 
@@ -124,7 +124,7 @@
             this.txtApellidos.Name = "txtApellidos";
             this.txtApellidos.Size = new System.Drawing.Size(258, 20);
             this.txtApellidos.TabIndex = 7;
-            this.txtApellidos.TextChanged += new System.EventHandler(this.apellidos_changed);
+            this.txtApellidos.TextChanged += new System.EventHandler(this.Apellidos_changed);
             // 
             // lblTelefono
             // 
@@ -144,7 +144,7 @@
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(258, 20);
             this.txtTelefono.TabIndex = 9;
-            this.txtTelefono.TextChanged += new System.EventHandler(this.telefono_changed);
+            this.txtTelefono.TextChanged += new System.EventHandler(this.Telefono_changed);
             // 
             // btnCancelar
             // 
@@ -155,7 +155,7 @@
             this.btnCancelar.TabIndex = 11;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
             // 
             // btnAplicar
             // 
@@ -166,7 +166,7 @@
             this.btnAplicar.TabIndex = 12;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = true;
-            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
+            this.btnAplicar.Click += new System.EventHandler(this.BtnAplicar_Click);
             // 
             // btnRemover
             // 
@@ -177,7 +177,7 @@
             this.btnRemover.TabIndex = 13;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
-            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            this.btnRemover.Click += new System.EventHandler(this.BtnRemover_Click);
             // 
             // statusStrip1
             // 

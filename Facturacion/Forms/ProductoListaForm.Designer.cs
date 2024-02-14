@@ -108,7 +108,7 @@ namespace Facturacion.productos
             this.txtSearch.Margin = new System.Windows.Forms.Padding(1, 0, 12, 0);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(250, 29);
-            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress_1);
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSearch_KeyPress_1);
             // 
             // toolStripLabel2
             // 
@@ -127,7 +127,7 @@ namespace Facturacion.productos
             this.toolStripButtonNuevoProducto.Name = "toolStripButtonNuevoProducto";
             this.toolStripButtonNuevoProducto.Size = new System.Drawing.Size(143, 26);
             this.toolStripButtonNuevoProducto.Text = "Nuevo producto";
-            this.toolStripButtonNuevoProducto.Click += new System.EventHandler(this.toolStripButtonNuevoProducto_Click);
+            this.toolStripButtonNuevoProducto.Click += new System.EventHandler(this.ToolStripButtonNuevoProducto_Click);
             // 
             // toolStripButton2
             // 
@@ -137,7 +137,7 @@ namespace Facturacion.productos
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(154, 26);
             this.toolStripButton2.Text = "Eliminar producto";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.toolStripButton2.Click += new System.EventHandler(this.ToolStripButton2_Click);
             // 
             // toolStripButton3
             // 
@@ -147,7 +147,7 @@ namespace Facturacion.productos
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(225, 26);
             this.toolStripButton3.Text = "Actualizar lista de productos";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            this.toolStripButton3.Click += new System.EventHandler(this.ToolStripButton3_Click);
             // 
             // statusStrip1
             // 
@@ -185,7 +185,7 @@ namespace Facturacion.productos
             this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProductos.Size = new System.Drawing.Size(1362, 327);
             this.dgvProductos.TabIndex = 2;
-            this.dgvProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellDoubleClick);
+            this.dgvProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProductos_CellDoubleClick);
             this.dgvProductos.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
             // 
             // ProductoListaForm

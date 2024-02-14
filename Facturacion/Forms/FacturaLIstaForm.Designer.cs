@@ -108,7 +108,7 @@
             this.txtSearch.Margin = new System.Windows.Forms.Padding(1, 0, 12, 0);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(250, 29);
-            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSearch_KeyPress);
             // 
             // toolStripLabel2
             // 
@@ -127,7 +127,7 @@
             this.toolStripNuevaFactura.Size = new System.Drawing.Size(127, 26);
             this.toolStripNuevaFactura.Text = "Nueva factura";
             this.toolStripNuevaFactura.ToolTipText = "Nueva factura";
-            this.toolStripNuevaFactura.Click += new System.EventHandler(this.toolStripNuevaFactura_Click);
+            this.toolStripNuevaFactura.Click += new System.EventHandler(this.ToolStripNuevaFactura_Click);
             // 
             // toolStripDeleteFactura
             // 
@@ -138,7 +138,7 @@
             this.toolStripDeleteFactura.Size = new System.Drawing.Size(139, 26);
             this.toolStripDeleteFactura.Text = "Eliminar factura";
             this.toolStripDeleteFactura.ToolTipText = "Eliminar cliente";
-            this.toolStripDeleteFactura.Click += new System.EventHandler(this.toolStripDeleteFactura_Click);
+            this.toolStripDeleteFactura.Click += new System.EventHandler(this.ToolStripDeleteFactura_Click);
             // 
             // btnUpdateList
             // 
@@ -148,7 +148,7 @@
             this.btnUpdateList.Name = "btnUpdateList";
             this.btnUpdateList.Size = new System.Drawing.Size(210, 26);
             this.btnUpdateList.Text = "Actualizar lista de facturas";
-            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
+            this.btnUpdateList.Click += new System.EventHandler(this.BtnUpdateList_Click);
             // 
             // statusStrip1
             // 

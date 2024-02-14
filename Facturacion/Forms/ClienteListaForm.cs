@@ -17,7 +17,7 @@ namespace Facturacion.clientes
     public partial class ClienteListaForm : Form
     {
         // modo de utilizacion del formulario.
-        private Modo modo;
+        private Modo Modo;
 
         public event EventHandler<int> OnClienteSelecionado;
 
@@ -25,7 +25,7 @@ namespace Facturacion.clientes
         {
             InitializeComponent();
 
-            this.modo = modo;
+            this.Modo = modo;
         }
 
         // Emite el evento.
@@ -40,7 +40,7 @@ namespace Facturacion.clientes
         private void ListCustomers_Load(object sender, EventArgs e)
         {
             // this.RefreshList();
-            if (this.modo == Modo.SELECIONAR)
+            if (this.Modo == Modo.SELECIONAR)
             {
                 this.toolStripNuevoCliente.Visible = false;
                 this.toolStripDeleteCliente.Visible = false;
@@ -74,13 +74,13 @@ namespace Facturacion.clientes
         }
 
 
-        private void toolStripNuevoCliente_Click(object sender, EventArgs e)
+        private void ToolStripNuevoCliente_Click(object sender, EventArgs e)
         {
             ClienteDetallesForm clienteDetails = new ClienteDetallesForm(Modo.CREAR);
             clienteDetails.ShowDialog();
         }
 
-        private void btnUpdateList_Click(object sender, EventArgs e)
+        private void BtnUpdateList_Click(object sender, EventArgs e)
         {
             this.RecargarClientes();
         }
@@ -94,7 +94,7 @@ namespace Facturacion.clientes
             this.RecargarClientes();
         }
 
-        private void toolStripDeleteCliente_Click(object sender, EventArgs e)
+        private void ToolStripDeleteCliente_Click(object sender, EventArgs e)
         {
             var id = this.GetSelectedClienteID();
             if (id == 0)
@@ -131,7 +131,7 @@ namespace Facturacion.clientes
  
 
         // boton para seleccionar un cliente.
-        private void btnSeleccionar_Click(object sender, EventArgs e)
+        private void BtnSeleccionar_Click(object sender, EventArgs e)
         {
             var id = GetSelectedClienteID();
             if (id == 0)
@@ -150,7 +150,7 @@ namespace Facturacion.clientes
             this.RecargarClientes();
         }
 
-        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
@@ -162,7 +162,7 @@ namespace Facturacion.clientes
         private void dataUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             // en caso de que no sea de selecionar.
-            if (modo != Modo.SELECIONAR)
+            if (Modo != Modo.SELECIONAR)
             {
                 return;
             }

@@ -69,7 +69,7 @@
             this.btnRemover.TabIndex = 99;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
-            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            this.btnRemover.Click += new System.EventHandler(this.BtnRemover_Click);
             // 
             // btnCancelar
             // 
@@ -80,7 +80,7 @@
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
             // 
             // lblTotal
             // 
@@ -112,7 +112,7 @@
             this.txtNumero.Size = new System.Drawing.Size(450, 20);
             this.txtNumero.TabIndex = 51;
             this.txtNumero.TabStop = false;
-            this.txtNumero.TextChanged += new System.EventHandler(this.txtNumero_TextChanged);
+            this.txtNumero.TextChanged += new System.EventHandler(this.TxtNumero_TextChanged);
             // 
             // lblFecha
             // 
@@ -143,7 +143,7 @@
             this.txtIDCliente.Size = new System.Drawing.Size(269, 20);
             this.txtIDCliente.TabIndex = 99;
             this.txtIDCliente.TabStop = false;
-            this.txtIDCliente.TextChanged += new System.EventHandler(this.txtIDCliente_TextChanged);
+            this.txtIDCliente.TextChanged += new System.EventHandler(this.TxtIDCliente_TextChanged);
             // 
             // lblIDFactura
             // 
@@ -196,7 +196,7 @@
             this.dtFecha.Name = "dtFecha";
             this.dtFecha.Size = new System.Drawing.Size(450, 20);
             this.dtFecha.TabIndex = 0;
-            this.dtFecha.ValueChanged += new System.EventHandler(this.dtFecha_ValueChanged);
+            this.dtFecha.ValueChanged += new System.EventHandler(this.DataGridFecha_ValueChanged);
             // 
             // dataDetalleFact
             // 
@@ -208,9 +208,9 @@
             this.dataDetalleFact.Size = new System.Drawing.Size(621, 207);
             this.dataDetalleFact.TabIndex = 99;
             this.dataDetalleFact.TabStop = false;
-            this.dataDetalleFact.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataDetalleFact_CellMouseClick);
+            this.dataDetalleFact.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataDetalleFact_CellMouseClick);
             this.dataDetalleFact.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDetalleFact_CellValueChanged);
-            this.dataDetalleFact.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataDetalleFact_RowHeaderMouseDoubleClick);
+            this.dataDetalleFact.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataDetalleFact_RowHeaderMouseDoubleClick);
             // 
             // btnAplicar
             // 
@@ -221,7 +221,7 @@
             this.btnAplicar.TabIndex = 3;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = true;
-            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
+            this.btnAplicar.Click += new System.EventHandler(this.BtnAplicar_Click);
             // 
             // groupBoxCliente
             // 
@@ -253,7 +253,7 @@
             this.btnBuscarCliente.TabIndex = 1;
             this.btnBuscarCliente.Text = "Buscar cliente";
             this.btnBuscarCliente.UseVisualStyleBackColor = true;
-            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
+            this.btnBuscarCliente.Click += new System.EventHandler(this.BtnBuscarCliente_Click);
             // 
             // txtApellidos
             // 
@@ -351,7 +351,7 @@
             this.btnReporte.TabIndex = 1000;
             this.btnReporte.Text = "Imprimir";
             this.btnReporte.UseVisualStyleBackColor = true;
-            this.btnReporte.Click += new System.EventHandler(this.btnReporte_Click);
+            this.btnReporte.Click += new System.EventHandler(this.BtnReporte_Click);
             // 
             // FacturaForm
             // 

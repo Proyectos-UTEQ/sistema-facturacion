@@ -77,7 +77,7 @@
             this.toolStripNuevoCliente.Name = "toolStripNuevoCliente";
             this.toolStripNuevoCliente.Size = new System.Drawing.Size(125, 26);
             this.toolStripNuevoCliente.Text = "Nuevo cliente";
-            this.toolStripNuevoCliente.Click += new System.EventHandler(this.toolStripNuevoCliente_Click);
+            this.toolStripNuevoCliente.Click += new System.EventHandler(this.ToolStripNuevoCliente_Click);
             // 
             // toolStripDeleteCliente
             // 
@@ -88,7 +88,7 @@
             this.toolStripDeleteCliente.Size = new System.Drawing.Size(136, 26);
             this.toolStripDeleteCliente.Text = "Eliminar cliente";
             this.toolStripDeleteCliente.ToolTipText = "Eliminar cliente";
-            this.toolStripDeleteCliente.Click += new System.EventHandler(this.toolStripDeleteCliente_Click);
+            this.toolStripDeleteCliente.Click += new System.EventHandler(this.ToolStripDeleteCliente_Click);
             // 
             // btnUpdateList
             // 
@@ -98,7 +98,7 @@
             this.btnUpdateList.Name = "btnUpdateList";
             this.btnUpdateList.Size = new System.Drawing.Size(207, 26);
             this.btnUpdateList.Text = "Actualizar lista de clientes";
-            this.btnUpdateList.Click += new System.EventHandler(this.btnUpdateList_Click);
+            this.btnUpdateList.Click += new System.EventHandler(this.BtnUpdateList_Click);
             // 
             // BtnBuscar
             // 
@@ -144,7 +144,7 @@
             this.txtSearch.Margin = new System.Windows.Forms.Padding(1, 0, 12, 0);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(250, 29);
-            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSearch_KeyPress);
             // 
             // toolStripLabel1
             // 

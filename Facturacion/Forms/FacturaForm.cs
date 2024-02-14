@@ -59,20 +59,6 @@ namespace Facturacion.facturas
             //SetTaxIndexControllers();
         }
 
-       
-        private void SetTaxIndexControllers()
-        {
-            dataDetalleFact.TabStop = false;
-            dtFecha.TabIndex = 0;
-            
-            // Grupo de cliente
-            groupBoxCliente.TabIndex = 1;
-            btnBuscarCliente.TabIndex = 1;
-
-            btnAplicar.TabIndex = 2;
-            btnCancelar.TabIndex = 3;
-        }
-
         // Carga los datos principales de la factura.
         private void CargarFactura()
         {
@@ -82,7 +68,7 @@ namespace Facturacion.facturas
             txtIDFactura.Text = _factura.IDFactura.ToString();
 
             // Establecemos los valores de cliente en el formulario.
-            setCliente(_factura.IDCliente);
+            SetCliente(_factura.IDCliente);
 
             dtFecha.Text = Convert.ToDateTime(_factura.FechaHora).ToString();
             txtNumero.Text = _factura.Numero.ToString("D10");
@@ -133,7 +119,7 @@ namespace Facturacion.facturas
         }
 
          
-        private void idfactura_changed(object sender, EventArgs e)
+        private void IDfactura_changed(object sender, EventArgs e)
         {
 
             if (!helpers.FormsValidatros.IsEmpty(txtIDFactura.Text))
@@ -148,7 +134,7 @@ namespace Facturacion.facturas
             this.ActualizarEstadoFormulario(true);
         }
 
-        private void idcliente_changed(object sender, EventArgs e)
+        private void IDCliente_changed(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(txtIDCliente.Text))
             {
@@ -162,13 +148,13 @@ namespace Facturacion.facturas
             this.ActualizarEstadoFormulario(true);
         }        
           
-        private void dtFecha_ValueChanged(object sender, EventArgs e)
+        private void DataGridFecha_ValueChanged(object sender, EventArgs e)
         { 
             dtFecha.Tag = helpers.FormsValidatros.IsDate(dtFecha.Text); 
             this.ActualizarEstadoFormulario(true);
         }
 
-        private void txtNumero_TextChanged(object sender, EventArgs e)
+        private void TxtNumero_TextChanged(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(txtNumero.Text))
             { 
@@ -182,7 +168,7 @@ namespace Facturacion.facturas
             this.ActualizarEstadoFormulario(true);
         }
           
-        private void btnAggProd_Click(object sender, EventArgs e)
+        private void BtnAggProd_Click(object sender, EventArgs e)
         {
             FacturaDetallesForm clienteDetails;
             _factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
@@ -200,7 +186,7 @@ namespace Facturacion.facturas
             clienteDetails.ShowDialog(); 
         }
 
-        private void btnRemover_Click(object sender, EventArgs e)
+        private void BtnRemover_Click(object sender, EventArgs e)
         {
             // si el cliente no ha sido creado, no se puede eliminar
             if (this.modo == Modo.CREAR)
@@ -230,7 +216,7 @@ namespace Facturacion.facturas
             }
         }
 
-        private void btnAplicar_Click(object sender, EventArgs e)
+        private void BtnAplicar_Click(object sender, EventArgs e)
         {
             if (!this.ValidateForm())
             {
@@ -257,12 +243,12 @@ namespace Facturacion.facturas
             btnReporte.Enabled = true;
         }
 
-        private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
+        private void TxtBuscar_KeyUp(object sender, KeyEventArgs e)
         {
             this.CargarElDetalle();
         }
 
-        private void dataDetalleFact_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DataDetalleFact_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             IDS ids = new IDS(); 
             ids = GetSelectedFacturaDetalleIDs(); 
@@ -332,6 +318,7 @@ namespace Facturacion.facturas
             FacturaDetallesRepositorio facturaDetallesRepositorio = new FacturaDetallesRepositorio();
             facturaDetallesRepositorio.RegistrarDetalleFactura(_factura);
         }
+
         private void ActualizarEstadoFormulario(bool isModified)
         {
             // controlar el estado de los botones
@@ -372,7 +359,7 @@ namespace Facturacion.facturas
             return _factura.Detalles.Count > 0;
         }
 
-        private void txtIDCliente_TextChanged(object sender, EventArgs e)
+        private void TxtIDCliente_TextChanged(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(txtIDCliente.Text))
             {
@@ -386,24 +373,24 @@ namespace Facturacion.facturas
             this.ActualizarEstadoFormulario(true);
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        private void BtnBuscarCliente_Click(object sender, EventArgs e)
         {
             ClienteListaForm clienteListaForm = new ClienteListaForm(Modo.SELECIONAR);
-            clienteListaForm.OnClienteSelecionado += onClienteSelecionado;
+            clienteListaForm.OnClienteSelecionado += OnClienteSelecionado;
             clienteListaForm.ShowDialog();
         }
 
         // resive el valor del cliente selecionado.
-        private void onClienteSelecionado(object sender, int id) {
-            setCliente(id);
+        private void OnClienteSelecionado(object sender, int id) {
+            SetCliente(id);
         }
 
-        private void setCliente(int id)
+        private void SetCliente(int id)
         {
             ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
             var cliente = clienteRepositorio.ObtenerCliente(id);
@@ -435,19 +422,6 @@ namespace Facturacion.facturas
         { 
             _factura.Total = _factura.Detalles.Sum(d => d.SubTotal);
             LbTotal.Text = _factura.Total.ToString("N2");
-        }
-         
-        private void ImprimirFactura()
-        {
-            PrintDocument printDocument = new PrintDocument();
-            printDocument.PrintPage += new PrintPageEventHandler(PrintPage);
-
-            PrintDialog printDialog = new PrintDialog();
-            printDialog.Document = printDocument;
-            if (printDialog.ShowDialog() == DialogResult.OK)
-            {
-                printDocument.Print();
-            }
         }
 
         private void PrintPage(object sender, PrintPageEventArgs e)
@@ -639,14 +613,14 @@ namespace Facturacion.facturas
             LbTotal.Text = sumaTotal.ToString(); // Muestra la suma en formato de moneda
         }
 
-        private void btnReporte_Click(object sender, EventArgs e)
+        private void BtnReporte_Click(object sender, EventArgs e)
         {
             ImprimirForm imprimirForm = new ImprimirForm(_factura);
             imprimirForm.ShowDialog();
         }
 
         // Evento para que se muestre el menu contextual del datagridview
-        private void dataDetalleFact_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DataDetalleFact_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0) { 
                 Point mouseLocation = dataDetalleFact.PointToClient(Cursor.Position);

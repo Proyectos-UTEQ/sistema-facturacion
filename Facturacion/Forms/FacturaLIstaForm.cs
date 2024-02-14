@@ -61,7 +61,8 @@ namespace Facturacion.facturas
             obj.ShowDialog();
             this.CargarListaFactura();
         }
-        private void toolStripDeleteCliente_Click(object sender, EventArgs e)
+
+        private void ToolStripDeleteCliente_Click(object sender, EventArgs e)
         {
             var id = this.GetSelectedFacturaID();
             if (id == 0)
@@ -96,14 +97,14 @@ namespace Facturacion.facturas
             return Convert.ToInt32(dataFacturas.SelectedRows[0].Cells["ID_FACTURA"].Value);
         }
 
-        private void toolStripNuevaFactura_Click(object sender, EventArgs e)
+        private void ToolStripNuevaFactura_Click(object sender, EventArgs e)
         {
             FacturaForm facturaDetails = new FacturaForm(Modo.CREAR);
             facturaDetails.ShowDialog();
             this.CargarListaFactura();
         }
 
-        private void toolStripDeleteFactura_Click(object sender, EventArgs e)
+        private void ToolStripDeleteFactura_Click(object sender, EventArgs e)
         {
             var id = this.GetSelectedFacturaID();
             if (id == 0)
@@ -128,12 +129,12 @@ namespace Facturacion.facturas
             }
         }
 
-        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        private void TxtSearch_KeyUp(object sender, KeyEventArgs e)
         {
             this.CargarListaFactura();
         }
   
-        private void btnUpdateList_Click(object sender, EventArgs e)
+        private void BtnUpdateList_Click(object sender, EventArgs e)
         {
             this.CargarListaFactura();
         }
@@ -143,7 +144,7 @@ namespace Facturacion.facturas
             CargarListaFactura();
         }
 
-        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
 
             if (e.KeyChar == (char)Keys.Enter)

@@ -68,7 +68,7 @@
             this.btnRemover.TabIndex = 6;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
-            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            this.btnRemover.Click += new System.EventHandler(this.BtnRemover_Click);
             // 
             // btnCancelar
             // 
@@ -79,7 +79,7 @@
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cerrar";
             this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
             // 
             // lblPrecioUnit
             // 
@@ -99,7 +99,7 @@
             this.TxtPrecUnit.Name = "TxtPrecUnit";
             this.TxtPrecUnit.Size = new System.Drawing.Size(338, 20);
             this.TxtPrecUnit.TabIndex = 3;
-            this.TxtPrecUnit.TextChanged += new System.EventHandler(this.txtPrecUnit_TextChanged);
+            this.TxtPrecUnit.TextChanged += new System.EventHandler(this.TxtPrecUnit_TextChanged);
             // 
             // lblNumero
             // 
@@ -119,7 +119,7 @@
             this.TxtCantidad.Name = "TxtCantidad";
             this.TxtCantidad.Size = new System.Drawing.Size(338, 20);
             this.TxtCantidad.TabIndex = 2;
-            this.TxtCantidad.TextChanged += new System.EventHandler(this.txtNumero_TextChanged);
+            this.TxtCantidad.TextChanged += new System.EventHandler(this.TxtNumero_TextChanged);
             // 
             // label2
             // 
@@ -168,7 +168,7 @@
             this.txtIDProd.Size = new System.Drawing.Size(315, 20);
             this.txtIDProd.TabIndex = 55;
             this.txtIDProd.TabStop = false;
-            this.txtIDProd.TextChanged += new System.EventHandler(this.txtIDProd_TextChanged);
+            this.txtIDProd.TextChanged += new System.EventHandler(this.TxtIDProd_TextChanged);
             // 
             // txtIDFact
             // 

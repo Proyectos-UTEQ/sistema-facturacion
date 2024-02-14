@@ -27,7 +27,7 @@ namespace Facturacion.productos
             this.id = id;
         }
 
-        private void loadProducto()
+        private void LoadProducto()
         {
             ProductoRespositorio productoDB = new ProductoRespositorio();
             Producto producto = productoDB.GetProducto(this.id);
@@ -39,7 +39,7 @@ namespace Facturacion.productos
         }
 
         // Boton aplicar.
-        private void button2_Click(object sender, EventArgs e)
+        private void BtnAplicar_Click(object sender, EventArgs e)
         {
             if (!this.ValidateForm())
             {
@@ -55,7 +55,7 @@ namespace Facturacion.productos
                 this.EditarProducto();
             }
 
-            this.UpdateStateForms(false);
+            this.ActualizarEstadoDelFormulario(false);
             this.Close();
         }
 
@@ -69,18 +69,18 @@ namespace Facturacion.productos
             }
             else if (this.modo == Modo.EDITAR)
             {
-                this.loadProducto();
-                this.updateTitle();
+                this.LoadProducto();
+                this.ActualizarTitulo();
             }
-            this.UpdateStateForms(false);
+            this.ActualizarEstadoDelFormulario(false);
         }
 
-        private void updateTitle()
+        private void ActualizarTitulo()
         {
             this.Text = $"Producto <{txtNombre.Text.Trim()}>";
         }
 
-        private void UpdateStateForms(bool isModified)
+        private void ActualizarEstadoDelFormulario(bool isModified)
         {
             // controlar el estado de los botones
             if (this.modo == Modo.CREAR)
@@ -130,7 +130,7 @@ namespace Facturacion.productos
 
             // actualizamos el id del cliente en el formulario
             txtIdProducto.Text = producto.IDProducto.ToString();
-            this.updateTitle();
+            this.ActualizarTitulo();
             this.modo = Modo.EDITAR;
         }
 
@@ -148,7 +148,7 @@ namespace Facturacion.productos
             if (rowAffect > 0)
             {
                 MessageBox.Show("Producto actualizado correctamente");
-                this.updateTitle();
+                this.ActualizarTitulo();
             }
             else
             {
@@ -156,7 +156,7 @@ namespace Facturacion.productos
             }
         }
 
-        private void txtNombre_TextChanged(object sender, EventArgs e)
+        private void TxtNombre_TextChanged(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(txtNombre.Text))
             {
@@ -167,10 +167,10 @@ namespace Facturacion.productos
                 lblNombre.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoDelFormulario(true);
         }
 
-        private void txtCosto_TextChanged(object sender, EventArgs e)
+        private void TxtCosto_TextChanged(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(txtCosto.Text))
             {
@@ -181,10 +181,10 @@ namespace Facturacion.productos
                 lblCosto.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoDelFormulario(true);
         }
 
-        private void txtPrecio_TextChanged(object sender, EventArgs e)
+        private void TxtPrecio_TextChanged(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(txtPrecio.Text))
             {
@@ -195,20 +195,20 @@ namespace Facturacion.productos
                 lblPrecio.ForeColor = System.Drawing.Color.Black;
             }
 
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoDelFormulario(true);
         }
 
-        private void cmbEstado_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoDelFormulario(true);
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnRemover_Click(object sender, EventArgs e)
+        private void BtnRemover_Click(object sender, EventArgs e)
         {
             // si el producto no ha sido creado, no se puede eliminar
             if (this.modo == Modo.CREAR)

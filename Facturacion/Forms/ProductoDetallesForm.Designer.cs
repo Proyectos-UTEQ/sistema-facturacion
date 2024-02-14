@@ -55,7 +55,7 @@ namespace Facturacion.productos
             this.btnRemover.TabIndex = 25;
             this.btnRemover.Text = "Remover";
             this.btnRemover.UseVisualStyleBackColor = true;
-            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            this.btnRemover.Click += new System.EventHandler(this.BtnRemover_Click);
             // 
             // btnAplicar
             // 
@@ -65,7 +65,7 @@ namespace Facturacion.productos
             this.btnAplicar.TabIndex = 24;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = true;
-            this.btnAplicar.Click += new System.EventHandler(this.button2_Click);
+            this.btnAplicar.Click += new System.EventHandler(this.BtnAplicar_Click);
             // 
             // btnCancelar
             // 
@@ -75,7 +75,7 @@ namespace Facturacion.productos
             this.btnCancelar.TabIndex = 23;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
             // 
             // lblEstado
             // 
@@ -92,7 +92,7 @@ namespace Facturacion.productos
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(258, 20);
             this.txtPrecio.TabIndex = 20;
-            this.txtPrecio.TextChanged += new System.EventHandler(this.txtPrecio_TextChanged);
+            this.txtPrecio.TextChanged += new System.EventHandler(this.TxtPrecio_TextChanged);
             // 
             // lblPrecio
             // 
@@ -109,7 +109,7 @@ namespace Facturacion.productos
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(258, 20);
             this.txtCosto.TabIndex = 18;
-            this.txtCosto.TextChanged += new System.EventHandler(this.txtCosto_TextChanged);
+            this.txtCosto.TextChanged += new System.EventHandler(this.TxtCosto_TextChanged);
             // 
             // lblCosto
             // 
@@ -127,7 +127,7 @@ namespace Facturacion.productos
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(258, 20);
             this.txtNombre.TabIndex = 16;
-            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
+            this.txtNombre.TextChanged += new System.EventHandler(this.TxtNombre_TextChanged);
             // 
             // lblNombre
             // 
@@ -162,7 +162,7 @@ namespace Facturacion.productos
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(258, 21);
             this.cmbEstado.TabIndex = 26;
-            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.cmbEstado_SelectedIndexChanged);
+            this.cmbEstado.SelectedIndexChanged += new System.EventHandler(this.CmbEstado_SelectedIndexChanged);
             // 
             // statusStrip1
             // 

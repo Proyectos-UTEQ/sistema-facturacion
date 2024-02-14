@@ -49,6 +49,7 @@ namespace Facturacion.detallefacturas
             this.modo = modo;
             this.factura = factura; 
         }
+
         public FacturaDetallesForm(Modo modo, IDS ids, int id)
         {
             InitializeComponent();
@@ -78,14 +79,14 @@ namespace Facturacion.detallefacturas
             }
             else if (this.modo == Modo.EDITAR)
             {
-                this.loadFactura();
-                this.updateTitle();
+                this.LoadFactura();
+                this.ActualizarTitulo();
             }
-            this.UpdateStateForms(false);
+            this.ActualizarEstadoDelFormulario(false);
         }
 
          
-        private void loadFactura()
+        private void LoadFactura()
         {
             FacturaDetallesRepositorio facturasDetalleDB = new FacturaDetallesRepositorio();
             FacturaDetalles facturasDetalle = facturasDetalleDB.GetFacturaDetalle(this.idFactura,this.idProducto);  
@@ -151,63 +152,14 @@ namespace Facturacion.detallefacturas
             TxtPrecUnit.Text = "0";
         }
 
-        private void CrearFactura()
-        {
-            FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio(); 
-            FacturaRepositorio facturaDB = new FacturaRepositorio();
-
-            // enviamos los datos a detalle factura
-            // esperamos a la db  
-            facturaDB.RegistrarNuevaFactura(this.factura);
-            int id= facturaDB.GetIDFinal();
-            detalleFacturaDB.AddFacturaDetalle(detalleFacturas, id);
-
-            this.updateTitle();
-            this.modo = Modo.EDITAR;
-        }
-
-        private void CrearProducto()
-        {
-            FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
-       
-            // enviamos los datos a detalle factura
-            // esperamos a la db    
-            detalleFacturaDB.AddFacturaDetalle(detalleFacturas, this.IDFactura);
-
-            this.updateTitle();
-            this.modo = Modo.EDITAR;
-        }
-
-        private void EditarFactura()
-        {
-            FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
-
-            FacturaDetalles detalleFactura = new FacturaDetalles();
-            detalleFactura.IDFactura = Convert.ToInt32(txtIDFact.Text.Trim());
-            detalleFactura.IDProducto = Convert.ToInt32(txtIDProd.Text.Trim());
-            detalleFactura.Cantidad = Convert.ToDecimal(TxtCantidad.Text.Trim()); 
-            detalleFactura.PrecioUnitario = Convert.ToDecimal(TxtPrecUnit.Text.Trim());
-            var rowAffect = detalleFacturaDB.UpdateFacturaDetalle(detalleFactura);
-
-            if (rowAffect > 0)
-            {
-                MessageBox.Show("Factura actualizada correctamente");
-                this.updateTitle();
-            }
-            else
-            {
-                MessageBox.Show("No se pudo actualizar la factura");
-            }
-        }
-
-        private void updateTitle()
+        private void ActualizarTitulo()
         {
             this.Text = $"Detalle factura <{txtIDDETFAC.Text.Trim()}>";
         }
 
    
 
-        private void txtIDProd_TextChanged(object sender, EventArgs e)
+        private void TxtIDProd_TextChanged(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(txtIDProd.Text))
             {
@@ -217,7 +169,7 @@ namespace Facturacion.detallefacturas
             {
                 lblIDProducto.ForeColor = System.Drawing.Color.Black;
             }
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoDelFormulario(true);
             // VERIFICAR SI EL PRODUCTO EXISTE
         } 
 
@@ -236,7 +188,7 @@ namespace Facturacion.detallefacturas
             return subtotal;
         }
 
-        private void txtNumero_TextChanged(object sender, EventArgs e)
+        private void TxtNumero_TextChanged(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(TxtCantidad.Text))
             {
@@ -246,11 +198,11 @@ namespace Facturacion.detallefacturas
             {
                 lblNumero.ForeColor = System.Drawing.Color.Black;
             }
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoDelFormulario(true);
             GetSubTotal();
         }
          
-        private void txtPrecUnit_TextChanged(object sender, EventArgs e)
+        private void TxtPrecUnit_TextChanged(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(TxtPrecUnit.Text))
             {
@@ -260,7 +212,7 @@ namespace Facturacion.detallefacturas
             {
                 lblPrecioUnit.ForeColor = System.Drawing.Color.Black;
             }
-            this.UpdateStateForms(true);
+            this.ActualizarEstadoDelFormulario(true);
             GetSubTotal();
         }
 
@@ -273,7 +225,7 @@ namespace Facturacion.detallefacturas
             return cant && preciounit;
         }
 
-        private void UpdateStateForms(bool isModified)
+        private void ActualizarEstadoDelFormulario(bool isModified)
         {
             // controlar el estado de los botones
             if (this.modo == Modo.CREAR)
@@ -289,12 +241,12 @@ namespace Facturacion.detallefacturas
             this.lblStatusEdit.Text = this.isModified ? "Modificado" : "Sin Modificar";
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnRemover_Click(object sender, EventArgs e)
+        private void BtnRemover_Click(object sender, EventArgs e)
         {
             // si el cliente no ha sido creado, no se puede eliminar
             if (this.modo == Modo.CREAR)
@@ -310,18 +262,9 @@ namespace Facturacion.detallefacturas
                 return;
             }
 
-            // eliminar cliente
+            // Eliminar cliente
             FacturaDetallesRepositorio detalleFacturaDB = new FacturaDetallesRepositorio();
-            //var rowAffect = detalleFacturaDB.DeleteFacturaDetalle(this.IDFactura);
-            //if (rowAffect > 0)
-            //{
-            //    MessageBox.Show("Producto eliminado correctamente");
-            //    this.Close();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No se pudo eliminar el producto");
-            //}
+        
         }
 
         private void BtnBuscarProducto_Click(object sender, EventArgs e)

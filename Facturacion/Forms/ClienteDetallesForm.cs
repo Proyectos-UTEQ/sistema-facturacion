@@ -16,7 +16,7 @@ namespace Facturacion.clientes
 
     public partial class ClienteDetallesForm : Form
     {
-        // establecemos el modo y el id si es para editar.
+        // Establecemos el modo y el id si es para editar.
         private Modo modo = Modo.CREAR;
         private int id = 0;
         private bool isModified = false;
@@ -24,19 +24,24 @@ namespace Facturacion.clientes
         public ClienteDetallesForm(Modo modo, int id = 0)
         {
             InitializeComponent();
-
             // establecemos el modo y el id si es para editar.
             this.modo = modo;
             this.id = id;
-
-            
         }
 
-        // Carga los datos del cliente
-        private void loadCliente()
+
+        /// <summary>
+        /// Carga información del cliente desde el repositorio y actualiza la interfaz de usuario.
+        /// </summary>
+        private void LoadCliente()
         {
-            ClienteRepositorio clienteDB = new ClienteRepositorio();
-            Cliente cliente = clienteDB.ObtenerCliente(this.id);
+            // Instanciar un nuevo ClienteRepositorio
+            var clienteRepository = new ClienteRepositorio();
+
+            // Recuperar la información del cliente del repositorio.
+            var cliente = clienteRepository.ObtenerCliente(this.id);
+
+            // Actualizar la UI con la información del cliente.
             txtIDCliente.Text = cliente.IDCliente.ToString();
             txtCedula.Text = cliente.Cedula.Trim();
             txtNombres.Text = cliente.Nombres.Trim();
@@ -45,25 +50,33 @@ namespace Facturacion.clientes
         }
 
 
+
+
+        /// <summary>
+        /// Se encarga de la carga de datos del cliente.
+        /// </summary>
+        /// <param name="sender">El remitente del evento.</param>
+        /// <param name="e">Los argumentos del evento..</param>
         private void ClienteDetails_Load(object sender, EventArgs e)
         {
-            // Establecemos el modo de funcionamiento del formulario.            
-            if (this.modo == Modo.CREAR)
+            if (modo == Modo.CREAR)
             {
-                this.Text = "Crear Cliente";
+                Text = "Crear Cliente";
             }
-            else if (this.modo == Modo.EDITAR)
+            else if (modo == Modo.EDITAR)
             {
-                this.loadCliente();
-                this.ActualizarTitulo();
+                LoadCliente();
+                ActualizarTitulo();
             }
-            this.ActualizarEstadoFormulario(false);
+            ActualizarEstadoFormulario(false);
         }
+
+
 
 
         // boton aplicar del formulario.
         // dependiendo del modo, crea o edita el cliente.
-        private void btnAplicar_Click(object sender, EventArgs e)
+        private void BtnAplicar_Click(object sender, EventArgs e)
         {
             if (!this.ValidarFormulario())
             {
@@ -132,13 +145,13 @@ namespace Facturacion.clientes
         }
 
         // boton cancelar.
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         // boton remover del formulario, solo esta activo si el usuario existe.
-        private void btnRemover_Click(object sender, EventArgs e)
+        private void BtnRemover_Click(object sender, EventArgs e)
         {
             // si el cliente no ha sido creado, no se puede eliminar
             if (this.modo == Modo.CREAR)
@@ -169,7 +182,7 @@ namespace Facturacion.clientes
         }
 
         // validaciones.
-        private void cedula_changed(object sender, EventArgs e)
+        private void CedulaChanged(object sender, EventArgs e)
         {
             
             if (!helpers.FormsValidatros.IsEmpty(txtCedula.Text))
@@ -184,7 +197,7 @@ namespace Facturacion.clientes
             this.ActualizarEstadoFormulario(true);
         }
 
-        private void nombres_changed(object sender, EventArgs e)
+        private void Nombres_changed(object sender, EventArgs e)
         {
             if (!helpers.FormsValidatros.IsEmpty(txtNombres.Text))
             {
@@ -197,7 +210,7 @@ namespace Facturacion.clientes
             this.ActualizarEstadoFormulario(true);
         }
 
-        private void apellidos_changed(object sender, EventArgs e)
+        private void Apellidos_changed(object sender, EventArgs e)
         {
 
             if (!helpers.FormsValidatros.IsEmpty(txtApellidos.Text))
@@ -212,7 +225,7 @@ namespace Facturacion.clientes
             this.ActualizarEstadoFormulario(true);
         }
 
-        private void telefono_changed(object sender, EventArgs e)
+        private void Telefono_changed(object sender, EventArgs e)
         {
             
 

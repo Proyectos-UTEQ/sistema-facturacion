@@ -35,7 +35,7 @@ namespace Facturacion
         }
 
         // eventos del menu principal, boton para abrir lista de clientes.
-        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listadeClientes != null)
             {
@@ -56,7 +56,7 @@ namespace Facturacion
         }
 
         // eventos del menu principal, boton para abrir lista de productos.
-        private void productosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ProductosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listadoProductos != null)
             {
@@ -66,17 +66,15 @@ namespace Facturacion
             {
                 listadoProductos = new ProductoListaForm();
                 listadoProductos.MdiParent = this;
-                listadoProductos.FormClosed += listadoProductos_FormClosed;
+                listadoProductos.FormClosed += ListadoProductos_FormClosed;
                 listadoProductos.Show();
             }
         }
 
-        private void listadoProductos_FormClosed(object sender, FormClosedEventArgs e)
+        private void ListadoProductos_FormClosed(object sender, FormClosedEventArgs e)
         {
             listadoProductos = null;
         }
-
-    
 
 
         // actualizamos el estado de la barra de estado.
@@ -103,7 +101,7 @@ namespace Facturacion
         }
 
         // eventos del menu principal, boton para abrir lista de facturas.
-        private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FacturasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listFactura != null)
             {
@@ -113,12 +111,12 @@ namespace Facturacion
             {
                 listFactura = new FacturaListaForm();
                 listFactura.MdiParent = this;
-                listFactura.FormClosed += listFactura_FormClosed;
+                listFactura.FormClosed += ListFactura_FormClosed;
                 listFactura.Show();
             }
         }
 
-        private void listFactura_FormClosed(object sender, FormClosedEventArgs e)
+        private void ListFactura_FormClosed(object sender, FormClosedEventArgs e)
         {
             listFactura = null;
         }

@@ -37,7 +37,6 @@ namespace Facturacion.models
         // Obtener lista de clientes.
         public DataTable ObtenerClientes(string palabra, string campo)
         {
-            //List<Cliente> clientes = new List<Cliente>();
 
             string query = $@"SELECT ID_CLIENTE, CEDULA, TRIM(NOMBRES) AS NOMBRES, TRIM(APELLIDOS) AS APELLIDOS, TELEFONO 
                                 from CLIENTE
@@ -52,41 +51,6 @@ namespace Facturacion.models
             DataTable data = EjecutarConsulta(query, parameters);
             return data;
 
-
-            //using(SqlConnection conn = new SqlConnection(connectionString))
-            //{
-
-            //    // Crear comando.
-            //    SqlCommand cmd = new SqlCommand(query, conn);
-            //    cmd.Parameters.AddWithValue("@SEARCH", "%" + search + "%");
-
-            //    try {
-
-            //        conn.Open();
-            //        SqlDataReader reader = cmd.ExecuteReader();
-
-            //        // Recuperar datos.
-            //        while (reader.Read())
-            //        {
-            //            Cliente cliente = new Cliente();
-            //            cliente.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
-            //            cliente.Cedula = reader["CEDULA"].ToString().Trim();
-            //            cliente.Nombres = reader["NOMBRES"].ToString().Trim();
-            //            cliente.Apellidos = reader["APELLIDOS"].ToString().Trim();
-            //            cliente.Telefonos = reader["TELEFONO"].ToString().Trim();
-
-            //            clientes.Add(cliente);
-
-            //        }
-            //        conn.Close();
-
-            //    } catch(Exception ex)
-            //    {
-            //        throw new Exception(ex.Message);
-            //    }
-            //}
-
-            //return clientes;
         }
 
         // Obtener cliente de la base de datos.

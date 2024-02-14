@@ -66,7 +66,7 @@ namespace Facturacion.productos
             lblStatus.Text = "Productos cargados";
         }
 
-        private void toolStripButtonNuevoProducto_Click(object sender, EventArgs e)
+        private void ToolStripButtonNuevoProducto_Click(object sender, EventArgs e)
         {
             ProductoDetallesForm productoDetails = new ProductoDetallesForm(Modo.CREAR);
             productoDetails.ShowDialog();
@@ -90,7 +90,7 @@ namespace Facturacion.productos
             return Convert.ToInt32(dgvProductos.SelectedRows[0].Cells["ID_PRODUCTO"].Value);
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void ToolStripButton2_Click(object sender, EventArgs e)
         {
             var id = this.ObtenerIDProductoSeleccionado();
             if (id == 0)
@@ -115,12 +115,12 @@ namespace Facturacion.productos
             }
         }
 
-        private void toolStripButton3_Click(object sender, EventArgs e)
+        private void ToolStripButton3_Click(object sender, EventArgs e)
         {
             this.CargarLista();
         }
 
-        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        private void TxtSearch_KeyUp(object sender, KeyEventArgs e)
         {
             this.CargarLista();
         }
@@ -147,7 +147,7 @@ namespace Facturacion.productos
             CargarLista();
         }
 
-        private void txtSearch_KeyPress_1(object sender, KeyPressEventArgs e)
+        private void TxtSearch_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
@@ -157,7 +157,7 @@ namespace Facturacion.productos
         }
 
         // doble clic en una fila para enviar el producto al otro formulario.
-        private void dgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (modo != Modo.SELECIONAR)
             {

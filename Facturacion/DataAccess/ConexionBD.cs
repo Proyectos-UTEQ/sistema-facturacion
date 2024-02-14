@@ -25,6 +25,11 @@ namespace Facturacion.DataAccess
             conn = new SqlConnection(connectionString);
         }
 
+        public ConexionBD(string connString)
+        {
+            conn = new SqlConnection(connString);
+        }
+
         public bool ProbarConexion() {
             try
             {
