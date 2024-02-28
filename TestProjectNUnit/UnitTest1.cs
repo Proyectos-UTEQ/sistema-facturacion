@@ -1,26 +1,31 @@
 using Facturacion.DataAccess;
 
-namespace TestSistemaDeFacturacion
+
+namespace TestProjectNUnit
 {
-    [TestClass]
-    public class UnitTest1
+    public class Tests
     {
         string ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=facturacion_nisasoft;Integrated Security=True;user Id=sa;Password=12345678;";
 
-        [TestMethod]
+        [SetUp]
+        public void Setup()
+        {
+        }
+
+        [Test]
         public void ProbarConexion()
         {
             // Conexion de la base de datos
-            var db = new ConexionBD(this.ConnectionString); 
-                                           
+            var db = new ConexionBD(this.ConnectionString);
+
             var result = db.ProbarConexion();
             // Assert
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void TestEjecutarComando()
-        { 
+        {
             var db = new ConexionBD(this.ConnectionString);
 
             var data = db.EjecutarConsulta("SELECT 1", null);
