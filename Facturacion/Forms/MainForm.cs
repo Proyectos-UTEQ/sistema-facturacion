@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Facturacion.clientes;
 using Facturacion.DataAccess;
 using Facturacion.facturas;
+using Facturacion.Forms;
 using Facturacion.models;
 using Facturacion.productos;
 
@@ -21,7 +22,7 @@ namespace Facturacion
         // variables globales para las ventanas.
         ClienteListaForm listadeClientes;
         ProductoListaForm listadoProductos;
-        FacturaListaForm listFactura;
+        FacturaListaForm listFactura; 
 
         public MainForm()
         {
@@ -119,8 +120,6 @@ namespace Facturacion
         private void ListFactura_FormClosed(object sender, FormClosedEventArgs e)
         {
             listFactura = null;
-        }
-
-        
+        } 
     }
 }

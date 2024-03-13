@@ -117,7 +117,7 @@ namespace Facturacion.models
             return producto;
         }
 
-        public int agregarProducto(Producto producto)
+        public int AgregarProducto(Producto producto)
         {
 
             string query = "INSERT INTO PRODUCTO(NOMBRE, COSTO, PRECIO, ESTADO) OUTPUT Inserted.ID_PRODUCTO values(@NOMBRE, @COSTO, @PRECIO, @ESTADO)";

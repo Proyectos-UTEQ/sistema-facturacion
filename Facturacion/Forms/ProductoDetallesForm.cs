@@ -126,7 +126,7 @@ namespace Facturacion.productos
             producto.Precio = Convert.ToDecimal(txtPrecio.Text.Trim());
             producto.Estado = cmbEstado.Text.Trim() == "Activo" ? 1 : 0;
             
-            producto.IDProducto = productoDB.agregarProducto(producto);
+            producto.IDProducto = productoDB.AgregarProducto(producto);
 
             // actualizamos el id del cliente en el formulario
             txtIdProducto.Text = producto.IDProducto.ToString();

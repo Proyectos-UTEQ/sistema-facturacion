@@ -20,8 +20,10 @@ namespace Facturacion.DataAccess
         public ConexionBD() {
 
             // Obtener la cadena de conexión desde el archivo de configuración
-            string typeConn = ConfigurationManager.AppSettings["connectionString"].ToString();
-            connectionString = ConfigurationManager.ConnectionStrings[typeConn].ConnectionString;
+            //string typeConn = ConfigurationManager.AppSettings["connectionString"].ToString();
+
+            //connectionString = ConfigurationManager.ConnectionStrings[typeConn].ConnectionString;
+            connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=facturacion_nisasoft;Integrated Security=True;user Id=sa;Password=12345678;";
             conn = new SqlConnection(connectionString);
         }
 

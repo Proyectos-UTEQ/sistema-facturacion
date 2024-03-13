@@ -107,7 +107,7 @@
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Margin = new System.Windows.Forms.Padding(1, 0, 12, 0);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(250, 29);
+            this.txtSearch.Size = new System.Drawing.Size(100, 29);
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSearch_KeyPress);
             // 
             // toolStripLabel2
@@ -157,7 +157,7 @@
             this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 429);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1274, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1482, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -187,7 +187,7 @@
             this.dataFacturas.Name = "dataFacturas";
             this.dataFacturas.ReadOnly = true;
             this.dataFacturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataFacturas.Size = new System.Drawing.Size(1274, 384);
+            this.dataFacturas.Size = new System.Drawing.Size(1482, 384);
             this.dataFacturas.TabIndex = 2;
             this.dataFacturas.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
             // 
@@ -196,7 +196,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1274, 451);
+            this.ClientSize = new System.Drawing.Size(1482, 451);
             this.Controls.Add(this.dataFacturas);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);

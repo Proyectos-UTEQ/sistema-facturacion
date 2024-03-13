@@ -8,7 +8,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using Facturacion.Models;
 using Facturacion.DataAccess;
-using System.Data;
+using System.Data; 
 
 namespace Facturacion.models
 {
