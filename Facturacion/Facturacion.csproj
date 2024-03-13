@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\ConexionBD.cs" />
+    <Compile Include="DataAccess\Repositorios\ConfigIVARespositorio.cs" />
     <Compile Include="DTOs\FacturaDTO.cs" />
     <Compile Include="Forms\ClienteDetallesForm.cs">
       <SubType>Form</SubType>
@@ -109,6 +110,18 @@
     <Compile Include="DataAccess\Repositorios\FacturaDetallesRepositorio.cs" />
     <Compile Include="DataAccess\Repositorios\FacturaRepositorio.cs" />
     <Compile Include="DataAccess\Repositorios\ProductoRepositorio.cs" />
+    <Compile Include="Forms\ConfigIVAListaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfigIVAListaForm.Designer.cs">
+      <DependentUpon>ConfigIVAListaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ConfigIVASimuladorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfigIVASimuladorForm.Designer.cs">
+      <DependentUpon>ConfigIVASimuladorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FacturaDetallesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +146,12 @@
     <Compile Include="Forms\ImprimirForm.Designer.cs">
       <DependentUpon>ImprimirForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ConfigIVANuevoEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfigIVANuevoEdit.Designer.cs">
+      <DependentUpon>ConfigIVANuevoEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\FormsValidatros.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -155,6 +174,7 @@
     </Compile>
     <Compile Include="Helpers\Modos.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\ConfigIVA.cs" />
     <Compile Include="Models\Factura.cs" />
     <Compile Include="Models\FacturaDetalles.cs" />
     <Compile Include="Models\Producto.cs" />
@@ -168,6 +188,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ClienteListaForm.resx">
       <DependentUpon>ClienteListaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfigIVAListaForm.resx">
+      <DependentUpon>ConfigIVAListaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfigIVANuevoEdit.resx">
+      <DependentUpon>ConfigIVANuevoEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfigIVASimuladorForm.resx">
+      <DependentUpon>ConfigIVASimuladorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FacturaDetallesForm.resx">
       <DependentUpon>FacturaDetallesForm.cs</DependentUpon>
