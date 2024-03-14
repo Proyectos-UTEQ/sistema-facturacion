@@ -31,12 +31,6 @@ namespace Facturacion.facturas
         private void CargarListaFactura()
         {
 
-            // En caso de estar basico el campo para buscar.
-            if (txtSearch.Text.Length == 0)
-            {
-                return;
-            }
-
             FacturaRepositorio facturaRepositorio = new FacturaRepositorio();
             lblStatus.Text = "Cargando facturas...";
             // configuramos el progresbar
@@ -46,7 +40,7 @@ namespace Facturacion.facturas
             // Recuperamos los datos de la base de datos.
             dataFacturas.DataSource = facturaRepositorio.ObtenerFacturas(txtSearch.Text, CampoSelecionado.Text);
             
-            dataFacturas.Columns["TOTAL"].DefaultCellStyle.Format = "N2";
+            dataFacturas.Columns["TOTAL_CON_IVA"].DefaultCellStyle.Format = "N2";
 
             toolStripProgressClientes.Style = ProgressBarStyle.Continuous;
             toolStripProgressClientes.Visible = false;
@@ -152,6 +146,11 @@ namespace Facturacion.facturas
                 CargarListaFactura();
                 e.Handled = true;
             }
+        }
+
+        private void txtSearch_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

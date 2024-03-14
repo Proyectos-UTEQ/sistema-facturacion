@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Facturacion.clientes;
 using Facturacion.data;
+using Facturacion.DataAccess.Repositorios;
 using Facturacion.detallefacturas;
 using Facturacion.Forms;
 using Facturacion.Helpers;
@@ -26,6 +28,7 @@ namespace Facturacion.facturas
         private int id = 0;
         private bool isModified = false;
         private Factura _factura;
+        private ConfigIVA _configIVA;
 
         public FacturaForm(Modo modo, int id = 0)
         {
@@ -42,21 +45,33 @@ namespace Facturacion.facturas
                 this.btnAplicar.Enabled = true;
                 _factura = new Factura();
                 FacturaRepositorio facturasDB = new FacturaRepositorio();
-                txtNumero.Text = facturasDB.NuevoNueroFactura().ToString("D10");
+                _factura.NUMERO_FACTURA = facturasDB.NuevoNueroFactura();
+                txtNumero.Text = _factura.NUMERO_FACTURA.ToString("D10");
                 btnReporte.Enabled = false;
 
-                dtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                dtFecha.Value = DateTime.Now;
+                ActualizarConfigIVA(dtFecha.Value);
                 
             }
             else if (this.modo == Modo.EDITAR)
             {
                 btnReporte.Enabled = true;
-                this.CargarFactura();
-                this.ActualizarTitulo();
+                CargarFactura();
+                ActualizarTitulo();
+                RecalcularResultadoDeFactura();
             }
             this.ActualizarEstadoFormulario(false);
             
             //SetTaxIndexControllers();
+        }
+
+        private void ActualizarConfigIVA(DateTime date) 
+        {
+            ConfigIVARespositorio configIVARespositorio = new ConfigIVARespositorio();
+            _configIVA = configIVARespositorio.ObtenerConfigIVAByDate(date);
+            lbIVAConfig.Text = _configIVA.VALOR_IVA.ToString("0.00%", System.Globalization.CultureInfo.GetCultureInfo("es-ES"));
+            _factura.ID_CONFIG_IVA = _configIVA.ID_IVA;
+            RecalcularResultadoDeFactura();
         }
 
         // Carga los datos principales de la factura.
@@ -65,14 +80,16 @@ namespace Facturacion.facturas
             FacturaRepositorio facturaDB = new FacturaRepositorio();
             _factura = facturaDB.GetFactura(this.id);
 
+            ActualizarConfigIVA(_factura.FechaHora);
+
             txtIDFactura.Text = _factura.IDFactura.ToString();
 
             // Establecemos los valores de cliente en el formulario.
             SetCliente(_factura.IDCliente);
 
             dtFecha.Text = Convert.ToDateTime(_factura.FechaHora).ToString();
-            txtNumero.Text = _factura.Numero.ToString("D10");
-            LbTotal.Text = Convert.ToDecimal(_factura.Total).ToString("N2");
+            txtNumero.Text = _factura.NUMERO_FACTURA.ToString("D10");
+            LbTotalConIVA.Text = Convert.ToDecimal(_factura.TOTAL_CON_IVA).ToString("N2");
             CargarElDetalle();
         }
 
@@ -152,6 +169,7 @@ namespace Facturacion.facturas
         { 
             dtFecha.Tag = helpers.FormsValidatros.IsDate(dtFecha.Text); 
             this.ActualizarEstadoFormulario(true);
+            ActualizarConfigIVA(dtFecha.Value);
         }
 
         private void TxtNumero_TextChanged(object sender, EventArgs e)
@@ -173,8 +191,8 @@ namespace Facturacion.facturas
             FacturaDetallesForm clienteDetails;
             _factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             _factura.FechaHora = dtFecha.Value;
-            _factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            _factura.Total = Convert.ToDecimal(LbTotal.Text.Trim()); 
+            _factura.NUMERO_FACTURA = Convert.ToInt32(txtNumero.Text.Trim());
+            _factura.TOTAL_CON_IVA = Convert.ToDecimal(LbTotalConIVA.Text.Trim()); 
             if(this.modo == Modo.CREAR)
             {
                clienteDetails = new FacturaDetallesForm(_factura, Modo.CREAR, id);
@@ -218,11 +236,6 @@ namespace Facturacion.facturas
 
         private void BtnAplicar_Click(object sender, EventArgs e)
         {
-            if (!this.ValidateForm())
-            {
-                MessageBox.Show("Formulario invalido");
-                return;
-            }
 
             if (!TieneProductosEnDetalles())
             {
@@ -232,11 +245,11 @@ namespace Facturacion.facturas
 
             if (this.modo == Modo.CREAR)
             {
-                this.CrearFactura();
+                CrearFactura();
             }
             else
             {
-                this.EditarFactura();
+                EditarFactura();
             }
 
             this.ActualizarEstadoFormulario(false);
@@ -277,8 +290,6 @@ namespace Facturacion.facturas
 
             _factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             _factura.FechaHora = dtFecha.Value;
-            _factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            _factura.Total = Convert.ToDecimal(LbTotal.Text.Trim());
 
             // Registro de la factura en la base de datos.
             _factura.IDFactura = facturaDB.RegistrarNuevaFactura(_factura);
@@ -296,14 +307,10 @@ namespace Facturacion.facturas
         private void EditarFactura()
         {
             FacturaRepositorio facturaDB = new FacturaRepositorio();
-            Factura factura = new Factura();
-
-            factura.IDFactura = Convert.ToInt32(txtIDFactura.Text.Trim());
-            factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
-            factura.FechaHora = dtFecha.Value;
-            factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            factura.Total = Convert.ToDecimal(LbTotal.Text.Trim());
-            var rowAffect = facturaDB.UpdateFactura(factura);
+            
+            _factura.FechaHora = dtFecha.Value;
+            RecalcularResultadoDeFactura();
+            var rowAffect = facturaDB.UpdateFactura(_factura);
             if (rowAffect > 0)
             {
                 MessageBox.Show("Factura actualizada correctamente");
@@ -333,26 +340,12 @@ namespace Facturacion.facturas
                 this.txtIDCliente.Enabled = false;
             }
 
-            // controlar el estado del boton aplicar
-            if (this.ValidateForm())
-            { 
-                
-            }
-            else
-            { 
-                
-            }
+            
             this.isModified = isModified;
             this.lblStatusEdit.Text = this.isModified ? "Modificado" : "Sin Modificar";
         }
 
-        private bool ValidateForm()
-        {
-            bool numero = txtNumero.Tag != null ? (bool)txtNumero.Tag : false;
-            bool total = Convert.ToDecimal(LbTotal.Text) > 0;
-
-            return numero && total;
-        }
+  
 
         private bool TieneProductosEnDetalles()
         {
@@ -420,119 +413,8 @@ namespace Facturacion.facturas
 
         private void CalcularTotal() 
         { 
-            _factura.Total = _factura.Detalles.Sum(d => d.SubTotal);
-            LbTotal.Text = _factura.Total.ToString("N2");
-        }
-
-        private void PrintPage(object sender, PrintPageEventArgs e)
-        {
-            Font fontTitulo = new Font("Arial", 32, FontStyle.Bold);
-            Font fontCabecera = new Font("Arial", 16, FontStyle.Bold);
-            Font fontCuerpo = new Font("Arial", 12);
-            SolidBrush celesteBrush = new SolidBrush(Color.LightSkyBlue);
-
-            float x = 20;
-            float y = 20;
-
-
-            e.Graphics.DrawString("NisaSoft", fontTitulo, celesteBrush, x, y);
-
-
-            e.Graphics.DrawString("Factura", fontTitulo, celesteBrush, e.PageBounds.Width - 200, y);
-
-
-            y += 60;
-            e.Graphics.DrawLine(Pens.Black, x, y, e.PageBounds.Width - x, y);
-
-
-            y += 50;
-            e.Graphics.DrawString("Cliente:", fontCabecera, Brushes.Black, x, y);
-            y += 30;
-
-            e.Graphics.DrawString("  Nombre: ", fontCuerpo, Brushes.Black, x, y);
-            e.Graphics.DrawString($"{txtNombres.Text}", fontCuerpo, Brushes.Black, x + 80, y);
-            y += 20;
-
-            e.Graphics.DrawString("  Apellido: ", fontCuerpo, Brushes.Black, x, y);
-            e.Graphics.DrawString($"{txtApellidos.Text}", fontCuerpo, Brushes.Black, x + 80, y);
-            y += 20;
-
-            e.Graphics.DrawString("  Cedula: ", fontCuerpo, Brushes.Black, x, y);
-            e.Graphics.DrawString($"{txtCedula.Text}", fontCuerpo, Brushes.Black, x + 80, y);
-            y += 30;
-
-
-            e.Graphics.DrawString($"N Factura: {_factura.IDFactura}", fontCuerpo, Brushes.Black, e.PageBounds.Width - 260, 100);
-            e.Graphics.DrawString($"Fecha: {_factura.FechaHora}", fontCuerpo, Brushes.Black, e.PageBounds.Width - 260, 120);
-
-
-            y += 20;
-            e.Graphics.DrawString("Detalle de la Compra:", fontCabecera, Brushes.Black, x, y);
-            y += 30;
-
-            // Encabezados del DataGridView
-            fontCabecera = new Font("Arial", 10, FontStyle.Bold);
-            int[] columnWidths = { 120, 80, 100, 130, 80, 80, 120 };
-            int[] valueWidths = { 100, 80, 100, 130, 80, 80, 120 };
-            int totalWidth = columnWidths.Sum();
-
-
-            if (totalWidth > e.PageBounds.Width - 40)
-            {
-                float scaleFactor = (e.PageBounds.Width - 40) / (float)totalWidth;
-                for (int i = 0; i < columnWidths.Length; i++)
-                {
-                    columnWidths[i] = (int)(columnWidths[i] * scaleFactor);
-                }
-            }
-
-            for (int i = 0; i < dataDetalleFact.Columns.Count; i++)
-            {
-                e.Graphics.DrawString(dataDetalleFact.Columns[i].HeaderText, fontCabecera, Brushes.Black, x, y);
-                x += columnWidths[i];
-            }
-
-
-            y += 20;
-            e.Graphics.DrawLine(Pens.Black, 20, y, e.PageBounds.Width - 20, y);
-
-
-            foreach (DataGridViewRow row in dataDetalleFact.Rows)
-            {
-                x = 20;
-                y += 20;
-                for (int i = 0; i < row.Cells.Count; i++)
-                {
-                    if (i == 3)
-                    {
-                        e.Graphics.DrawString(row.Cells[i].Value.ToString(), fontCabecera, Brushes.Black, x + 35, y);
-                    }
-                    else if (i == 0)
-                    {
-                        e.Graphics.DrawString(row.Cells[i].Value.ToString(), fontCuerpo, Brushes.Black, x + 75, y);
-                    }
-                    else if (i == 4 || i == 5 || i == 6)
-                    {
-                        string formattedValue = Math.Round(Convert.ToDecimal(row.Cells[i].Value), 2).ToString();
-                        e.Graphics.DrawString(formattedValue, fontCuerpo, Brushes.Black, new RectangleF(x, y, columnWidths[i], 20), new StringFormat { Alignment = StringAlignment.Far });
-                    }
-                    else
-                    {
-                        e.Graphics.DrawString(row.Cells[i].Value.ToString(), fontCuerpo, Brushes.Black, new RectangleF(x, y, columnWidths[i], 20), new StringFormat { Alignment = StringAlignment.Far });
-                    }
-
-                    x += valueWidths[i];
-                }
-            }
-
-            // Línea divisoria
-            y += 30;
-            e.Graphics.DrawLine(Pens.Black, 20, y, e.PageBounds.Width - 20, y);
-
-            // Imprimir el total en la esquina inferior derecha
-            y += 20;
-            fontCabecera = new Font("Arial", 26, FontStyle.Bold);
-            e.Graphics.DrawString($"Total: {_factura.Total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}", fontCabecera, Brushes.Black, e.PageBounds.Width - 350, y);
+            _factura.TOTAL_CON_IVA = _factura.Detalles.Sum(d => d.SubTotal);
+            LbTotalConIVA.Text = _factura.TOTAL_CON_IVA.ToString("N2");
         }
         
         private void FacturaForm_KeyDown(object sender, KeyEventArgs e)
@@ -571,10 +453,10 @@ namespace Facturacion.facturas
                 });
 
             CargarElDetalle();
-            ActualizarTotal();
+            RecalcularResultadoDeFactura();
         }
 
-        private void dataDetalleFact_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void DataDetalleFact_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == dataDetalleFact.Columns["Cantidad"].Index ||
                 e.ColumnIndex == dataDetalleFact.Columns["PrecioUnitario"].Index) 
@@ -586,7 +468,7 @@ namespace Facturacion.facturas
         private void CalcularSubTotal(int rowIndex)
         { 
             
-            int cantidad = Convert.ToInt32(dataDetalleFact.Rows[rowIndex].Cells["Cantidad"].Value);
+            decimal cantidad = Convert.ToDecimal(dataDetalleFact.Rows[rowIndex].Cells["Cantidad"].Value);
             decimal precioUnitario = Convert.ToDecimal(dataDetalleFact.Rows[rowIndex].Cells["PrecioUnitario"].Value);
 
             // Calcula el nuevo total
@@ -594,23 +476,34 @@ namespace Facturacion.facturas
 
             // Actualiza el valor en la columna "Total" de la misma fila
             dataDetalleFact.Rows[rowIndex].Cells["SubTotal"].Value = subtotal;
-            ActualizarTotal();
+            RecalcularResultadoDeFactura();
         }
 
-        private void ActualizarTotal()
+        // Recalcula el subtotal, el total y el IVA
+        private void RecalcularResultadoDeFactura()
         {
-            decimal sumaTotal = 0;
+            decimal subTotal = 0;
              // Itera a través de todas las filas y suma los valores de la columna "Total"
             foreach (DataGridViewRow row in dataDetalleFact.Rows)
             {
                 if (!row.IsNewRow) // Verifica si la fila no es una fila nueva
                 {
-                    sumaTotal += Convert.ToDecimal(row.Cells["SubTotal"].Value);
+                    subTotal += Convert.ToDecimal(row.Cells["SubTotal"].Value);
                 }
             }
 
             // Actualiza el valor en el Label lbTotal
-            LbTotal.Text = sumaTotal.ToString(); // Muestra la suma en formato de moneda
+            var iva = subTotal * _configIVA.VALOR_IVA;
+            var totalConIva = subTotal + iva;
+
+            _factura.SUB_TOTAL = subTotal;
+            _factura.IVA = iva;
+            _factura.TOTAL_CON_IVA = totalConIva;
+            _factura.CONFIG_IVA = _configIVA.VALOR_IVA;
+
+            lbSubTotal.Text = subTotal.ToString("C", CultureInfo.GetCultureInfo("es-EC"));
+            lbIVA.Text = iva.ToString("C", CultureInfo.GetCultureInfo("es-EC"));
+            LbTotalConIVA.Text = totalConIva.ToString("C", CultureInfo.GetCultureInfo("es-EC"));
         }
 
         private void BtnReporte_Click(object sender, EventArgs e)
@@ -645,6 +538,23 @@ namespace Facturacion.facturas
             }
             _factura.Detalles.Remove(_factura.Detalles.Find(x => x.IDFacturaDetalle == idDetalle));
             CargarElDetalle();
+
+        }
+
+     
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbIVAConfig_Click(object sender, EventArgs e)
+        {
 
         }
     }

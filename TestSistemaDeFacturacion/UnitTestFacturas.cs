@@ -23,12 +23,13 @@ namespace TestSistemaDeFacturacion
 
             Assert.IsTrue(resultado.Rows.Count > 1);  
         }
+
         [TestMethod]
         public void TestObtenerFacturasPorNumero()
         {
             repo = new FacturaRepositorio();
             var palabra = "1";
-            var campo = "NUMERO";
+            var campo = "NUMERO_FACTURA";
             DataTable resultado = repo.ObtenerFacturas(palabra, campo);
 
             Assert.IsTrue(resultado.Rows.Count > 1);  
@@ -52,7 +53,7 @@ namespace TestSistemaDeFacturacion
         {
             repo = new FacturaRepositorio();
             var palabra = "1";
-            var campo = "TOTAL";
+            var campo = "SUB_TOTAL";
             DataTable resultado = repo.ObtenerFacturas(palabra, campo);
 
             Assert.IsTrue(resultado.Rows.Count > 1);  
@@ -76,9 +77,10 @@ namespace TestSistemaDeFacturacion
                 IDCliente = cliente.IDCliente,
                 Cliente = cliente,
                 FechaHora = DateTime.Now,
-                Numero = 15,  
-                Total = 100.00m,  
-                Estado = 1   
+                NUMERO_FACTURA = 15,  
+                SUB_TOTAL = 100.00m,  
+                ESTADO = true,
+                ID_CONFIG_IVA = 1
             };
 
             var idFactura = repo.RegistrarNuevaFactura(factura);
@@ -105,9 +107,9 @@ namespace TestSistemaDeFacturacion
                 IDCliente = cliente.IDCliente,
                 Cliente = cliente,
                 FechaHora = DateTime.Now,
-                Numero = 15,
-                Total = 100.00m,
-                Estado = 1
+                NUMERO_FACTURA = 15,
+                SUB_TOTAL = 100.00m,
+                ESTADO = true
             };
 
             var filasAfectadas = repo.UpdateFactura(factura);

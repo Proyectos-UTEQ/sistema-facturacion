@@ -20,11 +20,20 @@ namespace Facturacion.Models
 
         public DateTime FechaHora { get; set; }
 
-        public int Numero { get; set; }
+        public int NUMERO_FACTURA { get; set; }
+        
+        public bool ESTADO { get; set; }
 
-        public decimal Total { get; set; }
+        public decimal CONFIG_IVA { get; set; }
 
-        public int Estado { get; set; }
+        public decimal SUB_TOTAL { get; set; }
+
+        public decimal IVA { get; set; }
+
+        public decimal TOTAL_CON_IVA { get; set; }
+
+        public int ID_CONFIG_IVA { get; set; }
+
 
         public List<FacturaDetalles> Detalles { get; set; } = new List<FacturaDetalles>();
     }

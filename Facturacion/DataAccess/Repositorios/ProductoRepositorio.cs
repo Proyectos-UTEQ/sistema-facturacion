@@ -39,7 +39,7 @@ namespace Facturacion.models
         {
             // List<Producto> productos = new List<Producto>();
 
-            string query = $@"SELECT ID_PRODUCTO, TRIM(NOMBRE) AS NOMBRE, COSTO, PRECIO FROM PRODUCTO WHERE {campo} LIKE @SEARCH and ESTADO = 1 order by {campo} asc";
+            string query = $@"SELECT TOP 100 ID_PRODUCTO, TRIM(NOMBRE) AS NOMBRE, COSTO, PRECIO FROM PRODUCTO WHERE {campo} LIKE @SEARCH and ESTADO = 1 order by {campo} asc";
 
             // string query = @"SELECT ID_PRODUCTO, NOMBRE, COSTO, PRECIO, ESTADO FROM PRODUCTO WHERE (NOMBRE like @SEARCH or COSTO like @SEARCH or PRECIO like @SEARCH) and ESTADO = 1 order by NOMBRE asc";
 

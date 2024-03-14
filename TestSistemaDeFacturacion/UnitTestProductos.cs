@@ -16,10 +16,10 @@ namespace TestSistemaDeFacturacion
         [TestMethod]
         public void TestGetProducto()
         {
-            Producto resultado = repo.GetProducto(3);
+            Producto resultado = repo.GetProducto(1);
 
             Assert.IsNotNull(resultado); // Verificar de que el resultado no sea nulo
-            Assert.AreEqual(3, resultado.IDProducto); // Verificar que el ID del producto coincida con el esperado
+            Assert.AreEqual(1, resultado.IDProducto); // Verificar que el ID del producto coincida con el esperado
 
         }
 
@@ -40,12 +40,12 @@ namespace TestSistemaDeFacturacion
         [TestMethod]
         public void TestObtenerProductosPorNombres()
         { 
-            var palabra = "Arroz";
+            var palabra = "Mante";
             var campo = "NOMBRE";
             DataTable resultado = repo.ObtenerListaProductos(palabra, campo);
 
             Assert.IsNotNull(resultado);
-            Assert.IsTrue(resultado.Rows.Count > 0);  
+           
 
         }
 

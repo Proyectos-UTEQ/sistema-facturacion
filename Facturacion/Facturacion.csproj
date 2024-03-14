@@ -15,6 +15,21 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,6 +96,7 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\ConexionBD.cs" />
+    <Compile Include="DataAccess\Repositorios\ConfigIVARespositorio.cs" />
     <Compile Include="DTOs\FacturaDTO.cs" />
     <Compile Include="Forms\ClienteDetallesForm.cs">
       <SubType>Form</SubType>
@@ -109,6 +126,18 @@
     <Compile Include="DataAccess\Repositorios\FacturaDetallesRepositorio.cs" />
     <Compile Include="DataAccess\Repositorios\FacturaRepositorio.cs" />
     <Compile Include="DataAccess\Repositorios\ProductoRepositorio.cs" />
+    <Compile Include="Forms\ConfigIVAListaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfigIVAListaForm.Designer.cs">
+      <DependentUpon>ConfigIVAListaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ConfigIVASimuladorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfigIVASimuladorForm.Designer.cs">
+      <DependentUpon>ConfigIVASimuladorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FacturaDetallesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +162,12 @@
     <Compile Include="Forms\ImprimirForm.Designer.cs">
       <DependentUpon>ImprimirForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ConfigIVANuevoEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfigIVANuevoEdit.Designer.cs">
+      <DependentUpon>ConfigIVANuevoEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\FormsValidatros.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -155,6 +190,7 @@
     </Compile>
     <Compile Include="Helpers\Modos.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\ConfigIVA.cs" />
     <Compile Include="Models\Factura.cs" />
     <Compile Include="Models\FacturaDetalles.cs" />
     <Compile Include="Models\Producto.cs" />
@@ -168,6 +204,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ClienteListaForm.resx">
       <DependentUpon>ClienteListaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfigIVAListaForm.resx">
+      <DependentUpon>ConfigIVAListaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfigIVANuevoEdit.resx">
+      <DependentUpon>ConfigIVANuevoEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfigIVASimuladorForm.resx">
+      <DependentUpon>ConfigIVASimuladorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FacturaDetallesForm.resx">
       <DependentUpon>FacturaDetallesForm.cs</DependentUpon>
@@ -260,6 +305,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\magnifier.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SqlServerTypes\x64\" />

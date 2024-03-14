@@ -35,6 +35,7 @@
             this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMain = new System.Windows.Forms.ToolStripStatusLabel();
+            this.configuraciónDelIVAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -44,7 +45,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuariosToolStripMenuItem,
             this.productosToolStripMenuItem,
-            this.facturasToolStripMenuItem});
+            this.facturasToolStripMenuItem,
+            this.configuraciónDelIVAToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(820, 24);
@@ -96,6 +98,14 @@
             this.toolStripStatusLabelMain.Size = new System.Drawing.Size(60, 17);
             this.toolStripStatusLabelMain.Text = "Listo";
             // 
+            // configuraciónDelIVAToolStripMenuItem
+            // 
+            this.configuraciónDelIVAToolStripMenuItem.Image = global::Facturacion.Properties.Resources.deduccion;
+            this.configuraciónDelIVAToolStripMenuItem.Name = "configuraciónDelIVAToolStripMenuItem";
+            this.configuraciónDelIVAToolStripMenuItem.Size = new System.Drawing.Size(150, 20);
+            this.configuraciónDelIVAToolStripMenuItem.Text = "Configuración del IVA";
+            this.configuraciónDelIVAToolStripMenuItem.Click += new System.EventHandler(this.ConfiguraciónDelIVAToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,5 +137,6 @@
         private System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelMain;
+        private System.Windows.Forms.ToolStripMenuItem configuraciónDelIVAToolStripMenuItem;
     }
 }

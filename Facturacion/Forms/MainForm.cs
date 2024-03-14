@@ -22,7 +22,8 @@ namespace Facturacion
         // variables globales para las ventanas.
         ClienteListaForm listadeClientes;
         ProductoListaForm listadoProductos;
-        FacturaListaForm listFactura; 
+        FacturaListaForm listFactura;
+        ConfigIVAListaForm configIVAListaForm;
 
         public MainForm()
         {
@@ -120,6 +121,19 @@ namespace Facturacion
         private void ListFactura_FormClosed(object sender, FormClosedEventArgs e)
         {
             listFactura = null;
-        } 
+        }
+
+        private void ConfiguraciónDelIVAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            configIVAListaForm = new ConfigIVAListaForm();
+            configIVAListaForm.MdiParent = this;
+            configIVAListaForm.FormClosed += ConfigIVAListaForm_FormClosed;
+            configIVAListaForm.Show();
+        }
+
+        private void ConfigIVAListaForm_FormClosed(object sender, FormClosedEventArgs e)
+        { 
+            configIVAListaForm = null;
+        }
     }
 }

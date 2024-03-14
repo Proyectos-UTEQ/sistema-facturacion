@@ -38,7 +38,7 @@ namespace Facturacion.models
         public DataTable ObtenerClientes(string palabra, string campo)
         {
 
-            string query = $@"SELECT ID_CLIENTE, CEDULA, TRIM(NOMBRES) AS NOMBRES, TRIM(APELLIDOS) AS APELLIDOS, TELEFONO 
+            string query = $@"SELECT TOP 100 ID_CLIENTE, CEDULA, TRIM(NOMBRES) AS NOMBRES, TRIM(APELLIDOS) AS APELLIDOS, TELEFONO 
                                 from CLIENTE
                                 where {campo} LIKE @SEARCH and ESTADO = 1
                                 order by {campo} asc
