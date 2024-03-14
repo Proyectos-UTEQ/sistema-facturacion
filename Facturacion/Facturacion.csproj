@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="DataAccess\ConexionBD.cs" />
     <Compile Include="DataAccess\Repositorios\ConfigIVARespositorio.cs" />
+    <Compile Include="DataAccess\Repositorios\ReportesRepository.cs" />
     <Compile Include="DTOs\FacturaDTO.cs" />
     <Compile Include="Forms\ClienteDetallesForm.cs">
       <SubType>Form</SubType>
@@ -167,6 +168,18 @@
     </Compile>
     <Compile Include="Forms\ConfigIVANuevoEdit.Designer.cs">
       <DependentUpon>ConfigIVANuevoEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InformeDeFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InformeDeFactura.Designer.cs">
+      <DependentUpon>InformeDeFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ResumenVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ResumenVentas.Designer.cs">
+      <DependentUpon>ResumenVentas.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FormsValidatros.cs" />
     <Compile Include="Forms\MainForm.cs">
@@ -227,6 +240,9 @@
     <EmbeddedResource Include="Forms\ImprimirForm.resx">
       <DependentUpon>ImprimirForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InformeDeFactura.resx">
+      <DependentUpon>InformeDeFactura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -235,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProductoDetallesForm.resx">
       <DependentUpon>ProductoDetallesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ResumenVentas.resx">
+      <DependentUpon>ResumenVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
