@@ -54,6 +54,12 @@ namespace Facturacion.Forms
                 MessageBox.Show("Seleccione una regla de IVA para eliminarlo.");
                 return;
             }
+
+            DialogResult dialogResult = MessageBox.Show($"¿Está seguro que desea eliminar la configuración del IVA con ID: {id}?", "Eliminar Config. IVA", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
             
             ConfigIVARespositorio configIVARespositorio = new ConfigIVARespositorio();
             try {

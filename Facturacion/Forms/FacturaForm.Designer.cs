@@ -56,8 +56,8 @@
             this.btnAddProducto = new System.Windows.Forms.Button();
             this.btnReporte = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.lbIVAConfig = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.lbSubTotal = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lbIVA = new System.Windows.Forms.Label();
@@ -217,7 +217,7 @@
             this.dataDetalleFact.TabIndex = 99;
             this.dataDetalleFact.TabStop = false;
             this.dataDetalleFact.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataDetalleFact_CellMouseClick);
-            this.dataDetalleFact.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDetalleFact_CellValueChanged);
+            this.dataDetalleFact.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataDetalleFact_CellValueChanged);
             this.dataDetalleFact.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataDetalleFact_RowHeaderMouseDoubleClick);
             // 
             // btnAplicar
@@ -373,26 +373,29 @@
             this.groupBox1.Text = "Información del IVA";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 27);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
-            this.label4.TabIndex = 100;
-            this.label4.Text = "IVA a grabar:";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
             // lbIVAConfig
             // 
             this.lbIVAConfig.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbIVAConfig.AutoSize = true;
-            this.lbIVAConfig.Location = new System.Drawing.Point(95, 27);
+            this.lbIVAConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIVAConfig.Location = new System.Drawing.Point(123, 33);
             this.lbIVAConfig.Name = "lbIVAConfig";
-            this.lbIVAConfig.Size = new System.Drawing.Size(27, 13);
+            this.lbIVAConfig.Size = new System.Drawing.Size(44, 20);
             this.lbIVAConfig.TabIndex = 101;
             this.lbIVAConfig.Text = "12%";
+            this.lbIVAConfig.Click += new System.EventHandler(this.lbIVAConfig_Click);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(14, 33);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 20);
+            this.label4.TabIndex = 100;
+            this.label4.Text = "IVA a grabar:";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // lbSubTotal
             // 

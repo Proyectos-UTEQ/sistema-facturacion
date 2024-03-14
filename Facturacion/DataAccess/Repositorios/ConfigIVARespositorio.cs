@@ -126,7 +126,7 @@ namespace Facturacion.DataAccess.Repositorios
             return config;
         }
 
-        public ConfigIVA getConfigIVAByDate(DateTime date)
+        public ConfigIVA ObtenerConfigIVAByDate(DateTime date)
         { 
             ConfigIVA config = new ConfigIVA();
             string query = "EXEC OBTENER_CONFIG_IVA @FECHA = @FECHA;";

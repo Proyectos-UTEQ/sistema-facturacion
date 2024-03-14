@@ -90,7 +90,7 @@
             "TOTAL_CON_IVA"});
             this.CampoSelecionado.Margin = new System.Windows.Forms.Padding(1, 0, 8, 0);
             this.CampoSelecionado.Name = "CampoSelecionado";
-            this.CampoSelecionado.Size = new System.Drawing.Size(125, 29);
+            this.CampoSelecionado.Size = new System.Drawing.Size(200, 29);
             // 
             // toolStripLabel1
             // 

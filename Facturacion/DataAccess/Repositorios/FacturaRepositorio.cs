@@ -54,7 +54,7 @@ namespace Facturacion.data
                         FROM FACTURA as f
                         INNER JOIN CLIENTE as c ON f.ID_CLIENTE=c.ID_CLIENTE
                         where {campo} LIKE @SEARCH and f.ESTADO = 1
-                        order by {campo} asc
+                        order by {campo} asc, f.FECHA_HORA desc
                         ";
             SqlParameter[] parameters = new SqlParameter[]
             {
@@ -146,8 +146,8 @@ namespace Facturacion.data
 
             // TODO: Registrar la factura y recuperamos el id.
 
-            string query = "INSERT INTO FACTURA(ID_CLIENTE, FECHA_HORA, NUMERO, TOTAL, ESTADO) " +
-                "OUTPUT Inserted.ID_FACTURA values(@ID_CLIENTE, @FECHA_HORA, @NUMERO, @TOTAL, '1')";
+            string query = "INSERT INTO FACTURA(ID_CLIENTE, FECHA_HORA, NUMERO_FACTURA, ESTADO, CONFIG_IVA, SUB_TOTAL, ID_CONFIG_IVA) " +
+                "OUTPUT Inserted.ID_FACTURA values(@ID_CLIENTE, @FECHA_HORA, @NUMERO_FACTURA, '1', @CONFIG_IVA, @SUB_TOTAL, @ID_CONFIG_IVA)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -155,8 +155,10 @@ namespace Facturacion.data
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", factura.IDCliente);
                 cmd.Parameters.AddWithValue("@FECHA_HORA", factura.FechaHora);
-                cmd.Parameters.AddWithValue("@NUMERO", factura.NUMERO_FACTURA);
-                cmd.Parameters.AddWithValue("@TOTAL", factura.TOTAL_CON_IVA);
+                cmd.Parameters.AddWithValue("@NUMERO_FACTURA", factura.NUMERO_FACTURA);
+                cmd.Parameters.AddWithValue("@CONFIG_IVA", factura.CONFIG_IVA);
+                cmd.Parameters.AddWithValue("@SUB_TOTAL", factura.SUB_TOTAL);
+                cmd.Parameters.AddWithValue("@ID_CONFIG_IVA", factura.ID_CONFIG_IVA);
 
                 try
                 {
@@ -203,7 +205,7 @@ namespace Facturacion.data
         }
         public int UpdateFactura(Factura factura)
         {
-            string query = "UPDATE FACTURA SET ID_CLIENTE=@ID_CLIENTE, FECHA_HORA = @FECHA_HORA, NUMERO = @NUMERO, TOTAL = @TOTAL " +
+            string query = "UPDATE FACTURA SET ID_CLIENTE=@ID_CLIENTE, FECHA_HORA = @FECHA_HORA, SUB_TOTAL = @SUB_TOTAL " +
                 "WHERE ID_FACTURA=@ID_FACTURA";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -211,8 +213,7 @@ namespace Facturacion.data
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", factura.IDCliente);
                 cmd.Parameters.AddWithValue("@ID_FACTURA", factura.IDFactura);
                 cmd.Parameters.AddWithValue("@FECHA_HORA", factura.FechaHora);
-                cmd.Parameters.AddWithValue("@NUMERO", factura.NUMERO_FACTURA);
-                cmd.Parameters.AddWithValue("@TOTAL", factura.TOTAL_CON_IVA);
+                cmd.Parameters.AddWithValue("@SUB_TOTAL", factura.SUB_TOTAL);
                
                 try
                 {

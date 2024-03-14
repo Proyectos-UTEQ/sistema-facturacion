@@ -28,7 +28,7 @@ namespace Facturacion.Forms
             ConfigIVARespositorio repositorio = new ConfigIVARespositorio();
             try 
             { 
-                config = repositorio.getConfigIVAByDate(selectedDate);
+                config = repositorio.ObtenerConfigIVAByDate(selectedDate);
                 txtIVAConfig.Text = config.VALOR_IVA.ToString("0.00", System.Globalization.CultureInfo.GetCultureInfo("es-ES"));
                 
                 // mostramo el formato de porcentaje
