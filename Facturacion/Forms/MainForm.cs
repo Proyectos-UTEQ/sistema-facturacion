@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Facturacion.clientes;
 using Facturacion.DataAccess;
 using Facturacion.facturas;
+using Facturacion.Forms;
 using Facturacion.models;
 using Facturacion.productos;
 
@@ -22,6 +23,7 @@ namespace Facturacion
         ClienteListaForm listadeClientes;
         ProductoListaForm listadoProductos;
         FacturaListaForm listFactura;
+        ConfigIVAListaForm configIVAListaForm;
 
         public MainForm()
         {
@@ -121,6 +123,17 @@ namespace Facturacion
             listFactura = null;
         }
 
-        
+        private void ConfiguraciónDelIVAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            configIVAListaForm = new ConfigIVAListaForm();
+            configIVAListaForm.MdiParent = this;
+            configIVAListaForm.FormClosed += ConfigIVAListaForm_FormClosed;
+            configIVAListaForm.Show();
+        }
+
+        private void ConfigIVAListaForm_FormClosed(object sender, FormClosedEventArgs e)
+        { 
+            configIVAListaForm = null;
+        }
     }
 }

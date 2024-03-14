@@ -343,7 +343,7 @@ namespace Facturacion.data
                 cmd.Parameters.Add("@ID_FACTURA", System.Data.SqlDbType.Int);
                 cmd.Parameters.Add("@ID_PRODUCTO", System.Data.SqlDbType.Int);
                 cmd.Parameters.Add("@DESCRIPCION", System.Data.SqlDbType.VarChar);
-                cmd.Parameters.Add("@CANTIDAD", System.Data.SqlDbType.Int);
+                cmd.Parameters.Add("@CANTIDAD", System.Data.SqlDbType.Decimal);
                 cmd.Parameters.Add("@PRECIO_UNITARIO", System.Data.SqlDbType.Decimal);
                 cmd.Parameters.Add("@SUB_TOTAL", System.Data.SqlDbType.Decimal);
 
@@ -377,7 +377,7 @@ namespace Facturacion.data
                 cmd.Parameters.Add("@ID_FACTURA", System.Data.SqlDbType.Int);
                 cmd.Parameters.Add("@ID_PRODUCTO", System.Data.SqlDbType.Int);
                 cmd.Parameters.Add("@DESCRIPCION", System.Data.SqlDbType.VarChar);
-                cmd.Parameters.Add("@CANTIDAD", System.Data.SqlDbType.Int);
+                cmd.Parameters.Add("@CANTIDAD", System.Data.SqlDbType.Decimal);
                 cmd.Parameters.Add("@PRECIO_UNITARIO", System.Data.SqlDbType.Decimal);
                 cmd.Parameters.Add("@SUB_TOTAL", System.Data.SqlDbType.Decimal);
                 cmd.Parameters.Add("@ID_FACTURA_DETALLE", System.Data.SqlDbType.Int);

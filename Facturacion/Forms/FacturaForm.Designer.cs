@@ -52,12 +52,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtCedula = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.LbTotal = new System.Windows.Forms.Label();
+            this.LbTotalConIVA = new System.Windows.Forms.Label();
             this.btnAddProducto = new System.Windows.Forms.Button();
             this.btnReporte = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbIVAConfig = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lbSubTotal = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbIVA = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataDetalleFact)).BeginInit();
             this.groupBoxCliente.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnRemover
@@ -86,7 +94,7 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(482, 518);
+            this.lblTotal.Location = new System.Drawing.Point(446, 576);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(56, 24);
             this.lblTotal.TabIndex = 99;
@@ -170,7 +178,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatusEdit,
             this.toolStripProgressDetalle});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 550);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 608);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(659, 22);
             this.statusStrip1.TabIndex = 27;
@@ -205,11 +213,11 @@
             this.dataDetalleFact.Location = new System.Drawing.Point(26, 308);
             this.dataDetalleFact.Name = "dataDetalleFact";
             this.dataDetalleFact.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataDetalleFact.Size = new System.Drawing.Size(621, 207);
+            this.dataDetalleFact.Size = new System.Drawing.Size(621, 194);
             this.dataDetalleFact.TabIndex = 99;
             this.dataDetalleFact.TabStop = false;
             this.dataDetalleFact.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataDetalleFact_CellMouseClick);
-            this.dataDetalleFact.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataDetalleFact_CellValueChanged);
+            this.dataDetalleFact.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataDetalleFact_CellValueChanged);
             this.dataDetalleFact.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataDetalleFact_RowHeaderMouseDoubleClick);
             // 
             // btnAplicar
@@ -270,7 +278,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(270, 67);
+            this.label3.Location = new System.Drawing.Point(285, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 99;
@@ -291,7 +299,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(270, 23);
+            this.label2.Location = new System.Drawing.Point(285, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 99;
@@ -318,15 +326,15 @@
             this.label1.TabIndex = 99;
             this.label1.Text = "Cedula";
             // 
-            // LbTotal
+            // LbTotalConIVA
             // 
-            this.LbTotal.AutoSize = true;
-            this.LbTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTotal.Location = new System.Drawing.Point(542, 518);
-            this.LbTotal.Name = "LbTotal";
-            this.LbTotal.Size = new System.Drawing.Size(55, 24);
-            this.LbTotal.TabIndex = 999;
-            this.LbTotal.Text = "00,00";
+            this.LbTotalConIVA.AutoSize = true;
+            this.LbTotalConIVA.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbTotalConIVA.Location = new System.Drawing.Point(522, 576);
+            this.LbTotalConIVA.Name = "LbTotalConIVA";
+            this.LbTotalConIVA.Size = new System.Drawing.Size(55, 24);
+            this.LbTotalConIVA.TabIndex = 999;
+            this.LbTotalConIVA.Text = "00,00";
             // 
             // btnAddProducto
             // 
@@ -353,15 +361,96 @@
             this.btnReporte.UseVisualStyleBackColor = true;
             this.btnReporte.Click += new System.EventHandler(this.BtnReporte_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbIVAConfig);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Location = new System.Drawing.Point(26, 515);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(304, 75);
+            this.groupBox1.TabIndex = 1001;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Información del IVA";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // lbIVAConfig
+            // 
+            this.lbIVAConfig.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbIVAConfig.AutoSize = true;
+            this.lbIVAConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIVAConfig.Location = new System.Drawing.Point(123, 33);
+            this.lbIVAConfig.Name = "lbIVAConfig";
+            this.lbIVAConfig.Size = new System.Drawing.Size(44, 20);
+            this.lbIVAConfig.TabIndex = 101;
+            this.lbIVAConfig.Text = "12%";
+            this.lbIVAConfig.Click += new System.EventHandler(this.lbIVAConfig_Click);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(14, 33);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 20);
+            this.label4.TabIndex = 100;
+            this.label4.Text = "IVA a grabar:";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // lbSubTotal
+            // 
+            this.lbSubTotal.AutoSize = true;
+            this.lbSubTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSubTotal.Location = new System.Drawing.Point(522, 515);
+            this.lbSubTotal.Name = "lbSubTotal";
+            this.lbSubTotal.Size = new System.Drawing.Size(55, 24);
+            this.lbSubTotal.TabIndex = 1003;
+            this.lbSubTotal.Text = "00,00";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(412, 515);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(90, 24);
+            this.label6.TabIndex = 1002;
+            this.label6.Text = "SubTotal:";
+            // 
+            // lbIVA
+            // 
+            this.lbIVA.AutoSize = true;
+            this.lbIVA.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIVA.Location = new System.Drawing.Point(522, 545);
+            this.lbIVA.Name = "lbIVA";
+            this.lbIVA.Size = new System.Drawing.Size(55, 24);
+            this.lbIVA.TabIndex = 1005;
+            this.lbIVA.Text = "00,00";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(457, 545);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(45, 24);
+            this.label7.TabIndex = 1004;
+            this.label7.Text = "IVA:";
+            // 
             // FacturaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 572);
+            this.ClientSize = new System.Drawing.Size(659, 630);
+            this.Controls.Add(this.lbIVA);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lbSubTotal);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnReporte);
             this.Controls.Add(this.dataDetalleFact);
             this.Controls.Add(this.btnAddProducto);
-            this.Controls.Add(this.LbTotal);
+            this.Controls.Add(this.LbTotalConIVA);
             this.Controls.Add(this.groupBoxCliente);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.dtFecha);
@@ -385,6 +474,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataDetalleFact)).EndInit();
             this.groupBoxCliente.ResumeLayout(false);
             this.groupBoxCliente.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -416,8 +507,15 @@
         private System.Windows.Forms.TextBox txtCedula;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBuscarCliente;
-        private System.Windows.Forms.Label LbTotal;
+        private System.Windows.Forms.Label LbTotalConIVA;
         private System.Windows.Forms.Button btnAddProducto;
         private System.Windows.Forms.Button btnReporte;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbIVAConfig;
+        private System.Windows.Forms.Label lbSubTotal;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbIVA;
+        private System.Windows.Forms.Label label7;
     }
 }
