@@ -107,8 +107,9 @@
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Margin = new System.Windows.Forms.Padding(1, 0, 12, 0);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(250, 29);
+            this.txtSearch.Size = new System.Drawing.Size(200, 29);
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSearch_KeyPress);
+            this.txtSearch.Click += new System.EventHandler(this.txtSearch_Click);
             // 
             // toolStripLabel2
             // 

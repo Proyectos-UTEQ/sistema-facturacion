@@ -147,5 +147,10 @@ namespace Facturacion.facturas
                 e.Handled = true;
             }
         }
+
+        private void txtSearch_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
