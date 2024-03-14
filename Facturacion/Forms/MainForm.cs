@@ -135,5 +135,22 @@ namespace Facturacion
         { 
             configIVAListaForm = null;
         }
+
+        private void resumenDeVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResumenVentas resumenVentas = new ResumenVentas();
+            resumenVentas.ShowDialog();
+        }
+
+        private void informeDeFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InformeDeFactura informe = new InformeDeFactura();
+            informe.ShowDialog();
+        }
+
+        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
