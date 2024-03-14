@@ -43,26 +43,14 @@ namespace Facturacion.data
         // Recupera todas las facturas con los datos del cliente.
         public DataTable ObtenerFacturas(string palabra, string campo)
         {
-            // TODO: Recuperar las facturas con los datos del cliente.
-
-            //List<Factura> facturas = new List<Factura>();
-
-            //string query = @"
-            //                SELECT f.ID_FACTURA, f.ID_CLIENTE, f.FECHA_HORA, f.NUMERO, f.TOTAL, f.ESTADO, c.ID_CLIENTE, c.CEDULA, c.NOMBRES, c.APELLIDOS, c.TELEFONO, c.ESTADO
-            //                FROM FACTURA as f
-            //                INNER JOIN CLIENTE as c ON f.ID_CLIENTE=c.ID_CLIENTE
-            //                where (f.ID_FACTURA like @SEARCH or f.ID_CLIENTE like @SEARCH 
-            //             or f.FECHA_HORA like @SEARCH or f.NUMERO like @SEARCH) and f.ESTADO = 1
-            //             order by FECHA_HORA asc
-            //                ";
-
+         
             if (campo.Equals("CLIENTE"))
             { 
                 campo = "TRIM(NOMBRES) + ' ' + TRIM(APELLIDOS)";
             }
 
             string query = $@"
-                        SELECT f.ID_FACTURA, f.ID_CLIENTE, f.FECHA_HORA, f.NUMERO, f.TOTAL, c.ID_CLIENTE, c.CEDULA, TRIM(NOMBRES) + ' ' + TRIM(APELLIDOS) AS CLIENTE, c.TELEFONO
+                        SELECT TOP 100 f.ID_FACTURA, f.FECHA_HORA, f.NUMERO_FACTURA, CONVERT(VARCHAR, ROUND((f.CONFIG_IVA * 100), 1)) + '%' AS IVA_PORCENTAJE, FORMAT(f.SUB_TOTAL, 'N2') AS SUB_TOTAL, FORMAT(f.IVA, 'N2') AS IVA, f.TOTAL_CON_IVA, c.CEDULA, TRIM(NOMBRES) + ' ' + TRIM(APELLIDOS) AS CLIENTE, c.TELEFONO
                         FROM FACTURA as f
                         INNER JOIN CLIENTE as c ON f.ID_CLIENTE=c.ID_CLIENTE
                         where {campo} LIKE @SEARCH and f.ESTADO = 1
@@ -75,49 +63,6 @@ namespace Facturacion.data
 
             DataTable data = EjecutarConsulta(query, parameters);
             return data;
-
-            //using (SqlConnection conn = new SqlConnection(connectionString))
-            //{
-            //    SqlCommand cmd = new SqlCommand(query, conn);
-            //    cmd.Parameters.AddWithValue("@SEARCH", "%" + palabra + "%");
-            //    try
-            //    {
-            //        conn.Open();
-            //        SqlDataReader reader = cmd.ExecuteReader();
-            //        while (reader.Read())
-            //        {
-            //            // creamos la instancia de factura.
-            //            Factura factura = new Factura { 
-            //                IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString()),
-            //                IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString()),
-            //                FechaHora = Convert.ToDateTime(reader["FECHA_HORA"]),
-            //                Numero = (int)Convert.ToInt64(reader["NUMERO"].ToString()),
-            //                Total = Convert.ToDecimal(reader["TOTAL"]),
-            //                Estado = Convert.ToInt32(reader["ESTADO"]),
-
-            //                // Instaciamos el cliente.
-            //                Cliente = new Cliente { 
-            //                    IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString()),
-            //                    Cedula = reader["CEDULA"].ToString(),
-            //                    Nombres = reader["NOMBRES"].ToString(),
-            //                    Apellidos = reader["APELLIDOS"].ToString(),
-            //                    Telefonos = reader["TELEFONO"].ToString(),
-            //                },
-            //            };
-
-            //            facturas.Add(factura);
-
-            //        }
-            //        conn.Close();
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw new Exception(ex.Message);
-            //    }
-            //}
-
-            //return facturas;
         }
 
         public Factura GetFactura(int id)
@@ -125,7 +70,7 @@ namespace Facturacion.data
             Factura factura = new Factura();
 
             // Query para recuperar la cabecera de la factura.
-            string queryFacturaCabezera = @"SELECT ID_FACTURA, ID_CLIENTE, FECHA_HORA, NUMERO, TOTAL  
+            string queryFacturaCabezera = @"SELECT ID_FACTURA, ID_CLIENTE, FECHA_HORA, NUMERO_FACTURA, ESTADO, CONFIG_IVA, SUB_TOTAL, IVA, TOTAL_CON_IVA, ID_CONFIG_IVA  
                                 from FACTURA
                                 where ID_FACTURA = @ID_FACTURA
                             ";
@@ -153,8 +98,13 @@ namespace Facturacion.data
                         factura.IDFactura = Convert.ToInt32(reader["ID_FACTURA"].ToString());
                         factura.IDCliente = Convert.ToInt32(reader["ID_CLIENTE"].ToString());
                         factura.FechaHora = Convert.ToDateTime(reader["FECHA_HORA"]);
-                        factura.Numero = Convert.ToInt32(reader["NUMERO"]);
-                        factura.Total = Convert.ToDecimal(reader["TOTAL"].ToString());
+                        factura.NUMERO_FACTURA = Convert.ToInt32(reader["NUMERO_FACTURA"]);
+                        factura.ESTADO = Convert.ToBoolean(reader["ESTADO"]);
+                        factura.CONFIG_IVA = Convert.ToDecimal(reader["CONFIG_IVA"]);
+                        factura.SUB_TOTAL = Convert.ToDecimal(reader["SUB_TOTAL"]);
+                        factura.IVA = Convert.ToDecimal(reader["IVA"]);
+                        factura.TOTAL_CON_IVA = Convert.ToDecimal(reader["TOTAL_CON_IVA"]);
+                        factura.ID_CONFIG_IVA = Convert.ToInt32(reader["ID_CONFIG_IVA"] == DBNull.Value ? "0" : reader["ID_CONFIG_IVA"]);
                     }
                     reader.Close();
                     
@@ -205,8 +155,8 @@ namespace Facturacion.data
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", factura.IDCliente);
                 cmd.Parameters.AddWithValue("@FECHA_HORA", factura.FechaHora);
-                cmd.Parameters.AddWithValue("@NUMERO", factura.Numero);
-                cmd.Parameters.AddWithValue("@TOTAL", factura.Total);
+                cmd.Parameters.AddWithValue("@NUMERO", factura.NUMERO_FACTURA);
+                cmd.Parameters.AddWithValue("@TOTAL", factura.TOTAL_CON_IVA);
 
                 try
                 {
@@ -261,8 +211,8 @@ namespace Facturacion.data
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", factura.IDCliente);
                 cmd.Parameters.AddWithValue("@ID_FACTURA", factura.IDFactura);
                 cmd.Parameters.AddWithValue("@FECHA_HORA", factura.FechaHora);
-                cmd.Parameters.AddWithValue("@NUMERO", factura.Numero);
-                cmd.Parameters.AddWithValue("@TOTAL", factura.Total);
+                cmd.Parameters.AddWithValue("@NUMERO", factura.NUMERO_FACTURA);
+                cmd.Parameters.AddWithValue("@TOTAL", factura.TOTAL_CON_IVA);
                
                 try
                 {
@@ -300,7 +250,7 @@ namespace Facturacion.data
         public int NuevoNueroFactura() 
         {
 
-            string query = "SELECT TOP 1 MAX(f.NUMERO) + 1 as nueva_factura FROM FACTURA as f;";
+            string query = "SELECT TOP 1 MAX(f.NUMERO_FACTURA) + 1 as nueva_factura FROM FACTURA as f;";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

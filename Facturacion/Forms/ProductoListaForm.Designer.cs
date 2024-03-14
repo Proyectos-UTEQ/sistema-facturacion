@@ -61,7 +61,7 @@ namespace Facturacion.productos
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(8);
-            this.toolStrip1.Size = new System.Drawing.Size(1362, 45);
+            this.toolStrip1.Size = new System.Drawing.Size(1262, 45);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -145,8 +145,8 @@ namespace Facturacion.productos
             this.toolStripButton3.Image = global::Facturacion.Properties.Resources.circular_arrow;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(225, 26);
-            this.toolStripButton3.Text = "Actualizar lista de productos";
+            this.toolStripButton3.Size = new System.Drawing.Size(98, 26);
+            this.toolStripButton3.Text = "Actualizar";
             this.toolStripButton3.Click += new System.EventHandler(this.ToolStripButton3_Click);
             // 
             // statusStrip1
@@ -156,7 +156,7 @@ namespace Facturacion.productos
             this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 372);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1362, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1262, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -183,7 +183,7 @@ namespace Facturacion.productos
             this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.ReadOnly = true;
             this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProductos.Size = new System.Drawing.Size(1362, 327);
+            this.dgvProductos.Size = new System.Drawing.Size(1262, 327);
             this.dgvProductos.TabIndex = 2;
             this.dgvProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProductos_CellDoubleClick);
             this.dgvProductos.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Fila_DobleClick);
@@ -192,7 +192,7 @@ namespace Facturacion.productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1362, 394);
+            this.ClientSize = new System.Drawing.Size(1262, 394);
             this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);

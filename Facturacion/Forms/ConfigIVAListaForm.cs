@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,7 @@ namespace Facturacion.Forms
                 }
             } catch(Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 MessageBox.Show("No se pudo eliminar la configuración del IVA.");
             }
             

@@ -71,8 +71,8 @@ namespace Facturacion.facturas
             SetCliente(_factura.IDCliente);
 
             dtFecha.Text = Convert.ToDateTime(_factura.FechaHora).ToString();
-            txtNumero.Text = _factura.Numero.ToString("D10");
-            LbTotal.Text = Convert.ToDecimal(_factura.Total).ToString("N2");
+            txtNumero.Text = _factura.NUMERO_FACTURA.ToString("D10");
+            LbTotalConIVA.Text = Convert.ToDecimal(_factura.TOTAL_CON_IVA).ToString("N2");
             CargarElDetalle();
         }
 
@@ -173,8 +173,8 @@ namespace Facturacion.facturas
             FacturaDetallesForm clienteDetails;
             _factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             _factura.FechaHora = dtFecha.Value;
-            _factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            _factura.Total = Convert.ToDecimal(LbTotal.Text.Trim()); 
+            _factura.NUMERO_FACTURA = Convert.ToInt32(txtNumero.Text.Trim());
+            _factura.TOTAL_CON_IVA = Convert.ToDecimal(LbTotalConIVA.Text.Trim()); 
             if(this.modo == Modo.CREAR)
             {
                clienteDetails = new FacturaDetallesForm(_factura, Modo.CREAR, id);
@@ -277,8 +277,8 @@ namespace Facturacion.facturas
 
             _factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             _factura.FechaHora = dtFecha.Value;
-            _factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            _factura.Total = Convert.ToDecimal(LbTotal.Text.Trim());
+            _factura.NUMERO_FACTURA = Convert.ToInt32(txtNumero.Text.Trim());
+            _factura.TOTAL_CON_IVA = Convert.ToDecimal(LbTotalConIVA.Text.Trim());
 
             // Registro de la factura en la base de datos.
             _factura.IDFactura = facturaDB.RegistrarNuevaFactura(_factura);
@@ -301,8 +301,8 @@ namespace Facturacion.facturas
             factura.IDFactura = Convert.ToInt32(txtIDFactura.Text.Trim());
             factura.IDCliente = Convert.ToInt32(txtIDCliente.Text.Trim());
             factura.FechaHora = dtFecha.Value;
-            factura.Numero = Convert.ToInt32(txtNumero.Text.Trim());
-            factura.Total = Convert.ToDecimal(LbTotal.Text.Trim());
+            factura.NUMERO_FACTURA = Convert.ToInt32(txtNumero.Text.Trim());
+            factura.TOTAL_CON_IVA = Convert.ToDecimal(LbTotalConIVA.Text.Trim());
             var rowAffect = facturaDB.UpdateFactura(factura);
             if (rowAffect > 0)
             {
@@ -349,7 +349,7 @@ namespace Facturacion.facturas
         private bool ValidateForm()
         {
             bool numero = txtNumero.Tag != null ? (bool)txtNumero.Tag : false;
-            bool total = Convert.ToDecimal(LbTotal.Text) > 0;
+            bool total = Convert.ToDecimal(LbTotalConIVA.Text) > 0;
 
             return numero && total;
         }
@@ -420,8 +420,8 @@ namespace Facturacion.facturas
 
         private void CalcularTotal() 
         { 
-            _factura.Total = _factura.Detalles.Sum(d => d.SubTotal);
-            LbTotal.Text = _factura.Total.ToString("N2");
+            _factura.TOTAL_CON_IVA = _factura.Detalles.Sum(d => d.SubTotal);
+            LbTotalConIVA.Text = _factura.TOTAL_CON_IVA.ToString("N2");
         }
 
         private void PrintPage(object sender, PrintPageEventArgs e)
@@ -532,7 +532,7 @@ namespace Facturacion.facturas
             // Imprimir el total en la esquina inferior derecha
             y += 20;
             fontCabecera = new Font("Arial", 26, FontStyle.Bold);
-            e.Graphics.DrawString($"Total: {_factura.Total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}", fontCabecera, Brushes.Black, e.PageBounds.Width - 350, y);
+            e.Graphics.DrawString($"Total: {_factura.TOTAL_CON_IVA.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))}", fontCabecera, Brushes.Black, e.PageBounds.Width - 350, y);
         }
         
         private void FacturaForm_KeyDown(object sender, KeyEventArgs e)
@@ -610,7 +610,7 @@ namespace Facturacion.facturas
             }
 
             // Actualiza el valor en el Label lbTotal
-            LbTotal.Text = sumaTotal.ToString(); // Muestra la suma en formato de moneda
+            LbTotalConIVA.Text = sumaTotal.ToString(); // Muestra la suma en formato de moneda
         }
 
         private void BtnReporte_Click(object sender, EventArgs e)
@@ -645,6 +645,16 @@ namespace Facturacion.facturas
             }
             _factura.Detalles.Remove(_factura.Detalles.Find(x => x.IDFacturaDetalle == idDetalle));
             CargarElDetalle();
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
 
         }
     }
